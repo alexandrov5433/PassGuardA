@@ -1,0 +1,32 @@
+[
+  {
+    "id": "9e519b84-ba7a-4dc9-a90d-56253e6b2d70",
+    "title": "www.abv.bg",
+    "username": "alex",
+    "password": {
+      "value": "IoBFxmHGY1jjgyF/RNGI1/Q=",
+      "iv": "JjFdrtxMaK3X3/21",
+      "tag": "R+ex504pKDIXcNIS+wAq2g=="
+    }
+  },
+  {
+    "id": "32cb4830-cc6d-477b-8a72-b16ab5332075",
+    "title": "www.dir.bg",
+    "username": "novUser345",
+    "password": {
+      "value": "NgUxbxQ9HMev2w3v07aU7aWkcHg=",
+      "iv": "sRXSVatI8qOmToCv",
+      "tag": "+3Az/t9oYEiThn+BARmRTQ=="
+    }
+  },
+  {
+    "id": "45316fb5-bfd3-419f-b93a-cb777deb028b",
+    "title": "www.brazers-plovdiv.bg",
+    "username": "blueBalls33",
+    "password": {
+      "value": "wNp7NETMvQR1xA58oWIJCsQ10Dg=",
+      "iv": "SNZkvYwL12TpqLz9",
+      "tag": "PzPAsfSsZGEwv0G+cP+rHQ=="
+    }
+  }
+]

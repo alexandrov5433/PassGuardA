@@ -1,0 +1,20 @@
+<div id="container">
+    <h1>Create a new Account</h1>
+    <form id="registrationForm">
+        <label for="usernameInput">Username:</label>
+        <input name="username" type="text" id="usernameInput">
+        <label for="passwordInput">Password:</label>
+        <input name="password" type="text" id="passwordInput">
+        <label for="repeatPasswordInput">Repeat Password:</label>
+        <input name="repeatPassword" type="text" id="repeatPasswordInput">
+        <button type="button" id="randomPass">Fill in random password.</button>
+        <button type="button" id="createAccBtn">Create Account</button>
+        <div class="loader-container hide">
+            <span class="loader"></span>
+        </div>
+    </form>
+    <div class="err-container">
+        <p id="errorMsg"></p>
+        <button class="openDevTools">D</button>
+    </div>
+</div>
