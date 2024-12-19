@@ -36,27 +36,21 @@ async function getFile(pathToFile) {
 //     return true;
 // }
 
-// async function confirmLogin(loginData) {
-//     if (!await accountExists()) {
-//         throw new Error('No account exists. Redirecting to Register page in 5 sec.');
-//     }
-//     const { username, password } = loginData;
-//     let session = await getFile(pathData.session);
-//     const usernameCorrect = await compareHash(username, session.username);
-//     const passwordCorrect = await compareHash(password, session.mainKey);
-//     if ( usernameCorrect && passwordCorrect ) {
-//         secret = password;
-//         return {
-//             success: true,
-//             msg: null
-//         };
-//     } else {
-//         return {
-//             success: false,
-//             msg: 'Incorrect username or password.'
-//         };
-//     }
-// }
+async function confirmLogin(loginData) {
+    if (!await accountExists()) {
+        throw new Error('No account exists. Redirecting to Register page in 5 sec.');
+    }
+    const { username, password } = loginData;
+    let session = await getFile(pathData.session);
+    const usernameCorrect = await compareHash(username, session.username);
+    const passwordCorrect = await compareHash(password, session.mainKey);
+    if ( usernameCorrect && passwordCorrect ) {
+        secret = password;
+        return true;
+    } else {
+        throw new Error('Incorrect username or password.');
+    }
+}
 
 // async function confirmLogout() {
 //     secret = null;
@@ -141,7 +135,7 @@ async function getFile(pathToFile) {
 module.exports = {
     accountExists,
     // registerUser,
-    // confirmLogin,
+    confirmLogin,
     // confirmLogout,
     // saveNewCredentials,
     // getCredentialsById,

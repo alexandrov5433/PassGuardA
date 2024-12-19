@@ -1,1 +1,125 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-background: #0A0A0A;  /* main background color */
+    --secondry-background: #141414; /* lighter element background color */
+    --tertiary-background: #292929;  /* emphasized elements background color */
+    --neutralDark: #3D3D3D; /* borders and such */
+    --neutralLightDarker: #ADADAD; /* secondary text */
+    --neutralLight: #FFFFFF; /* main text */
+    --rusty-red: #d52941ff;
+    --claret: #990d35ff;
+}
+
+
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: 'Arial', sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+body,
+input,
+button,
+textarea,
+div,
+h1,
+h2,
+h3,
+h4,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--neutralLight);
+}
+
+h2 {
+    color: var(--neutralLightDarker);
+    font-size: 1rem;
+}
+
+label {
+    color: var(--neutralLightDarker);
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+button.register-btn,
+button.login-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--claret);
+    color: var(--neutralLight);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.7s ease;
+}
+
+button.register-btn:hover,
+button.login-btn:hover {
+    background-color: var(--neutralLight);
+    color: var(--primary-background);
+    /* background-color: #6666ff; */
+}
+
+input {
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--tertiary-background);
+    color: var(--neutralLight);
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--neutralLightDarker);
+}
+
+input.error,
+input.error:focus {
+    box-shadow: 0 0 5px var(--rusty-red);
+}
+
+
+/* snack bar styles */
+.simple-snack-message {
+    background-color: var(--tertiary-background);
+    color: var(--neutralLight);
+    border-radius: 4px;
+    text-align: center;
+}
+.error-snack-message {
+    background-color: var(--tertiary-background);
+    color: var(--rusty-red);
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+}

@@ -1,0 +1,5 @@
+.all-container {
+    background-color: var(--primary-background);
+    width: 100%;
+    height: 100%;
+}

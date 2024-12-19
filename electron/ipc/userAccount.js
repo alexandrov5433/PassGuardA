@@ -11,7 +11,7 @@ const ipcUserAccount = {
                 return err;
             }
         })
-    }
+    },
     // registrationHandler: function (win, pathViews) {
     //     ipcMain.handle('register', async (e, regData) => {
     //         try {
@@ -26,24 +26,16 @@ const ipcUserAccount = {
     //         }
     //     });
     // },
-    // loginHandler: function (win, pathViews) {
-    //     ipcMain.handle('login', async (e, loginData) => {
-    //         try {
-    //             const res = await confirmLogin(loginData);
-    //             if (res.success) {  //success = true || false
-    //                 win.loadFile(pathViews.home);
-    //             } else {
-    //                 return res; 
-    //             }
-    //         } catch (err) {
-    //             console.log(err);
-    //             setTimeout(() => {
-    //                 win.loadFile(pathViews.register);
-    //             }, 5000);
-    //             return err;
-    //         }
-    //     });
-    // },
+    loginHandler: function () {
+        ipcMain.handle('login', async (e, loginData) => {
+            try {
+                return await confirmLogin(loginData);
+            } catch (err) {
+                console.log(err);
+                return err;
+            }
+        });
+    },
     // logoutHandler: function (win, pathViews) {
     //     ipcMain.handle('logout', async () => {
     //         const success = await confirmLogout();

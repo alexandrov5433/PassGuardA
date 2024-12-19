@@ -21,6 +21,7 @@ function createWindow() {
 
 function initHandlers() {
     ipcUserAccount.accountExists();
+    ipcUserAccount.loginHandler();
 }
 
 app.whenReady().then(async () => {
