@@ -20,4 +20,8 @@ export class UserService {
   async register(registerData: AccountData): Promise<true | Error> {
     return this.preloads.register(registerData);
   }
+
+  async logout(): Promise<true | Error> {
+    return this.preloads.logout();
+  }
 }

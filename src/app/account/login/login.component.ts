@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AccountData } from '../../types/accountData';
 import { MessagingService } from '../../services/messaging.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
   
   constructor(
     private user: UserService,
-    private messaging: MessagingService
+    private messaging: MessagingService,
+    private router: Router
   ) {}
 
   async login() {
@@ -45,7 +47,7 @@ export class LoginComponent {
       this.messaging.showMsg(res.message, 5000, 'error-snack-message');
     } else {
       this.messaging.showMsg('Login successfull!', 5000, 'simple-snack-message');
-      //TODO redirect
+      this.router.navigate(['/main/home']);
     }
     this.isLoading.set(false);
   }

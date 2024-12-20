@@ -6,7 +6,7 @@ contextBridge.exposeInMainWorld('preloads', {
 	// devTools: () => ipcRenderer.invoke('devTools:toggle'),
 	register: (regData) => ipcRenderer.invoke('register', regData),
 	login: (loginData) => ipcRenderer.invoke('login', loginData),
-	// logout: () => ipcRenderer.invoke('logout'),
+	logout: () => ipcRenderer.invoke('logout'),
 	// credOverviewReq: () => ipcRenderer.invoke('credOverviewReq'),
 	// addCreds: (creds) => ipcRenderer.send('addCreds', creds),
 	// fetchPassPlainText: (credId) => ipcRenderer.invoke('fetchPassPlainText', credId),

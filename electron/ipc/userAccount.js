@@ -32,14 +32,11 @@ const ipcUserAccount = {
             }
         });
     },
-    // logoutHandler: function (win, pathViews) {
-    //     ipcMain.handle('logout', async () => {
-    //         const success = await confirmLogout();
-    //         if (success) {
-    //             win.loadFile(pathViews.login);
-    //         }
-    //     });
-    // }
+    logoutHandler: function () {
+        ipcMain.handle('logout', async () => {
+            return await confirmLogout();
+        });
+    }
 }
 
 module.exports = ipcUserAccount;

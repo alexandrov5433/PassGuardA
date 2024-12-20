@@ -6,6 +6,7 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { passwordMatchValadator } from '../../validators/registration-pass-match.validator';
 import { AccountData } from '../../types/accountData';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,8 @@ export class RegisterComponent {
   constructor(
     private user: UserService,
     private messaging: MessagingService,
-    private data: DataService
+    private data: DataService,
+    private router: Router
   ) { }
 
   async register() {
@@ -54,12 +56,11 @@ export class RegisterComponent {
     if (res instanceof Error) {
       this.messaging.showMsg(res.message, 5000, 'error-snack-message');
       if (res.message === 'An account already exists.') {
-        //TODO redirect to login
-        console.log('Redirecting... to login.');
+        this.router.navigate(['/login']);
       }
     } else {
       this.messaging.showMsg('Registration successfull!', 3000, 'simple-snack-message');
-      //TODO redirect
+      this.router.navigate(['/main/home']);
     }
     this.isLoading.set(false);
   }

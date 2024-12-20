@@ -7,6 +7,7 @@
     --neutralLight: #FFFFFF; /* main text */
     --rusty-red: #d52941ff;
     --claret: #990d35ff;
+    --mat-icon-color: var(--neutralLight)
 }
 
 html,
@@ -77,7 +78,12 @@ button.general-btn {
     font-weight: bold;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
+    /* styling for icon */
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
+
 button.general-btn:hover {
     background-color: var(--tertiary-background);
 }
@@ -99,10 +105,10 @@ button.register-btn:hover,
 button.login-btn:hover {
     background-color: var(--neutralLight);
     color: var(--primary-background);
-    /* background-color: #6666ff; */
 }
 
 button.logout-btn {
+    border: none;
     background-color: var(--claret);
     color: var(--neutralLight);
     transition: background-color 0.7s ease;
@@ -145,4 +151,21 @@ input.error:focus {
     font-weight: bold;
     text-align: center;
     border-radius: 4px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button.nav-btn-active {
+    border: 1px solid var(--neutralLight);
+}
+
+.icon {
+    color: var(--neutralLight);
 }

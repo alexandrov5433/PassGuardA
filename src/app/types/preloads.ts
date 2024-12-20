@@ -4,7 +4,7 @@ export type Preloads =  {
 	// devTools: () => ipcRenderer.invoke('devTools:toggle'),
 	register: Function,
 	login: Function,
-	// logout: () => ipcRenderer.invoke('logout'),
+	logout: Function,
 	// credOverviewReq: () => ipcRenderer.invoke('credOverviewReq'),
 	// addCreds: (creds) => ipcRenderer.send('addCreds', creds),
 	// fetchPassPlainText: (credId) => ipcRenderer.invoke('fetchPassPlainText', credId),

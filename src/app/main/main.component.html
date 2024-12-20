@@ -1,9 +1,9 @@
 <div class="main-container">
     <div class="top-teil">
         <div class="nav-bar">
-            <button class="general-btn">Home</button>
-            <button class="general-btn">Settings</button>
-            <button class="general-btn logout-btn">Log Out</button>
+            <button class="general-btn" routerLink="/main/home" routerLinkActive="nav-btn-active"><mat-icon svgIcon="home" class="icon"></mat-icon></button>
+            <button class="general-btn" routerLink="/main/settings" routerLinkActive="nav-btn-active"><mat-icon svgIcon="settings" class="icon"></mat-icon></button>
+            <button class="general-btn logout-btn" (click)="logout()">Log Out</button>
         </div>
     </div>
     <div class="bottom-teil">

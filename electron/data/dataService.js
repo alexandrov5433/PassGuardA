@@ -55,10 +55,10 @@ async function registerUser(regData) {
     return true;
 }
 
-// async function confirmLogout() {
-//     secret = null;
-//     return true;
-// }
+async function confirmLogout() {
+    secret = null;
+    return true;
+}
 
 // async function saveNewCredentials(data) {
 //     const { title, username, password } = data;
@@ -139,7 +139,7 @@ module.exports = {
     accountExists,
     registerUser,
     confirmLogin,
-    // confirmLogout,
+    confirmLogout,
     // saveNewCredentials,
     // getCredentialsById,
     // getCredentialsOverview,
