@@ -13,5 +13,5 @@ contextBridge.exposeInMainWorld('preloads', {
 	// deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
 	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),
 	// sendCorrectionForCredsById: (credId, data) => ipcRenderer.invoke('sendCorrectionForCredsById', credId, data),
-	// generatePassword: (passSettings) => ipcRenderer.invoke('passwordGeneration', passSettings)
+	generatePassword: (passSettings) => ipcRenderer.invoke('passwordGeneration', passSettings)
 });

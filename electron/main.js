@@ -4,6 +4,7 @@ module.exports = { __basename : __basename };
 const { app, BrowserWindow } = require('electron/main');
 const { pathPreloads } = require('./util/path');
 const ipcUserAccount = require('./ipc/userAccount');
+const ipcCredentials = require('./ipc/credentials');
 
 
 function createWindow() {
@@ -23,6 +24,8 @@ function initHandlers() {
     ipcUserAccount.accountExists();
     ipcUserAccount.loginHandler();
     ipcUserAccount.registrationHandler();
+
+    ipcCredentials.generatePasswordHandler();
 }
 
 app.whenReady().then(async () => {

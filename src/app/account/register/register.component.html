@@ -1,20 +1,17 @@
-<div id="container">
-    <h1>Create a new Account</h1>
-    <form id="registrationForm">
+<div id="register-container">
+    <h1>Create Account</h1>
+    <form [formGroup]="form" (ngSubmit)="register()">
         <label for="usernameInput">Username:</label>
-        <input name="username" type="text" id="usernameInput">
+        <input name="username" type="text" id="usernameInput" formControlName="username" [class]="usernameError() ? 'error' : ''">
         <label for="passwordInput">Password:</label>
-        <input name="password" type="text" id="passwordInput">
+        <input name="password" type="text" id="passwordInput" formControlName="password" [class]="passwordError() ? 'error' : ''">
         <label for="repeatPasswordInput">Repeat Password:</label>
-        <input name="repeatPassword" type="text" id="repeatPasswordInput">
-        <button type="button" id="randomPass">Fill in random password.</button>
-        <button type="button" id="createAccBtn">Create Account</button>
-        <div class="loader-container hide">
-            <span class="loader"></span>
-        </div>
+        <input name="repeatPassword" type="text" id="repeatPasswordInput" formControlName="rePassword" [class]="rePasswordError() ? 'error' : ''">
+        @if (isLoading()) {
+            <app-loader></app-loader>
+        } @else {
+            <button class="general-btn" type="button" (click)="randomizePassword()">Fill in random password.</button>
+            <button class="register-btn">Create Account</button>
+        }
     </form>
-    <div class="err-container">
-        <p id="errorMsg"></p>
-        <button class="openDevTools">D</button>
-    </div>
 </div>

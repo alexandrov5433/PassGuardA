@@ -40,9 +40,12 @@ async function confirmLogin(loginData) {
 
 async function registerUser(regData) {
     if (await accountExists()) {
-        throw new Error('An account already exists. Redirecting to Login page in 5 sec.');
+        throw new Error('An account already exists.', { cause: 'accountExists' });
     }
     const { username, password } = regData;
+    if (!username || !password) {
+        throw new Error(`The values provided for either username or password are not valid. Received: username:"${username}", password:"${password}".`, { cause: 'invalidAccountData' });
+    }
     let session = await getFile(pathData.session);
     session.accountExists = true;
     session.username = await genHash(username);
