@@ -1,0 +1,47 @@
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+            "a"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b"
+            "b";
+}
+.nav-bar {
+    border: 1px solid rgb(128, 0, 68);
+    color: aliceblue;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+}
+
+.top-teil {
+    border: 1px solid rgb(213, 228, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bottom-teil {
+    border: 1px solid rgb(0, 128, 105);
+    grid-row: 2 / 20;
+}

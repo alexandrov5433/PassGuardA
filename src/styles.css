@@ -67,7 +67,7 @@ label {
     font-size: 1rem;
 }
 
-.general-btn {
+button.general-btn {
     border: 1px solid var(--neutralDark);
     background-color: transparent;
     color: var(--neutralLight);
@@ -78,7 +78,7 @@ label {
     padding: 10px 20px;
     transition: background-color 0.3s ease;
 }
-.general-btn:hover {
+button.general-btn:hover {
     background-color: var(--tertiary-background);
 }
 
@@ -100,6 +100,16 @@ button.login-btn:hover {
     background-color: var(--neutralLight);
     color: var(--primary-background);
     /* background-color: #6666ff; */
+}
+
+button.logout-btn {
+    background-color: var(--claret);
+    color: var(--neutralLight);
+    transition: background-color 0.7s ease;
+}
+button.logout-btn:hover {
+    background-color: var(--neutralLight);
+    color: var(--primary-background);
 }
 
 input {
