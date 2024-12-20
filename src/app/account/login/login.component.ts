@@ -2,7 +2,7 @@ import { Component, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { LoginData } from '../../types/loginData';
+import { AccountData } from '../../types/accountData';
 import { MessagingService } from '../../services/messaging.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class LoginComponent {
       this.isLoading.set(false);
       return;
     }
-    const loginData: LoginData = {
+    const loginData: AccountData = {
       username: this.form.get('username')?.value || '',
       password: this.form.get('password')?.value || ''
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginData } from '../types/loginData';
+import { AccountData } from '../types/accountData';
 import { Preloads } from '../types/preloads';
 import { WindowNew } from '../types/windowNew';
 
@@ -13,7 +13,11 @@ export class UserService {
     return this.preloads.accExists();
   }
   
-  async login(loginData: LoginData): Promise<true | Error> {
+  async login(loginData: AccountData): Promise<true | Error> {
     return this.preloads.login(loginData);
+  }
+
+  async register(registerData: AccountData): Promise<true | Error> {
+    return this.preloads.register(registerData);
   }
 }
