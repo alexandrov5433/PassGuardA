@@ -9,8 +9,6 @@
     --claret: #990d35ff;
 }
 
-
-
 html,
 body {
     width: 100vw;
@@ -67,6 +65,21 @@ label {
     color: var(--neutralLightDarker);
     font-weight: bold;
     font-size: 1rem;
+}
+
+.general-btn {
+    border: 1px solid var(--neutralDark);
+    background-color: transparent;
+    color: var(--neutralLight);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+.general-btn:hover {
+    background-color: var(--tertiary-background);
 }
 
 button.register-btn,
