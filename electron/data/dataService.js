@@ -18,23 +18,9 @@ async function getFile(pathToFile) {
     return JSON.parse(data);
 }
 
-// async function saveFile(pathToFile, data) {
-//     await fsp.writeFile(pathToFile, JSON.stringify(data, null, 2), { encoding: 'utf-8' });
-// }
-
-// async function registerUser(regData) {
-//     if (await accountExists()) {
-//         throw new Error('An account already exists. Redirecting to Login page in 5 sec.');
-//     }
-//     const { username, password } = regData;
-//     let session = await getFile(pathData.session);
-//     session.accountExists = true;
-//     session.username = await genHash(username);
-//     session.mainKey = await genHash(password);
-//     await saveFile(pathData.session, session);
-//     secret = password;
-//     return true;
-// }
+async function saveFile(pathToFile, data) {
+    await fsp.writeFile(pathToFile, JSON.stringify(data, null, 2), { encoding: 'utf-8' });
+}
 
 async function confirmLogin(loginData) {
     if (!await accountExists()) {
@@ -50,6 +36,20 @@ async function confirmLogin(loginData) {
     } else {
         throw new Error('Incorrect username or password.');
     }
+}
+
+async function registerUser(regData) {
+    if (await accountExists()) {
+        throw new Error('An account already exists. Redirecting to Login page in 5 sec.');
+    }
+    const { username, password } = regData;
+    let session = await getFile(pathData.session);
+    session.accountExists = true;
+    session.username = await genHash(username);
+    session.mainKey = await genHash(password);
+    await saveFile(pathData.session, session);
+    secret = password;
+    return true;
 }
 
 // async function confirmLogout() {
@@ -134,7 +134,7 @@ async function confirmLogin(loginData) {
 
 module.exports = {
     accountExists,
-    // registerUser,
+    registerUser,
     confirmLogin,
     // confirmLogout,
     // saveNewCredentials,

@@ -12,20 +12,16 @@ const ipcUserAccount = {
             }
         })
     },
-    // registrationHandler: function (win, pathViews) {
-    //     ipcMain.handle('register', async (e, regData) => {
-    //         try {
-    //             await registerUser(regData);
-    //             win.loadFile(pathViews.home);
-    //         } catch (err) {
-    //             console.log(err);
-    //             setTimeout(() => {
-    //                 win.loadFile(pathViews.login);
-    //             }, 5000);
-    //             return err;
-    //         }
-    //     });
-    // },
+    registrationHandler: function () {
+        ipcMain.handle('register', async (e, regData) => {
+            try {
+                return await registerUser(regData);
+            } catch (err) {
+                console.log(err);
+                return err;
+            }
+        });
+    },
     loginHandler: function () {
         ipcMain.handle('login', async (e, loginData) => {
             try {
