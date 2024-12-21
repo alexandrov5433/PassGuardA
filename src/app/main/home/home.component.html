@@ -1,8 +1,79 @@
 <div class="home-container">
     <div class="left">
-        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo sed id maxime aliquid aspernatur aut cupiditate odio ad. Doloremque, laborum.</span>
+
+        <div class="tool-bar">
+            <div class="search-elem">
+                <div class="search-icon-box">
+                    <mat-icon svgIcon="search" class="icon search-icon"></mat-icon>
+                </div>
+                <div class="search-creds-box">
+                    <input type="text" class="search-creads">
+                </div>
+            </div>
+            <div class="add-creads-elem">
+                <button class="general-btn add-creds-btn"><mat-icon svgIcon="add" class="icon add-icon"></mat-icon></button>
+            </div>
+        </div>
+
+        <div class="credentials-overview">
+
+            <div class="cred-box">
+                <div class="cred-icon-box">
+                    <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+                </div>
+                <div class="cred-title-box">
+                    <div class="text-box">
+                        <h2>Lor</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="cred-box selected">
+                <div class="cred-icon-box">
+                    <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+                </div>
+                <div class="cred-title-box">
+                    <div class="text-box">
+                        <h2>Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="cred-box">
+                <div class="cred-icon-box">
+                    <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+                </div>
+                <div class="cred-title-box">
+                    <div class="text-box">
+                        <h2>Lorem, ipsum dolor.Lorem, </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="cred-box">
+                <div class="cred-icon-box">
+                    <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+                </div>
+                <div class="cred-title-box">
+                    <div class="text-box">
+                        <h2>Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum do</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="no-creds">
+                <div class="no-creds-msg-and-icon-box">
+                    <mat-icon svgIcon="empty-page" class="icon empty-page-icon"></mat-icon>
+                    <h2>No saved credentials.</h2>
+                </div>
+            </div> -->
+
+        </div>
+
     </div>
     <div class="right">
-        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo sed id maxime aliquid aspernatur aut cupiditate odio ad. Doloremque, laborum.</span>
+        <!-- <div class="no-cred-selected">
+            <div class="no-cred-selected-msg-and-icon-box">
+                <mat-icon svgIcon="page-text" class="icon page-text-icon"></mat-icon>
+                <h2>No credentials selected.</h2>
+            </div>
+        </div> -->
+        <app-cred-details></app-cred-details>
     </div>
 </div>
