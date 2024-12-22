@@ -20,10 +20,11 @@
     display: flex;
     flex-direction: row;
     height: 10%;
-    min-height: 70px;
+    /* min-height: 70px; */
 
     .add-top-control-elem {
         width: 15%;
+        min-width: 4rem;
         height: 100%;
     }
     
@@ -40,6 +41,23 @@
         width: 40px;
         height: 40px;
     }
+}
+
+.scroll-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: var(--rusty-red);
 }
 
 .add-main {
@@ -121,11 +139,13 @@
 
 .add-bottom {
     width: 100%;
-    min-height: fit-content;
+    min-height: 40%;
     padding: 15px 15px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    /* overflow-y: auto;
+    scroll-behavior: smooth; */
 
     .button-box {
         width: 100%;
@@ -185,3 +205,11 @@
         }
     }
 }
+
+/* .add-bottom::-webkit-scrollbar {
+    width: 4px;
+}
+
+.add-bottom::-webkit-scrollbar-thumb {
+    background-color: var(--rusty-red);
+} */
