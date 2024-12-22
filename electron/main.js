@@ -10,7 +10,7 @@ const ipcCredentials = require('./ipc/credentials');
 function createWindow() {
     const newWindow = new BrowserWindow({
         width: 1200,
-        height: 800,
+        height: 1000,
         webPreferences: {
             preload: pathPreloads.preloadService
         }

@@ -16,11 +16,11 @@ export class AppComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    // const accountExists = await this.user.accountExists();
-    // if (accountExists) {
-    //   this.router.navigate(['/login']);
-    // } else {
-    //   this.router.navigate(['/register']);
-    // }
+    const accountExists = await this.user.accountExists();
+    if (accountExists) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/register']);
+    }
   }
 }
