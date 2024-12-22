@@ -22,5 +22,17 @@ export class CredDetailsComponent {
       'delete',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./delete.svg')
     );
+    this.iconReg.addSvgIcon(
+      'copy',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./copy.svg')
+    );
+    this.iconReg.addSvgIcon(
+      'eye-open',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./eye-open.svg')
+    );
+    this.iconReg.addSvgIcon(
+      'eye-closed',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./eye-closed.svg')
+    );
   }
 }

@@ -7,10 +7,12 @@
 }
 
 .cred-details-box {
-    border: 1px solid rgb(255, 251, 0);
-    width: 98%;
+    width: 100%;
     height: 100%;
     color: var(--neutralLight);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .details-top {
@@ -19,7 +21,6 @@
     flex-direction: row;
     height: 10%;
     min-height: 70px;
-    border: 1px solid rgb(255, 251, 0);
 
 
     .details-top-control-elem {
@@ -44,40 +45,67 @@
 
 .details-main {
     width: 100%;
-    height: 60%;
-    border: 1px solid rgb(255, 0, 64);
+    height: 80%;
+    min-height: fit-content;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
 
     .segment {
-        border: 1px solid rgb(0, 208, 255);
         width: 100%;
-        height: 30%;
+        height: calc(100% / 3);
+        min-height: 120px;
+        border-bottom: 1px solid var(--neutralDark);
     }
 
     .top {
-        border: 1px solid rgb(255, 0, 64);
         width: 100%;
-        height: 50%;
+        height: calc(100% / 3);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
     }
+    .middle {
+        width: 100%;
+        height: calc(100% / 3);
+        input {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .bottom {
+        width: 100%;
+        height: calc(100% / 3);
+    }
 
     .title-box {
-        width: 50%;
+        width: 100%;
         height: 100%;
-        border: 1px solid rgb(0, 255, 51);
+        display: flex;
+        align-items: center;
     }
 
     .segment-controls-box {
-        width: 50%;
+        width: 100%;
         height: 100%;
-        border: 1px solid rgb(0, 255, 51);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start
     }
     .segment-control-elem {
-        width: 20%;
+        width: 5%;
+        min-width: 70px;
         height: 100%;
-        border: 1px solid rgb(0, 255, 51);
+    }
+    .segment-control-elem:hover {
+        .general-btn {
+            background-color: transparent;
+        }
+        .icon {
+            color: var(--claret);
+        }
     }
     
     .segment-control-btn {
@@ -87,32 +115,10 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        border: 1px solid rgb(0, 255, 98);
     }
     
     .segment-control-icon {
         width: 40px;
         height: 40px;
-        border: 1px solid rgb(0, 255, 60);
     }
-
-    .bottom {
-        width: 100%;
-        height: 50%;
-        border: 1px solid rgb(255, 0, 64);
-        input {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-
-
-
-}
-
-.details-bottom {
-    width: 100%;
-    height: 30%;
-    border: 1px solid rgb(0, 38, 255);
 }
