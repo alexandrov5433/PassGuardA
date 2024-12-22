@@ -111,9 +111,9 @@
     border-bottom: 1px solid var(--neutralDark);
     display: flex;
     flex-direction: row;
-    height: 10%;
+    height: 65px;
     width: 100%;
-    min-height: 60px;
+    /* min-height: 60px; */
     align-items: center;
     transition: background-color 0.3s ease;
 }
