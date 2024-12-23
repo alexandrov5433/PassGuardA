@@ -17,32 +17,32 @@
 
         <div class="credentials-overview">
 
-      
-            <!-- <div class="cred-box selected">
-                <div class="cred-icon-box">
-                    <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+            @if (isOverviewLoading()) {
+                <div class="cred-box-loader-box">
+                    <app-loader></app-loader>
                 </div>
-                <div class="cred-title-box">
-               
-                        <h2 class="unselectable">Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.Lorem, ipsum dolor.</h2>
-             
-                </div>
-            </div> -->
-
-
-            <!-- <div class="cred-box-loader-box">
-                <app-loader></app-loader>
-            </div> -->
-      
-    
-         
-            <!-- <div class="no-creds">
-                <div class="no-creds-msg-and-icon-box">
-                    <mat-icon svgIcon="empty-page" class="icon empty-page-icon"></mat-icon>
-                    <h2 class="unselectable">No saved credentials.</h2>
-                </div>
-            </div> -->
-
+            } @else {
+                @if (credentialsOverviewData()) {
+                    @for (credential of credentialsOverviewData(); track $index) {
+                        <div class="cred-box selected" (click)="viewCredentialDetails(credential.id)">
+                            <div class="cred-icon-box">
+                                <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
+                            </div>
+                            <div class="cred-title-box">
+                                <h2 class="unselectable">{{credential.title}}</h2>
+                            </div>
+                        </div>
+                    }
+                } @else {
+                    <div class="no-creds">
+                        <div class="no-creds-msg-and-icon-box">
+                            <mat-icon svgIcon="empty-page" class="icon empty-page-icon"></mat-icon>
+                            <h2 class="unselectable">No saved credentials.</h2>
+                        </div>
+                    </div>
+                }
+            }
+            
         </div>
 
     </div>

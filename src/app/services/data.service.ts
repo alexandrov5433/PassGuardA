@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Preloads } from "../types/preloads";
 import { WindowNew } from "../types/windowNew";
 import { PassGenOptions } from "../types/passwordGenerationOptions";
+import { CredentialsData } from "../types/credentialsOverview";
 
 @Injectable({
     providedIn: 'root'
@@ -11,5 +12,9 @@ export class DataService {
 
     async generateRandomPassword(passGenOptions?: PassGenOptions) {
         return await this.preloads.generatePassword(passGenOptions);
+    }
+
+    async getCredentialsOverviewData(): Promise<Array<CredentialsData> | []> {
+        return await this.preloads.credOverviewReq();
     }
 }

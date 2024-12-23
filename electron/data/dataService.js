@@ -94,13 +94,13 @@ async function confirmLogout() {
 //     return target;
 // }
 
-// async function getCredentialsOverview() {
-//     const overview = [];
-//     (await getFile(pathData.sensitive)).forEach( e => {
-//         overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username }));
-//     });
-//     return overview;
-// }
+async function getCredentialsOverview() {
+    const overview = [];
+    (await getFile(pathData.sensitive)).forEach( e => {
+        overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username, password: '' }));
+    });
+    return overview;
+}
 
 // async function deleteCredentialsById(id) {
 //     const sensitiveFile = await getFile(pathData.sensitive);
@@ -142,7 +142,7 @@ module.exports = {
     confirmLogout,
     // saveNewCredentials,
     // getCredentialsById,
-    // getCredentialsOverview,
+    getCredentialsOverview,
     // deleteCredentialsById,
     // editCredentialsById
 };
