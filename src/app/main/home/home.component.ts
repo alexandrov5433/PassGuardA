@@ -3,10 +3,11 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CredDetailsComponent } from './cred-details/cred-details.component';
 import { AddCredComponent } from './add-cred/add-cred.component';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-home',
-  imports: [MatIconModule, CredDetailsComponent, AddCredComponent],
+  imports: [MatIconModule, CredDetailsComponent, AddCredComponent, LoaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   standalone: true
@@ -37,6 +38,5 @@ export class HomeComponent {
       'page-text',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./page-text.svg')
     );
-
   }
 }
