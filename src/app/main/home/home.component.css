@@ -9,7 +9,6 @@
 }
 
 .left {
-    /* border: 1px solid rgb(13, 255, 0); */
     width: 30%;
     height: 100%;
     min-width: 450px;
@@ -18,12 +17,10 @@
 
 .right {
     width: 70%;
-    /* min-width: 650px; */
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid red; */
 }
 
 .tool-bar {
@@ -88,6 +85,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+}
+.add-creds-btn:hover {
+    .icon {
+        color: var(--neutralLight);
+    }
 }
 
 .add-icon {

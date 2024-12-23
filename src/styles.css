@@ -1,13 +1,20 @@
 :root {
-    --primary-background: #0A0A0A;  /* main background color */
-    --secondry-background: #141414; /* lighter element background color */
-    --tertiary-background: #292929;  /* emphasized elements background color */
-    --neutralDark: #3D3D3D; /* borders and such */
-    --neutralLightDarker: #ADADAD; /* secondary text */
-    --neutralLight: #FFFFFF; /* main text */
+    --primary-background: #0A0A0A;
+    /* main background color */
+    --secondry-background: #141414;
+    /* lighter element background color */
+    --tertiary-background: #292929;
+    /* emphasized elements background color */
+    --neutralDark: #3D3D3D;
+    /* borders and such */
+    --neutralLightDarker: #ADADAD;
+    /* secondary text */
+    --neutralLight: #FFFFFF;
+    /* main text */
     --rusty-red: #d52941ff;
     --claret: #990d35ff;
-    --mat-icon-color: var(--neutralLight)
+    /* --mat-icon-color: var(--neutralLight) */
+    --leaf: #33CC33;
 }
 
 html,
@@ -20,7 +27,7 @@ body {
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -114,6 +121,7 @@ button.logout-btn {
     color: var(--neutralLight);
     transition: background-color 0.7s ease;
 }
+
 button.logout-btn:hover {
     background-color: var(--neutralLight);
     color: var(--primary-background);
@@ -146,6 +154,7 @@ input.error:focus {
     border-radius: 4px;
     text-align: center;
 }
+
 .error-snack-message {
     background-color: var(--tertiary-background);
     color: var(--rusty-red);
@@ -163,10 +172,7 @@ input.error:focus {
     user-select: none;
 }
 
-button.nav-btn-active {
-    border: 1px solid var(--neutralLight);
-}
-
 .icon {
-    color: var(--neutralLight);
+    color: var(--neutralLightDarker);
+    transition: color 0.3s ease;
 }

@@ -20,7 +20,6 @@
     display: flex;
     flex-direction: row;
     height: 10%;
-    /* min-height: 70px; */
 
     .add-top-control-elem {
         width: 15%;
@@ -35,6 +34,14 @@
         width: 100%;
         display: flex;
         justify-content: center;
+    }
+    .add-top-control-btn:hover {
+        .icon.add-top-control-icon.cancel-icon {
+            color: var(--claret);
+        }
+        .icon.add-top-control-icon.confirm-icon {
+            color: var(--leaf);
+        }
     }
     
     .add-top-control-icon {

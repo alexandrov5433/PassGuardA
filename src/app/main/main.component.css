@@ -24,6 +24,19 @@
     width: 100%;
     height: 8%;
     min-height: fit-content;
+
+    button.nav-btn-active {
+        border: 1px solid var(--neutralLight);
+        .icon {
+            color: var(--neutralLight);
+        }
+    }
+
+    .general-btn:hover {
+        .icon {
+            color: var(--neutralLight);
+        }
+    }
 }
 
 .bottom-teil {
