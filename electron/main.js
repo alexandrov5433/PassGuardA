@@ -27,6 +27,8 @@ function initHandlers() {
     ipcUserAccount.logoutHandler();
     
     ipcCredentials.generatePasswordHandler();
+    ipcCredentials.credOverviewReqHandler();
+    ipcCredentials.fetchPassPlainTextHandler();
 }
 
 app.whenReady().then(async () => {

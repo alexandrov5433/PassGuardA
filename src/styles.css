@@ -163,6 +163,14 @@ input.error:focus {
     border-radius: 4px;
 }
 
+.positive-snack-message {
+    background-color: var(--tertiary-background);
+    color: var(--leaf);
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+}
+
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

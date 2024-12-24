@@ -78,21 +78,21 @@ async function confirmLogout() {
 //     await saveFile(pathData.sensitive, sensitiveFile);
 // }
 
-// async function getCredentialsById(id) {
-//     const sensitiveFile = await getFile(pathData.sensitive);
-//     const target = sensitiveFile.find( e => e.id === id );
-//     if (target === undefined) {
-//         throw new Error(`Credentials with ID (${id}) do not exist.`);
-//     }
-//     const decrPass = decrypt(
-//         target.password.value,
-//         secret,
-//         target.password.iv,
-//         target.password.tag
-//     );
-//     target.password = decrPass; //plainText
-//     return target;
-// }
+async function getCredentialsById(id) {
+    const sensitiveFile = await getFile(pathData.sensitive);
+    const target = sensitiveFile.find( e => e.id === id );
+    if (target === undefined) {
+        throw new Error(`Credentials with ID (${id}) do not exist.`);
+    }
+    const decrPass = decrypt(
+        target.password.value,
+        secret,
+        target.password.iv,
+        target.password.tag
+    );
+    target.password = decrPass; //plainText
+    return target;
+}
 
 async function getCredentialsOverview() {
     const overview = [];
@@ -141,7 +141,7 @@ module.exports = {
     confirmLogin,
     confirmLogout,
     // saveNewCredentials,
-    // getCredentialsById,
+    getCredentialsById,
     getCredentialsOverview,
     // deleteCredentialsById,
     // editCredentialsById

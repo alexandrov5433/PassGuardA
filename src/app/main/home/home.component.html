@@ -7,11 +7,11 @@
                     <mat-icon svgIcon="search" class="icon search-icon"></mat-icon>
                 </div>
                 <div class="search-creds-box">
-                    <input type="text" class="search-creads">
+                    <input type="text" class="search-creads" (change)="searchForCredentialInOverview($event)">
                 </div>
             </div>
             <div class="add-creads-elem">
-                <button class="general-btn add-creds-btn"><mat-icon svgIcon="add" class="icon add-icon"></mat-icon></button>
+                <button class="general-btn add-creds-btn" (click)="openAddCredentials()"><mat-icon svgIcon="add" class="icon add-icon"></mat-icon></button>
             </div>
         </div>
 
@@ -24,7 +24,8 @@
             } @else {
                 @if (credentialsOverviewData()) {
                     @for (credential of credentialsOverviewData(); track $index) {
-                        <div class="cred-box selected" (click)="viewCredentialDetails(credential.id)">
+                        <!-- add 'selected' to selected cred-box-->
+                        <div class="cred-box" (click)="viewCredentialDetails(credential.id)" [class]="markSelectedById === credential.id ? 'selected' : ''">
                             <div class="cred-icon-box">
                                 <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
                             </div>
@@ -47,14 +48,23 @@
 
     </div>
     <div class="right">
-        <!-- <div class="no-cred-selected">
-            <div class="no-cred-selected-msg-and-icon-box">
-                <mat-icon svgIcon="page-text" class="icon page-text-icon"></mat-icon>
-                <h2 class="unselectable">No credentials selected.</h2>
-            </div>
-        </div> -->
-        <!-- <app-cred-details></app-cred-details> -->
-         <!-- <app-add-cred></app-add-cred> -->
-         <!-- <app-loader></app-loader> -->
+        @if (showAddCreds()) {
+            <app-add-cred></app-add-cred>
+        } @else {
+            @if (isDetailsDisplayed()) {
+                @if (isDetailsLoading()) {
+                    <app-loader></app-loader>
+                } @else {
+                    <app-cred-details [credentialsDetails]="credentialsDetailsData"></app-cred-details>
+                }
+            } @else {
+                <div class="no-cred-selected">
+                    <div class="no-cred-selected-msg-and-icon-box">
+                        <mat-icon svgIcon="page-text" class="icon page-text-icon"></mat-icon>
+                        <h2 class="unselectable">No credentials selected.</h2>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>

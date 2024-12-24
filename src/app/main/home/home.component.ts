@@ -4,8 +4,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CredDetailsComponent } from './cred-details/cred-details.component';
 import { AddCredComponent } from './add-cred/add-cred.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { CredentialsData } from '../../types/credentialsOverview';
+import { CredentialsData } from '../../types/credentialsData';
 import { DataService } from '../../services/data.service';
+import { CredSerchEventTarget } from '../../types/credSearchEventTarget';
+import { MessagingService } from '../../services/messaging.service';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +18,21 @@ import { DataService } from '../../services/data.service';
 })
 export class HomeComponent implements OnInit{
   credentialsOverviewData: WritableSignal<Array<CredentialsData> | null> = signal(null);
-  credentialsDetailsData: WritableSignal<CredentialsData | null> = signal(null);
+  credentialsDetailsData!: CredentialsData;
 
   isOverviewLoading: WritableSignal<boolean> = signal(false);
   isDetailsLoading: WritableSignal<boolean> = signal(false);
 
+  isDetailsDisplayed: WritableSignal<boolean> = signal(false);
+  showAddCreds: WritableSignal<boolean> = signal(false);
+
+  markSelectedById: String = '';
+
   constructor (
         private iconReg: MatIconRegistry,
         private domSanitizer: DomSanitizer,
-        private dataService: DataService
+        private dataService: DataService,
+        private messagingService: MessagingService
   ) {
     this.iconReg.addSvgIcon(
       'search',
@@ -49,11 +57,31 @@ export class HomeComponent implements OnInit{
   }
 
   viewCredentialDetails(id: string) {
-    console.log(id);
-    
+    this.markSelectedById = id;
+    this.showAddCreds.set(false);
+    this.isDetailsDisplayed.set(true)
+    this.isDetailsLoading.set(true);
+    const credDetailsData: CredentialsData = this.credentialsOverviewData()?.find( c => c.id == id )!;
+    this.credentialsDetailsData = credDetailsData;
+    this.isDetailsLoading.set(false);
   }
 
-  async ngOnInit(): Promise<void> {
+  openAddCredentials() {
+    this.showAddCreds.set(true);
+    this.isDetailsDisplayed.set(false);
+  }
+
+  searchForCredentialInOverview(event: Event) {
+    const searchVal = (event?.target as CredSerchEventTarget).value;
+    const credId: string = this.credentialsOverviewData()?.find( c => c.title.includes(searchVal))?.id || '';
+    if (!credId) {
+      this.messagingService.showMsg(`No credentials found with title: "${searchVal}".`, 2000, 'simple-snack-message');
+      return 
+    };
+    this.viewCredentialDetails(credId);
+  }
+
+  async loadCredentialOverviewData() {
     this.isOverviewLoading.set(true);
     let credsOverviewData = await this.dataService.getCredentialsOverviewData();
     this.isOverviewLoading.set(false);
@@ -62,5 +90,9 @@ export class HomeComponent implements OnInit{
     } else {
       this.credentialsOverviewData.set(credsOverviewData);
     }
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.loadCredentialOverviewData();
   }
 }
