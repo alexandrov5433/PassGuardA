@@ -1,30 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CredentialsData } from '../../../types/credentialsData';
 import { MessagingService } from '../../../services/messaging.service';
 import { DataService } from '../../../services/data.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
   selector: 'app-cred-details',
-  imports: [MatIconModule],
+  imports: [MatIconModule, MatTooltipModule],
   templateUrl: './cred-details.component.html',
   styleUrl: './cred-details.component.css',
   standalone: true
 })
-export class CredDetailsComponent {
+export class CredDetailsComponent implements OnChanges {
 
   passwordValue: string = 'xxxxxxxxxxxxxxxxxxxx';
   passwordInputType: 'password' | 'text' = 'password';
   isPasswordVisible: boolean = false;
-  
+
   @Input({ required: true }) credentialsDetails!: CredentialsData;
-  
-  constructor (
+
+  constructor(
     private iconReg: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private messgingService: MessagingService,
+    private messagingService: MessagingService,
     private dataService: DataService
   ) {
     this.iconReg.addSvgIcon(
@@ -51,7 +52,7 @@ export class CredDetailsComponent {
 
   async copyValueToClipboard(val: string) {
     await navigator.clipboard.writeText(val);
-    this.messgingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
+    this.messagingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
   }
 
   private async getPasswordInPlaintext(credentialsId: string): Promise<string | Error> {
@@ -64,10 +65,10 @@ export class CredDetailsComponent {
     try {
       const pass = await this.getPasswordInPlaintext(credentialsId);
       await navigator.clipboard.writeText(pass as string);
-      this.messgingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
+      this.messagingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
     } catch (e) {
       console.error((e as Error).message);
-      this.messgingService.showMsg((e as Error).message, 3000, 'error-snack-message');
+      this.messagingService.showMsg((e as Error).message, 3000, 'error-snack-message');
     }
   }
 
@@ -80,14 +81,18 @@ export class CredDetailsComponent {
     } catch (e) {
       console.error((e as Error).message);
       this.hidePasswordText();
-      this.messgingService.showMsg((e as Error).message, 3000, 'error-snack-message');
+      this.messagingService.showMsg((e as Error).message, 3000, 'error-snack-message');
     }
   }
-  
+
   hidePasswordText() {
-      this.passwordValue = 'xxxxxxxxxxxxxxxxxxxx'
-      this.passwordInputType = 'password';
-      this.isPasswordVisible = false;
+    this.passwordValue = 'xxxxxxxxxxxxxxxxxxxx'
+    this.passwordInputType = 'password';
+    this.isPasswordVisible = false;
+  }
+
+  ngOnChanges(): void {
+    this.hidePasswordText();
   }
 
 }

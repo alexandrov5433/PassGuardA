@@ -1,7 +1,7 @@
 {
   "name": "pass-guard-a",
   "version": "1.0.0",
-  "main": "electron/main.js",
+  "main": "./electron/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

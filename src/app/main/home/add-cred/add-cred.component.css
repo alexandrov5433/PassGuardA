@@ -197,7 +197,7 @@
         }
     }
 
-    .char-exclusion-box {
+    .additional-settings-box {
         width: 100%;
         max-width: 100%;
         height: fit-content;
@@ -212,11 +212,3 @@
         }
     }
 }
-
-/* .add-bottom::-webkit-scrollbar {
-    width: 4px;
-}
-
-.add-bottom::-webkit-scrollbar-thumb {
-    background-color: var(--rusty-red);
-} */

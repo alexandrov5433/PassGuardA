@@ -184,3 +184,29 @@ input.error:focus {
     color: var(--neutralLightDarker);
     transition: color 0.3s ease;
 }
+
+/* tooltip stylings */
+.tooltip-general {
+    background-color: var(--tertiary-background);
+    color: var(--neutralLight);
+    padding: 3px 6px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--neutralDark);
+}
+.tooltip-red {
+    background-color: var(--tertiary-background);
+    color: var(--rusty-red);
+    padding: 3px 6px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--neutralDark);
+}
+.tooltip-green {
+    background-color: var(--tertiary-background);
+    color: var(--leaf);
+    padding: 3px 6px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--neutralDark);
+}

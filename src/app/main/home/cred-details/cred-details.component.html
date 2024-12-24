@@ -1,10 +1,10 @@
 <div class="cred-details-box">
     <div class="details-top">
         <div class="details-top-control-elem">
-            <button class="general-btn details-top-control-btn"><mat-icon svgIcon="edit" class="icon details-top-control-icon"></mat-icon></button>
+            <button class="general-btn details-top-control-btn" matTooltip="Edit credentials." matTooltipClass="tooltip-general"><mat-icon svgIcon="edit" class="icon details-top-control-icon"></mat-icon></button>
         </div>
         <div class="details-top-control-elem">
-            <button class="general-btn details-top-control-btn"><mat-icon svgIcon="delete" class="icon details-top-control-icon delete-icon"></mat-icon></button>
+            <button class="general-btn details-top-control-btn" matTooltip="Delete credentials." matTooltipClass="tooltip-red"><mat-icon svgIcon="delete" class="icon details-top-control-icon delete-icon"></mat-icon></button>
         </div>
     </div>
     <form class="details-main">
@@ -20,7 +20,7 @@
             <div class="bottom">
                 <div class="segment-controls-box">
                     <div class="segment-control-elem">
-                        <button class="general-btn segment-control-btn" (click)="copyValueToClipboard(credentialsDetails.title)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
+                        <button class="general-btn segment-control-btn" type="button" matTooltip="Copy titel." matTooltipClass="tooltip-general" (click)="copyValueToClipboard(credentialsDetails.title)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="bottom">
                 <div class="segment-controls-box">
                     <div class="segment-control-elem">
-                        <button class="general-btn segment-control-btn" (click)="copyValueToClipboard(credentialsDetails.username)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
+                        <button class="general-btn segment-control-btn" type="button" matTooltip="Copy username." matTooltipClass="tooltip-general" (click)="copyValueToClipboard(credentialsDetails.username)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
                     </div>
                 </div>
             </div>
@@ -54,15 +54,15 @@
             <div class="bottom">
                 <div class="segment-controls-box">
                     <div class="segment-control-elem">
-                        <button class="general-btn segment-control-btn" (click)="copyPasswordToClipboard(credentialsDetails.id)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
+                        <button class="general-btn segment-control-btn" type="button" matTooltip="Copy password." matTooltipClass="tooltip-general" (click)="copyPasswordToClipboard(credentialsDetails.id)"><mat-icon svgIcon="copy" class="icon segment-control-icon"></mat-icon></button>
                     </div>
                     @if (isPasswordVisible) {
                         <div class="segment-control-elem">
-                            <button class="general-btn segment-control-btn" (click)="hidePasswordText()"><mat-icon svgIcon="eye-closed" class="icon segment-control-icon"></mat-icon></button>
+                            <button class="general-btn segment-control-btn" type="button" matTooltip="Hide password." matTooltipClass="tooltip-general" (click)="hidePasswordText()"><mat-icon svgIcon="eye-closed" class="icon segment-control-icon"></mat-icon></button>
                         </div>
                     } @else {
                         <div class="segment-control-elem">
-                            <button class="general-btn segment-control-btn" (click)="showPasswordInPlainText(credentialsDetails.id)"><mat-icon svgIcon="eye-open" class="icon segment-control-icon"></mat-icon></button>
+                            <button class="general-btn segment-control-btn" type="button" matTooltip="Show password." matTooltipClass="tooltip-general" (click)="showPasswordInPlainText(credentialsDetails.id)"><mat-icon svgIcon="eye-open" class="icon segment-control-icon"></mat-icon></button>
                         </div>
                     }
                 </div>

@@ -1,16 +1,18 @@
 <div class="add-creds-box">
     <div class="add-top">
         <div class="add-top-control-elem">
-            <button class="general-btn add-top-control-btn"><mat-icon svgIcon="cancel"
-                    class="icon add-top-control-icon cancel-icon"></mat-icon></button>
+            <button class="general-btn add-top-control-btn" matTooltip="Cancel" matTooltipClass="tooltip-red">
+                <mat-icon svgIcon="cancel" class="icon add-top-control-icon cancel-icon"></mat-icon>
+            </button>
         </div>
         <div class="add-top-control-elem">
-            <button class="general-btn add-top-control-btn"><mat-icon svgIcon="confirm"
-                    class="icon add-top-control-icon confirm-icon"></mat-icon></button>
+            <button class="general-btn add-top-control-btn" type="submit" form="credentialsForm" matTooltip="Save credentials." matTooltipClass="tooltip-green">
+                <mat-icon svgIcon="confirm" class="icon add-top-control-icon confirm-icon"></mat-icon>
+            </button>
         </div>
     </div>
     <div class="scroll-container">
-        <form class="add-main">
+        <form class="add-main" id="credentialsForm" [formGroup]="form" (ngSubmit)="addCredentials()">
             <div class="segment">
                 <div class="top">
                     <div class="title-box">
@@ -18,7 +20,7 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" value="JDASHSAD asdasjdajsd jashd asjdiasdas das">
+                    <input type="text" placeholder="Title" formControlName="title" [class]="true ? 'error' : ''">
                 </div>
             </div>
             <div class="segment">
@@ -28,7 +30,7 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" value="JDASHSAD asdasjdajsd jashd asjdiasdas das">
+                    <input type="text" placeholder="Username" formControlName="username">
                 </div>
             </div>
             <div class="segment">
@@ -38,12 +40,11 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" value="JDASHSAD asdasjdajsd jashd asjdiasdas das">
+                    <input type="text" placeholder="Password" formControlName="password">
                 </div>
             </div>
-    
         </form>
-        <div class="add-bottom">
+        <form class="add-bottom" [formGroup]="settingsForm">
             <div class="button-box">
                 <button class="general-btn unselectable" type="button">Generate Random Password</button>
             </div>
@@ -52,25 +53,30 @@
             </div>
             <div class="settings-box">
     
-                <label for="one" class="settings-option option-checked">Use lowercase characters
-                    <input class="hidden-checkbox-input" type="checkbox" name="" id="one"></label>
+                <label for="lowercase" class="settings-option option-checked">Use lowercase characters
+                    <input class="hidden-checkbox-input" type="checkbox" id="lowercase" formControlName="lowercase"></label>
     
-                <label for="one" class="settings-option option-checked">Use uppercase characters
-                    <input class="hidden-checkbox-input" type="checkbox" name="" id="one"></label>
+                <label for="uppercase" class="settings-option option-checked">Use uppercase characters
+                    <input class="hidden-checkbox-input" type="checkbox" id="uppercase" formControlName="uppercase"></label>
     
-                <label for="one" class="settings-option option-checked">Use digits
-                    <input class="hidden-checkbox-input" type="checkbox" name="" id="one"></label>
+                <label for="digits" class="settings-option option-checked">Use digits
+                    <input class="hidden-checkbox-input" type="checkbox" id="digits" formControlName="digits"></label>
     
-                <label for="one" class="settings-option">Use symbols
-                    <input class="hidden-checkbox-input" type="checkbox" name="" id="one"></label>
+                <label for="symbols" class="settings-option">Use symbols
+                    <input class="hidden-checkbox-input" type="checkbox" id="symbols" formControlName="symbols"></label>
     
-                <label for="one" class="settings-option option-checked">Exclude similars
-                    <input class="hidden-checkbox-input" type="checkbox" name="" id="one"></label>
+                <label for="excludeSimilars" class="settings-option option-checked">Exclude similars
+                    <input class="hidden-checkbox-input" type="checkbox" id="excludeSimilars" formControlName="excludeSimilars"></label>
+
             </div>
-            <div class="char-exclusion-box">
+            <div class="additional-settings-box">
                 <h2>Characters to exclude:</h2>
-                <input type="text">
+                <input type="text" formControlName="charsToExclude">
             </div>
-        </div>
+            <div class="additional-settings-box">
+                <h2>Password length:</h2>
+                <input type="text" formControlName="passLength">
+            </div>
+        </form>
     </div>
 </div>
