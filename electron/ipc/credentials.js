@@ -8,12 +8,11 @@ const ipcCredentials = {
             return await getCredentialsOverview();
         });
     },
-    // addCredentialsHandler: function (win, pathViews) {
-    //     ipcMain.on('addCreds', async (e, creds) => {
-    //         await saveNewCredentials(creds);
-    //         win.loadFile(pathViews.home);
-    //     })
-    // },
+    addCredentialsHandler: function () {
+        ipcMain.handle('addCreds', async (e, creds) => {
+            return await saveNewCredentials(creds);
+        })
+    },
     fetchPassPlainTextHandler: function () {
         ipcMain.handle('fetchPassPlainText', async (e, credId) => {
             try {

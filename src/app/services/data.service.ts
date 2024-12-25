@@ -3,6 +3,7 @@ import { Preloads } from "../types/preloads";
 import { WindowNew } from "../types/windowNew";
 import { PassGenOptions } from "../types/passwordGenerationOptions";
 import { CredentialsData } from "../types/credentialsData";
+import { NewCredentialsData } from "../types/newCredentialsData";
 
 @Injectable({
     providedIn: 'root'
@@ -20,5 +21,9 @@ export class DataService {
 
     async getPasswordInPlaintext(credentialsId: string): Promise<string | Error> {
         return await this.preloads.fetchPassPlainText(credentialsId);
+    }
+
+    async saveNewCredentials(newCredsData: NewCredentialsData) {
+        return await this.preloads.addCreds(newCredsData);
     }
 }

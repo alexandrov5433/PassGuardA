@@ -1,7 +1,7 @@
 <div class="add-creds-box">
     <div class="add-top">
         <div class="add-top-control-elem">
-            <button class="general-btn add-top-control-btn" matTooltip="Cancel" matTooltipClass="tooltip-red">
+            <button class="general-btn add-top-control-btn" type="button" matTooltip="Cancel" matTooltipClass="tooltip-red" (click)="triggerCloseAddition()">
                 <mat-icon svgIcon="cancel" class="icon add-top-control-icon cancel-icon"></mat-icon>
             </button>
         </div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" placeholder="Title" formControlName="title" [class]="true ? 'error' : ''">
+                    <input type="text" placeholder="Title" formControlName="title" [class]="isTitleError() ? 'error' : ''">
                 </div>
             </div>
             <div class="segment">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" placeholder="Username" formControlName="username">
+                    <input type="text" placeholder="Username" formControlName="username" [class]="isUsernameError() ? 'error' : ''">
                 </div>
             </div>
             <div class="segment">
@@ -40,42 +40,49 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <input type="text" placeholder="Password" formControlName="password">
+                    <input type="text" placeholder="Password" formControlName="password" [class]="isPasswordError() ? 'error' : ''">
                 </div>
             </div>
         </form>
         <form class="add-bottom" [formGroup]="settingsForm">
             <div class="button-box">
-                <button class="general-btn unselectable" type="button">Generate Random Password</button>
+                <button class="general-btn unselectable" type="button" (click)="generateRandompassword()">Generate Random Password</button>
             </div>
             <div class="title-box">
-                <h2 class="unselectable">Generation settings:</h2>
+                <h2 class="unselectable h2-with-info">Generation settings<mat-icon svgIcon="info" class="info-icon"
+                    matTooltip="Turn ON or OFF the desired password generation settings by selecting and deselecting the fields. The 'Exclude similars' setting excludes '0O1Il5S' from the password. The 'Use symbols' allows the use of '!@#$%^&*()_-+=[]{}|:;&#34;&#60;>,.?/~' when generating."
+                    matTooltipClass="tooltip-general"></mat-icon></h2>
             </div>
             <div class="settings-box">
     
-                <label for="lowercase" class="settings-option option-checked">Use lowercase characters
-                    <input class="hidden-checkbox-input" type="checkbox" id="lowercase" formControlName="lowercase"></label>
+                <label for="lowercase" class="settings-option unselectable" [class]="isChecked('lowercase') ? 'option-checked' : ''">Use lowercase characters
+                    <input class="hidden-checkbox-input" type="checkbox" id="lowercase" formControlName="lowercase">
+                </label>
     
-                <label for="uppercase" class="settings-option option-checked">Use uppercase characters
-                    <input class="hidden-checkbox-input" type="checkbox" id="uppercase" formControlName="uppercase"></label>
+                <label for="uppercase" class="settings-option unselectable" [class]="isChecked('uppercase') ? 'option-checked' : ''">Use uppercase characters
+                    <input class="hidden-checkbox-input" type="checkbox" id="uppercase" formControlName="uppercase">
+                </label>
     
-                <label for="digits" class="settings-option option-checked">Use digits
-                    <input class="hidden-checkbox-input" type="checkbox" id="digits" formControlName="digits"></label>
+                <label for="digits" class="settings-option unselectable" [class]="isChecked('digits') ? 'option-checked' : ''">Use digits
+                    <input class="hidden-checkbox-input" type="checkbox" id="digits" formControlName="digits">
+                </label>
     
-                <label for="symbols" class="settings-option">Use symbols
-                    <input class="hidden-checkbox-input" type="checkbox" id="symbols" formControlName="symbols"></label>
+                <label for="symbols" class="settings-option unselectable" [class]="isChecked('symbols') ? 'option-checked' : ''">Use symbols
+                    <input class="hidden-checkbox-input" type="checkbox" id="symbols" formControlName="symbols">
+                </label>
     
-                <label for="excludeSimilars" class="settings-option option-checked">Exclude similars
-                    <input class="hidden-checkbox-input" type="checkbox" id="excludeSimilars" formControlName="excludeSimilars"></label>
+                <label for="excludeSimilars" class="settings-option unselectable" [class]="isChecked('excludeSimilars') ? 'option-checked' : ''">Exclude similars
+                    <input class="hidden-checkbox-input" type="checkbox" id="excludeSimilars" formControlName="excludeSimilars">
+                </label>
 
             </div>
             <div class="additional-settings-box">
-                <h2>Characters to exclude:</h2>
-                <input type="text" formControlName="charsToExclude">
+                <h2 class="unselectable h2-with-info">Characters to exclude<mat-icon svgIcon="info" class="info-icon" matTooltip="Enter the characters you would like to exclude from the generated password. Example: If you want to exclude '123ab$%', then type '123ab$%'. " matTooltipClass="tooltip-general"></mat-icon></h2>
+                <input type="text" formControlName="charsToExclude" [class]="isCharsToExcludeInvalid() ? 'error' : ''">
             </div>
             <div class="additional-settings-box">
-                <h2>Password length:</h2>
-                <input type="text" formControlName="passLength">
+                <h2 class="unselectable h2-with-info">Password length<mat-icon svgIcon="info" class="info-icon" matTooltip="Enter the number of characters you want your password to include. Please use a whole, positive number. Example: 1, 23, 15." matTooltipClass="tooltip-general"></mat-icon></h2>
+                <input type="text" [value]="settingsForm.get('passLength')?.value" formControlName="passLength" [class]="isPassLengthInvalid() ? 'error' : ''">
             </div>
         </form>
     </div>

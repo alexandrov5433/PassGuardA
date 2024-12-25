@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld('preloads', {
 	login: (loginData) => ipcRenderer.invoke('login', loginData),
 	logout: () => ipcRenderer.invoke('logout'),
 	credOverviewReq: () => ipcRenderer.invoke('credOverviewReq'),
-	// addCreds: (creds) => ipcRenderer.send('addCreds', creds),
+	addCreds: (creds) => ipcRenderer.invoke('addCreds', creds),
 	fetchPassPlainText: (credId) => ipcRenderer.invoke('fetchPassPlainText', credId),
 	// deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
 	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),

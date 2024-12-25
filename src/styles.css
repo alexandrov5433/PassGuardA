@@ -193,6 +193,7 @@ input.error:focus {
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid var(--neutralDark);
+    margin-top: 5px;
 }
 .tooltip-red {
     background-color: var(--tertiary-background);
@@ -201,6 +202,7 @@ input.error:focus {
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid var(--neutralDark);
+    margin-top: 5px;
 }
 .tooltip-green {
     background-color: var(--tertiary-background);
@@ -209,4 +211,5 @@ input.error:focus {
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid var(--neutralDark);
+    margin-top: 5px;
 }

@@ -60,23 +60,29 @@ async function confirmLogout() {
     return true;
 }
 
-// async function saveNewCredentials(data) {
-//     const { title, username, password } = data;
-//     const entry = {
-//         id: uuidv4(),
-//         title,
-//         username 
-//     };
-//     const passEnc = encrypt(password, secret);
-//     entry.password = {
-//         value: passEnc.ciphertext,
-//         iv: passEnc.iv,
-//         tag: passEnc.tag
-//     };
-//     let sensitiveFile = await getFile(pathData.sensitive);
-//     sensitiveFile.push(entry);
-//     await saveFile(pathData.sensitive, sensitiveFile);
-// }
+async function saveNewCredentials(data) {
+    try {
+        const { title, username, password } = data;
+        const entry = {
+            id: uuidv4(),
+            title,
+            username 
+        };
+        const passEnc = encrypt(password, secret);
+        entry.password = {
+            value: passEnc.ciphertext,
+            iv: passEnc.iv,
+            tag: passEnc.tag
+        };
+        let sensitiveFile = await getFile(pathData.sensitive);
+        sensitiveFile.push(entry);
+        await saveFile(pathData.sensitive, sensitiveFile);
+        return true;
+    } catch (e) {
+        console.error(e);
+        return e;
+    }
+}
 
 async function getCredentialsById(id) {
     const sensitiveFile = await getFile(pathData.sensitive);
@@ -140,7 +146,7 @@ module.exports = {
     registerUser,
     confirmLogin,
     confirmLogout,
-    // saveNewCredentials,
+    saveNewCredentials,
     getCredentialsById,
     getCredentialsOverview,
     // deleteCredentialsById,

@@ -6,7 +6,7 @@ export type Preloads =  {
 	login: Function,
 	logout: Function,
 	credOverviewReq: Function,
-	// addCreds: (creds) => ipcRenderer.send('addCreds', creds),
+	addCreds: Function,
 	fetchPassPlainText: Function,
 	// deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
 	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),

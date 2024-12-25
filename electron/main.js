@@ -29,6 +29,7 @@ function initHandlers() {
     ipcCredentials.generatePasswordHandler();
     ipcCredentials.credOverviewReqHandler();
     ipcCredentials.fetchPassPlainTextHandler();
+    ipcCredentials.addCredentialsHandler();
 }
 
 app.whenReady().then(async () => {

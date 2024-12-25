@@ -54,6 +54,10 @@ export class HomeComponent implements OnInit{
       'page-text',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./page-text.svg')
     );
+    this.iconReg.addSvgIcon(
+      'info',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./info.svg')
+    );
   }
 
   viewCredentialDetails(id: string) {
@@ -69,6 +73,18 @@ export class HomeComponent implements OnInit{
   openAddCredentials() {
     this.showAddCreds.set(true);
     this.isDetailsDisplayed.set(false);
+    this.markSelectedById = '';
+  }
+
+  onCloseAddition() {
+    this.showAddCreds.set(false);
+    this.isDetailsDisplayed.set(false);
+    this.markSelectedById = '';
+  }
+
+  async onSuccessfulAddition() {
+    this.onCloseAddition();
+    await this.loadCredentialOverviewData();
   }
 
   searchForCredentialInOverview(event: Event) {
