@@ -30,6 +30,7 @@ function initHandlers() {
     ipcCredentials.credOverviewReqHandler();
     ipcCredentials.fetchPassPlainTextHandler();
     ipcCredentials.addCredentialsHandler();
+    ipcCredentials.sendCorrectionForCredsByIdHandler();
 }
 
 app.whenReady().then(async () => {

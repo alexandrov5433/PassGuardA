@@ -119,27 +119,31 @@ async function getCredentialsOverview() {
 //     return true;
 // }
 
-// async function editCredentialsById(id, data) {
-//     const sensitiveFile = await getFile(pathData.sensitive);
-//     const target = sensitiveFile.find( e => e.id === id );
-//     if (target === undefined) {
-//         throw new Error(`Credentials with ID (${id}) do not exist.`);
-//     }
-//     const updatedEntry = {
-//         id: target.id,
-//         title: data.title,
-//         username: data.username 
-//     };
-//     const newPassEnc = encrypt(data.password, secret);
-//     updatedEntry.password = {
-//         value: newPassEnc.ciphertext,
-//         iv: newPassEnc.iv,
-//         tag: newPassEnc.tag
-//     };
-//     Object.assign(target, updatedEntry);
-//     await saveFile(pathData.sensitive, sensitiveFile);
-//     return target;
-// }
+async function editCredentialsById(id, data) {
+    try {
+        const sensitiveFile = await getFile(pathData.sensitive);
+        const target = sensitiveFile.find( e => e.id === id );
+        if (target === undefined) {
+            throw new Error(`Credentials with ID (${id}) do not exist.`);
+        }
+        const updatedEntry = {
+            id: target.id,
+            title: data.title,
+            username: data.username 
+        };
+        const newPassEnc = encrypt(data.password, secret);
+        updatedEntry.password = {
+            value: newPassEnc.ciphertext,
+            iv: newPassEnc.iv,
+            tag: newPassEnc.tag
+        };
+        Object.assign(target, updatedEntry);
+        await saveFile(pathData.sensitive, sensitiveFile);
+        return true;
+    } catch (err) {
+        return err;
+    }
+}
 
 module.exports = {
     accountExists,
@@ -150,5 +154,5 @@ module.exports = {
     getCredentialsById,
     getCredentialsOverview,
     // deleteCredentialsById,
-    // editCredentialsById
+    editCredentialsById
 };

@@ -10,6 +10,6 @@ export type Preloads =  {
 	fetchPassPlainText: Function,
 	// deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
 	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),
-	// sendCorrectionForCredsById: (credId, data) => ipcRenderer.invoke('sendCorrectionForCredsById', credId, data),
+	sendCorrectionForCredsById: Function,
 	generatePassword: Function
 }

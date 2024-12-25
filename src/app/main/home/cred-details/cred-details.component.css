@@ -45,8 +45,11 @@
         .icon {
             color: var(--neutralLight);
         }
-        .icon.details-top-control-icon.delete-icon {
+        .icon.details-top-control-icon.red-icon {
             color: var(--claret);
+        }
+        .icon.details-top-control-icon.green-icon {
+            color: var(--leaf);
         }
     }
 }

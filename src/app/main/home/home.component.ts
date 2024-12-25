@@ -8,10 +8,11 @@ import { CredentialsData } from '../../types/credentialsData';
 import { DataService } from '../../services/data.service';
 import { CredSerchEventTarget } from '../../types/credSearchEventTarget';
 import { MessagingService } from '../../services/messaging.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home',
-  imports: [MatIconModule, CredDetailsComponent, AddCredComponent, LoaderComponent],
+  imports: [MatIconModule, CredDetailsComponent, AddCredComponent, LoaderComponent, MatTooltipModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   standalone: true
@@ -87,9 +88,16 @@ export class HomeComponent implements OnInit{
     await this.loadCredentialOverviewData();
   }
 
+  async onCredentialsEdited(idOfEditedCredentials: string) {
+    // const idOfEditedCredentials: string = event.;
+    console.log('EVENT', idOfEditedCredentials);
+    
+  }
+
   searchForCredentialInOverview(event: Event) {
     const searchVal = (event?.target as CredSerchEventTarget).value;
-    const credId: string = this.credentialsOverviewData()?.find( c => c.title.includes(searchVal))?.id || '';
+    const regex = new RegExp(`${searchVal}`, 'i');
+    const credId: string = this.credentialsOverviewData()?.find( c => regex.test(c.title))?.id || '';
     if (!credId) {
       this.messagingService.showMsg(`No credentials found with title: "${searchVal}".`, 2000, 'simple-snack-message');
       return 

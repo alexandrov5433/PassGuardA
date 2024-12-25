@@ -26,4 +26,8 @@ export class DataService {
     async saveNewCredentials(newCredsData: NewCredentialsData) {
         return await this.preloads.addCreds(newCredsData);
     }
+
+    async editCredentials(editedCredsData: CredentialsData) {
+        return await this.preloads.sendCorrectionForCredsById(editedCredsData);
+    }
 }

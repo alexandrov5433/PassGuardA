@@ -43,16 +43,15 @@ const ipcCredentials = {
     //         }
     //     });
     // },
-    // sendCorrectionForCredsByIdHandler: function () {
-    //     ipcMain.handle('sendCorrectionForCredsById', (e, credId, data) => {
-    //         try {
-    //             const res = editCredentialsById(credId, data);
-    //             return res;
-    //         } catch (err) {
-    //             return err;
-    //         }
-    //     });
-    // },
+    sendCorrectionForCredsByIdHandler: function () {
+        ipcMain.handle('sendCorrectionForCredsById', (e, data) => {
+            try {
+                return editCredentialsById(data.id, data);
+            } catch (err) {
+                return err;
+            }
+        });
+    },
     generatePasswordHandler: function () {
         ipcMain.handle('passwordGeneration', (e, passSettings) => {
             return passwordGenerator(passSettings);

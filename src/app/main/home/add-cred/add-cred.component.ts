@@ -5,7 +5,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../../services/data.service';
 import { MessagingService } from '../../../services/messaging.service';
-import { PassGenSettingsCheckboxEventTarget } from '../../../types/passGenSettingsCheckboxEventTarget';
 import { PassGenOptions } from '../../../types/passwordGenerationOptions';
 import { NewCredentialsData } from '../../../types/newCredentialsData';
 
@@ -78,23 +77,21 @@ export class AddCredComponent {
   }
 
   async addCredentials() {
-    console.log(this.form?.value);
     if (this.validateFrom()) {
       return;
     }
-    //TODO uncomment. Just testing.
-    // const newCredsData: NewCredentialsData = {
-    //   title: this.form.get('title')?.value!,
-    //   username: this.form.get('username')?.value!,
-    //   password: this.form.get('password')?.value!,
-    // }
-    // const res = await this.dataService.saveNewCredentials(newCredsData);
-    // if (res instanceof Error) {
-    //   this.messagingService.showMsg((res as Error).message, 4000, 'error-snack-message');
-    //   return;
-    // }
+    const newCredsData: NewCredentialsData = {
+      title: this.form.get('title')?.value!,
+      username: this.form.get('username')?.value!,
+      password: this.form.get('password')?.value!,
+    }
+    const res = await this.dataService.saveNewCredentials(newCredsData);
+    if (res instanceof Error) {
+      this.messagingService.showMsg((res as Error).message, 4000, 'error-snack-message');
+      return;
+    }
     this.messagingService.showMsg('Credentials added!', 2000, 'positive-snack-message');
-    // this.triggerSuccessfulAddition();
+    this.triggerSuccessfulAddition();
   }
 
   /**
@@ -138,7 +135,7 @@ export class AddCredComponent {
    */
   private validateSettignsForm(): boolean {
     if (!isMinOneCharOptionSelected(this.settingsForm)) {
-      this.messagingService.showMsg('Please select at least one character option from: Use lowercase characters, Use uppercase characters, Use digits and Use symbols.', 3500, 'error-snack-message');
+      this.messagingService.showMsg('Please select at least one character option from: "Use lowercase letters", "Use uppercase letters", "Use digits" and "Use symbols".', 3500, 'error-snack-message');
       return true;
     }
     if (areAllCharactersExcluded(this.settingsForm)) {

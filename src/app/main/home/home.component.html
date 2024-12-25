@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="add-creads-elem">
-                <button class="general-btn add-creds-btn" (click)="openAddCredentials()"><mat-icon svgIcon="add" class="icon add-icon"></mat-icon></button>
+                <button class="general-btn add-creds-btn" (click)="openAddCredentials()" matTooltip="Add new credentials" matTooltipClass="tooltip-general"><mat-icon svgIcon="add" class="icon add-icon"></mat-icon></button>
             </div>
         </div>
 
@@ -24,7 +24,6 @@
             } @else {
                 @if (credentialsOverviewData()) {
                     @for (credential of credentialsOverviewData(); track $index) {
-                        <!-- add 'selected' to selected cred-box-->
                         <div class="cred-box" (click)="viewCredentialDetails(credential.id)" [class]="markSelectedById === credential.id ? 'selected' : ''">
                             <div class="cred-icon-box">
                                 <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
@@ -55,7 +54,7 @@
                 @if (isDetailsLoading()) {
                     <app-loader></app-loader>
                 } @else {
-                    <app-cred-details [credentialsDetails]="credentialsDetailsData"></app-cred-details>
+                    <app-cred-details [credentialsDetails]="credentialsDetailsData" (credentialsEdited)="onCredentialsEdited($event)"></app-cred-details>
                 }
             } @else {
                 <div class="no-cred-selected">
