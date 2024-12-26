@@ -6,6 +6,10 @@ import { MessagingService } from '../../../services/messaging.service';
 import { DataService } from '../../../services/data.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfirmationDialogComponent } from '../../../shared/confirmationDialog/confirmation-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogData } from '../../../types/dialogData';
+import { pipe, Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -16,6 +20,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   standalone: true
 })
 export class CredDetailsComponent implements OnChanges, OnDestroy {
+  private ngDestroyer: Subject<boolean> = new Subject();
 
   passwordInputType: 'password' | 'text' = 'password';
   isPasswordVisible: boolean = false;
@@ -29,6 +34,7 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
 
   @Input({ required: true }) credentialsDetails!: CredentialsData;
   @Output() credentialsEdited = new EventEmitter<string>();
+  @Output() credentialsDeleted = new EventEmitter<boolean>();
 
   form = new FormGroup({
     title: new FormControl('1', [Validators.required]),
@@ -41,7 +47,8 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     private iconReg: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private messagingService: MessagingService,
-    private dataService: DataService
+    private dataService: DataService,
+    private dialog: MatDialog
   ) {
     this.iconReg.addSvgIcon(
       'edit',
@@ -85,11 +92,11 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     this.form.get('password')?.enable();
   }
 
-   /**
-   * Returns true if form is invalid and false otherwise.
-   * @returns Boolean
-   */
-   private validateFrom(): boolean {
+  /**
+  * Returns true if form is invalid and false otherwise.
+  * @returns Boolean
+  */
+  private validateFrom(): boolean {
     const titleValError = this.form.get('title')?.errors?.['required'];
     const usernameValError = this.form.get('username')?.errors?.['required'];
     const passwordValError = this.form.get('password')?.errors?.['required'];
@@ -175,10 +182,33 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     this.messagingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
   }
 
- async deleteCredentials() {
-  console.log('TODO');
-  
- }
+  async deleteCredentials() {
+    const dataForDialog: DialogData = {
+      title: 'Please confirm!',
+      content: `The credentials for "${this.credentialsDetails.title}" will be deleted permanently. Are you sure?`,
+      confirmationActionTitle: 'Delete',
+      cancelActionTitle: 'Cancel'
+    };
+    const confirmDeleteDialog: MatDialogRef<ConfirmationDialogComponent> = this.dialog.open(
+      ConfirmationDialogComponent,
+      { data: dataForDialog, panelClass: 'confirmation-dialog' }
+    );
+    confirmDeleteDialog.afterClosed()
+      .pipe(takeUntil(this.ngDestroyer))
+      .subscribe(
+        async res => {
+          if (Boolean(res)) {
+            try {
+              await this.dataService.deleteCredentials(this.credentialsDetails.id);
+              this.messagingService.showMsg('Deletion successful!', 2000, 'positive-snack-message');
+              this.credentialsDeleted.emit(true);
+            } catch (err) {
+              this.messagingService.showMsg((err as Error).message, 3000, 'error-snack-message');
+            }
+          }
+        }
+      );
+  }
 
   async copyPasswordToClipboard(credentialsId: string) {
     try {
@@ -225,6 +255,8 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     if (this.isEditingEnabled()) {
       this.messagingService.showMsg('Editing canceled.', 2000, 'simple-snack-message');
     }
+    this.ngDestroyer.next(true);
+    this.ngDestroyer.complete();
   }
 
 }

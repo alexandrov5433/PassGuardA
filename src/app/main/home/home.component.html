@@ -54,7 +54,7 @@
                 @if (isDetailsLoading()) {
                     <app-loader></app-loader>
                 } @else {
-                    <app-cred-details [credentialsDetails]="credentialsDetailsData" (credentialsEdited)="onCredentialsEdited($event)"></app-cred-details>
+                    <app-cred-details [credentialsDetails]="credentialsDetailsData" (credentialsEdited)="onCredentialsEdited($event)" (credentialsDeleted)="onCredentialsDeleted()"></app-cred-details>
                 }
             } @else {
                 <div class="no-cred-selected">

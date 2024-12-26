@@ -8,7 +8,7 @@ export type Preloads =  {
 	credOverviewReq: Function,
 	addCreds: Function,
 	fetchPassPlainText: Function,
-	// deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
+	deleteCredsById: (credId: string) => Promise<true | Error>,
 	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),
 	sendCorrectionForCredsById: Function,
 	generatePassword: Function

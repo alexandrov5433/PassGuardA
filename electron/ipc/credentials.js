@@ -23,15 +23,15 @@ const ipcCredentials = {
             }
         })
     },
-    // deleteCredsByIdHandler: function () {
-    //     ipcMain.handle('deleteCredsById', async (e, credId) => {
-    //         try {
-    //             return await deleteCredentialsById(credId);
-    //         } catch (err) {
-    //             return err;
-    //         }
-    //     })
-    // },
+    deleteCredsByIdHandler: function () {
+        ipcMain.handle('deleteCredsById', async (e, credId) => {
+            try {
+                return await deleteCredentialsById(credId);
+            } catch (err) {
+                return err;
+            }
+        })
+    },
     // fetchCredsByIdHandler: function () {
     //     ipcMain.handle('fetchCredsById', async (e, credId) => {
     //         try {

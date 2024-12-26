@@ -30,4 +30,12 @@ export class DataService {
     async editCredentials(editedCredsData: CredentialsData) {
         return await this.preloads.sendCorrectionForCredsById(editedCredsData);
     }
+
+    async deleteCredentials(credIdToDelete: string) {
+        const res = await this.preloads.deleteCredsById(credIdToDelete);
+        if (res instanceof Error) {
+            throw res;
+        }
+        return res;
+    }
 }

@@ -108,16 +108,20 @@ async function getCredentialsOverview() {
     return overview;
 }
 
-// async function deleteCredentialsById(id) {
-//     const sensitiveFile = await getFile(pathData.sensitive);
-//     const target = sensitiveFile.find( e => e.id === id );
-//     if (target === undefined) {
-//         throw new Error(`Credentials with ID (${id}) do not exist.`);
-//     }
-//     const afterDeletion = sensitiveFile.filter( e => e.id !== target.id );
-//     await saveFile(pathData.sensitive, afterDeletion);
-//     return true;
-// }
+async function deleteCredentialsById(id) {
+    try {
+        const sensitiveFile = await getFile(pathData.sensitive);
+        const target = sensitiveFile.find( e => e.id === id );
+        if (target === undefined) {
+            throw new Error(`Credentials with ID (${id}) do not exist.`);
+        }
+        const afterDeletion = sensitiveFile.filter( e => e.id !== target.id );
+        await saveFile(pathData.sensitive, afterDeletion);
+        return true;
+    } catch (err) {
+        return err;
+    }
+}
 
 async function editCredentialsById(id, data) {
     try {
@@ -153,6 +157,6 @@ module.exports = {
     saveNewCredentials,
     getCredentialsById,
     getCredentialsOverview,
-    // deleteCredentialsById,
+    deleteCredentialsById,
     editCredentialsById
 };

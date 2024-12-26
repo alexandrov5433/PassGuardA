@@ -31,6 +31,7 @@ function initHandlers() {
     ipcCredentials.fetchPassPlainTextHandler();
     ipcCredentials.addCredentialsHandler();
     ipcCredentials.sendCorrectionForCredsByIdHandler();
+    ipcCredentials.deleteCredsByIdHandler();
 }
 
 app.whenReady().then(async () => {

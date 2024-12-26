@@ -14,7 +14,8 @@
     --rusty-red: #d52941ff;
     --claret: #990d35ff;
     /* --mat-icon-color: var(--neutralLight) */
-    --leaf: #33CC33;
+    --new-leaf: #33CC33;
+    --leaf: #248f24;
 }
 
 html,
@@ -94,6 +95,26 @@ button.general-btn {
 
 button.general-btn:hover {
     background-color: var(--tertiary-background);
+}
+
+button.red-general-btn {
+    border: 1px solid var(--claret);
+    color: var(--claret);
+}
+
+button.red-general-btn:hover {
+    border: 1px solid var(--rusty-red);
+    color: var(--rusty-red);
+}
+
+button.green-general-btn {
+    border: 1px solid var(--leaf);
+    color: var(--leaf);
+}
+
+button.green-general-btn:hover {
+    border: 1px solid var(--new-leaf);
+    color: var(--new-leaf);
 }
 
 button.register-btn,
@@ -212,4 +233,38 @@ input.error:focus {
     border-radius: 4px;
     border: 1px solid var(--neutralDark);
     margin-top: 5px;
+}
+
+/* dialog */
+.confirmation-dialog {
+    background-color: var(--secondry-background);
+    padding: 3px 6px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--neutralDark);
+
+    .mat-mdc-dialog-surface {
+        background-color: var(--secondry-background);
+        border-color: transparent;
+    }
+    
+    .title-box {
+        background-color: var(--secondry-background);
+        color: var(--neutralLight) !important;
+        font-size: 1.5rem !important;
+    }
+    
+    .content-box {
+        background-color: var(--secondry-background);
+        color: var(--neutralLightDarker) !important;
+        font-size: 1rem !important;
+    }
+    
+    .button-box {
+        background-color: var(--secondry-background);
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
 }

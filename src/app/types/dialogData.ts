@@ -1,3 +1,6 @@
 export interface DialogData {
-    credTitle?: string
+    title?: string,
+    content?: string,
+    confirmationActionTitle?: string,
+    cancelActionTitle?: string
 }

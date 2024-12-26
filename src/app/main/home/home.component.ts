@@ -94,6 +94,13 @@ export class HomeComponent implements OnInit{
     this.viewCredentialDetails(idCreds);
   }
 
+  async onCredentialsDeleted() {
+    await this.loadCredentialOverviewData();
+    this.showAddCreds.set(false);
+    this.isDetailsDisplayed.set(false);
+    this.markSelectedById = '';
+  }
+
   searchForCredentialInOverview(event: Event) {
     const searchVal = (event?.target as CredSerchEventTarget).value;
     const regex = new RegExp(`${searchVal}`, 'i');

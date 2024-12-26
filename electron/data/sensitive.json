@@ -20,16 +20,6 @@
     }
   },
   {
-    "id": "45316fb5-bfd3-419f-b93a-cb777deb028b",
-    "title": "www.brazers-plovdiv.bg",
-    "username": "blueBalls33",
-    "password": {
-      "value": "wNp7NETMvQR1xA58oWIJCsQ10Dg=",
-      "iv": "SNZkvYwL12TpqLz9",
-      "tag": "PzPAsfSsZGEwv0G+cP+rHQ=="
-    }
-  },
-  {
     "id": "708f020a-0a85-4302-b11f-5423867b112b",
     "title": "SomeWebsite",
     "username": "alex3412as",
@@ -47,16 +37,6 @@
       "value": "usikAJ8KP5x9fH7MBzQtmaEqNT8=",
       "iv": "/MfDtlHTdOyU1sz8",
       "tag": "j1KUopIQK/spWDkvKQO1sw=="
-    }
-  },
-  {
-    "id": "07e775d1-1315-4094-8041-bc6ba943c532",
-    "title": "Goto",
-    "username": "ads12",
-    "password": {
-      "value": "gUFgJsekh2VSozgYmBsFKiMpMVU=",
-      "iv": "o8grHONk49GQLZlY",
-      "tag": "iUnx3rPOylO+JmtUCHsCkQ=="
     }
   }
 ]

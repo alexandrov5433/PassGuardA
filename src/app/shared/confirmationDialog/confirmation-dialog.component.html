@@ -1,0 +1,8 @@
+<h1 mat-dialog-title class="title-box">{{data.title}}</h1>
+<div mat-dialog-content class="content-box">
+    <p>{{data.content}}</p>
+</div>
+<div mat-dialog-actions class="button-box">
+    <button mat-dialog-close="true" class="general-btn red-general-btn">{{data.confirmationActionTitle}}</button>
+    <button (click)="onCancel()" class="general-btn green-general-btn">{{data.cancelActionTitle}}</button>
+</div>
