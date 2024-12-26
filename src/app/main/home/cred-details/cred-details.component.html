@@ -2,7 +2,7 @@
     <div class="details-top">
         @if (isEditingEnabled()) {
             <div class="details-top-control-elem">
-                <button class="general-btn details-top-control-btn" matTooltip="Cancel editing and discard changes" matTooltipClass="tooltip-red" (click)="closeEditing()">
+                <button class="general-btn details-top-control-btn" matTooltip="Cancel editing and discard changes" matTooltipClass="tooltip-red" (click)="cancelAndDiscardEditing()">
                     <mat-icon svgIcon="cancel" class="icon details-top-control-icon red-icon"></mat-icon>
                 </button>
             </div>
@@ -18,7 +18,9 @@
                 </button>
             </div>
             <div class="details-top-control-elem">
-                <button class="general-btn details-top-control-btn" matTooltip="Delete credentials" matTooltipClass="tooltip-red"><mat-icon svgIcon="delete" class="icon details-top-control-icon red-icon"></mat-icon></button>
+                <button class="general-btn details-top-control-btn" matTooltip="Delete credentials" matTooltipClass="tooltip-red" (click)="deleteCredentials()">
+                    <mat-icon svgIcon="delete" class="icon details-top-control-icon red-icon"></mat-icon>
+                </button>
             </div>
         }
     </div>
@@ -30,7 +32,7 @@
                 </div>
             </div>
             <div class="middle">
-                <input type="text" [class]="isTitleError() ? 'error' : ''" [disabled]="areInputFieldsDisabled()" formControlName="title">
+                <input type="text" [class]="isTitleError() ? 'error' : ''" formControlName="title">
             </div>
             <div class="bottom">
                 <div class="segment-controls-box">
@@ -47,7 +49,7 @@
                 </div>
             </div>
             <div class="middle">
-                <input type="text" [class]="isUsernameError() ? 'error' : ''" [disabled]="areInputFieldsDisabled()" formControlName="username">
+                <input type="text" [class]="isUsernameError() ? 'error' : ''" formControlName="username">
             </div>
             <div class="bottom">
                 <div class="segment-controls-box">
@@ -64,7 +66,7 @@
                 </div>
             </div>
             <div class="middle">
-                <input [type]="passwordInputType" [class]="isPasswordError() ? 'error' : ''" [disabled]="areInputFieldsDisabled()" formControlName="password">
+                <input [type]="passwordInputType" [class]="isPasswordError() ? 'error' : ''" formControlName="password">
             </div>
             <div class="bottom">
                 <div class="segment-controls-box">

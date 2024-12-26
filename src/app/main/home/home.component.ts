@@ -89,9 +89,9 @@ export class HomeComponent implements OnInit{
   }
 
   async onCredentialsEdited(idOfEditedCredentials: string) {
-    // const idOfEditedCredentials: string = event.;
-    console.log('EVENT', idOfEditedCredentials);
-    
+    const idCreds: string = idOfEditedCredentials;
+    await this.loadCredentialOverviewData();
+    this.viewCredentialDetails(idCreds);
   }
 
   searchForCredentialInOverview(event: Event) {
