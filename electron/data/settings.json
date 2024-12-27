@@ -1,0 +1,8 @@
+{
+    "accountSettings": {
+        "deleteAccAfterNumberFailedLogins": {
+            "state": false,
+            "numberOfPermitedAttempts": 10
+        }
+    }
+}

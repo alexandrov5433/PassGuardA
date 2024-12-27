@@ -1,15 +1,16 @@
+import { AccountData } from "./accountData"
+import { AccountSettings } from "./accountSettings"
+
 export type Preloads =  {
-	accExists: Function,
-	// navTo: (view) => ipcRenderer.send('navTo', view),
-	// devTools: () => ipcRenderer.invoke('devTools:toggle'),
-	register: Function,
-	login: Function,
-	logout: Function,
+	accExists: () => Promise<boolean | Error>,
+	register: (accountData: AccountData) => Promise<true | Error>,
+	login: (accountData: AccountData) => Promise<true | Error>,
+	logout: () => Promise<true | Error>,
 	credOverviewReq: Function,
 	addCreds: Function,
 	fetchPassPlainText: Function,
 	deleteCredsById: (credId: string) => Promise<true | Error>,
-	// fetchCredsById: (credId) => ipcRenderer.invoke('fetchCredsById', credId),
 	sendCorrectionForCredsById: Function,
-	generatePassword: Function
+	generatePassword: Function,
+	getSettings: (settingsType: string) => Promise<AccountSettings | Error>
 }

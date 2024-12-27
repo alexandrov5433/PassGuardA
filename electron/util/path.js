@@ -4,7 +4,7 @@ const main = require('../main');
 const pathData = {
     'sensitive': getPathTo('/data/sensitive.json'),
     'session': getPathTo('/data/session.json'),
-    // 'settings': getPathTo('/data/settings.json'),
+    'settings': getPathTo('/data/settings.json'),
 };
 
 const pathPreloads = {

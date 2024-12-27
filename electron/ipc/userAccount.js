@@ -33,8 +33,8 @@ const ipcUserAccount = {
         });
     },
     logoutHandler: function () {
-        ipcMain.handle('logout', async () => {
-            return await confirmLogout();
+        ipcMain.handle('logout', () => {
+            return confirmLogout();
         });
     }
 }

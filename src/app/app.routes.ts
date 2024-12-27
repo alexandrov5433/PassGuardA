@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RedirectFunction, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { HomeComponent } from './main/home/home.component';
@@ -6,6 +6,8 @@ import { MainComponent } from './main/main.component';
 import { SettingsComponent } from './main/settings/settings.component';
 import { AccountComponent } from './main/settings/account/account.component';
 import { AppearanceComponent } from './main/settings/appearance/appearance.component';
+import { UserService } from './services/user.service';
+import { inject } from '@angular/core';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/main/home', pathMatch: 'full' },
@@ -23,11 +25,17 @@ export const routes: Routes = [
             },
         ]
     },
-    { path: '**', redirectTo: noRouteRedirection},
+    { path: '**', redirectTo: noRouteRedirection()},
     
     
 ];
 
-async function noRouteRedirection() {
-
+function noRouteRedirection(): RedirectFunction {
+    return () => {
+        const userService: UserService = inject(UserService);
+        if (userService.isUserLoggedIn) {
+            return '/main/home';
+        }
+        return '/main/login';
+    };
 }

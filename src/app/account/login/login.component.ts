@@ -1,10 +1,11 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AccountData } from '../../types/accountData';
 import { MessagingService } from '../../services/messaging.service';
 import { Router } from '@angular/router';
+import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
   standalone: true
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
@@ -62,6 +63,17 @@ export class LoginComponent {
       this.passwordError.set(true);
     } else {
       this.passwordError.set(false);
+    }
+  }
+
+  async ngOnInit() {
+    try {
+      const accExists = await this.user.accountExists();
+      if (accExists === false) {
+        this.router.navigate(['/register']);
+      }
+    } catch (err) {
+      this.messaging.showMsg((err as Error).message, 3000, 'error-snack-message');
     }
   }
 }

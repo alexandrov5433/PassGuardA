@@ -9,8 +9,12 @@ const { encrypt, decrypt } = require('./crypto.js');
 let secret;
 
 async function accountExists() {
-    const file = await getFile(pathData.session);
-    return file.accountExists;
+    try {
+        const file = await getFile(pathData.session);
+        return Boolean(file.accountExists);
+    } catch (err) {
+        throw err;
+    }
 }
 
 async function getFile(pathToFile) {
@@ -23,39 +27,47 @@ async function saveFile(pathToFile, data) {
 }
 
 async function confirmLogin(loginData) {
-    if (!await accountExists()) {
-        throw new Error('No account exists. Redirecting to Register page in 5 sec.');
-    }
-    const { username, password } = loginData;
-    let session = await getFile(pathData.session);
-    const usernameCorrect = await compareHash(username, session.username);
-    const passwordCorrect = await compareHash(password, session.mainKey);
-    if ( usernameCorrect && passwordCorrect ) {
-        secret = password;
-        return true;
-    } else {
-        throw new Error('Incorrect username or password.');
+    try {
+        if (!await accountExists()) {
+            throw new Error('No account exists. Redirecting to Register page in 5 sec.');
+        }
+        const { username, password } = loginData;
+        let session = await getFile(pathData.session);
+        const usernameCorrect = await compareHash(username, session.username);
+        const passwordCorrect = await compareHash(password, session.mainKey);
+        if ( usernameCorrect && passwordCorrect ) {
+            secret = password;
+            return true;
+        } else {
+            throw new Error('Incorrect username or password.');
+        }
+    } catch (err) {
+        throw err;
     }
 }
 
 async function registerUser(regData) {
-    if (await accountExists()) {
-        throw new Error('An account already exists.', { cause: 'accountExists' });
+    try {
+        if (await accountExists()) {
+            throw new Error('An account already exists.', { cause: 'accountExists' });
+        }
+        const { username, password } = regData;
+        if (!username || !password) {
+            throw new Error(`The values provided for either username or password are not valid. Received: username:"${username}", password:"${password}".`, { cause: 'invalidAccountData' });
+        }
+        let session = await getFile(pathData.session);
+        session.accountExists = true;
+        session.username = await genHash(username);
+        session.mainKey = await genHash(password);
+        await saveFile(pathData.session, session);
+        secret = password;
+        return true;
+    } catch (err) {
+        throw err;
     }
-    const { username, password } = regData;
-    if (!username || !password) {
-        throw new Error(`The values provided for either username or password are not valid. Received: username:"${username}", password:"${password}".`, { cause: 'invalidAccountData' });
-    }
-    let session = await getFile(pathData.session);
-    session.accountExists = true;
-    session.username = await genHash(username);
-    session.mainKey = await genHash(password);
-    await saveFile(pathData.session, session);
-    secret = password;
-    return true;
 }
 
-async function confirmLogout() {
+function confirmLogout() {
     secret = null;
     return true;
 }
@@ -149,6 +161,19 @@ async function editCredentialsById(id, data) {
     }
 }
 
+// settings
+async function getSettings(settingsType) {
+    try {
+        const allSettings = await getFile(pathData.settings);
+        if (!allSettings[settingsType]) {
+            throw new Error(`Settings of type: "${settingsType}" could not be found.`);
+        }
+        return allSettings[settingsType];
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -158,5 +183,6 @@ module.exports = {
     getCredentialsById,
     getCredentialsOverview,
     deleteCredentialsById,
-    editCredentialsById
+    editCredentialsById,
+    getSettings
 };

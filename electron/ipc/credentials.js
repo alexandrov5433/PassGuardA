@@ -32,17 +32,6 @@ const ipcCredentials = {
             }
         })
     },
-    // fetchCredsByIdHandler: function () {
-    //     ipcMain.handle('fetchCredsById', async (e, credId) => {
-    //         try {
-    //             const creds = await getCredentialsById(credId);
-    //             creds.password = null;
-    //             return creds;
-    //         } catch (err) {
-    //             return err;
-    //         }
-    //     });
-    // },
     sendCorrectionForCredsByIdHandler: function () {
         ipcMain.handle('sendCorrectionForCredsById', (e, data) => {
             try {

@@ -33,11 +33,9 @@ export class MainComponent {
 
   async logout() {
     const res = await this.user.logout();
-    if (res === true) {
-      return this.router.navigate(['/login']);
-    } else if (res instanceof Error) {
-      return this.messaging.showMsg(res.message, 3000, 'error-snack-message');
+    if (res instanceof Error) {
+      this.messaging.showMsg(res.message, 3000, 'error-snack-message');
     }
-    return;
+    return this.router.navigate(['/login']);
   }
 }

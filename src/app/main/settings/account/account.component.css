@@ -1,10 +1,10 @@
-/* :host {
+:host {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-} */
+}
 
 .account-container {
     width: 100%;
@@ -14,4 +14,52 @@
     flex-direction: column;
     justify-content: flex-start;
     border: 1px solid red;
+    padding: 0 15px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+
+    .setting-element {
+        border-bottom: 1px solid var(--neutralDark);
+        border: 1px solid rgb(0, 255, 98);
+        padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .upper {
+            .setting-title {
+                color: var(--neutralLight);
+                font-size: 1.5rem;
+            }
+
+            .setting-info {
+                color: var(--neutralLightDarker);
+                font-size: 1rem;
+            }
+
+            .action-box {
+                .green-icon {
+                    color: var(--new-leaf);
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+
+        .lower {
+            .setting-variable {
+                .variable-title {
+
+                }
+            }
+        }
+    }
+}
+
+.account-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.account-container::-webkit-scrollbar-thumb {
+    background-color: var(--rusty-red);
 }

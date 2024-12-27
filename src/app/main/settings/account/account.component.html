@@ -1,3 +1,39 @@
 <div class="account-container">
-    <p>account works!</p>
+
+
+
+    <div class="setting-element">
+        <div class="upper">
+            <h2 class="setting-title">Delete account after failed logins</h2>
+            <p class="setting-info">Delete the account and all saved credentials and settings data permanently after a specified number of failed login attempts. If, for exmaple, the number is set to 3, after the third failed attemt the data will be deleted and a fourth will not be possible.</p>
+            <div class="action-box">
+                @if (accountSettings()?.deleteAccAfterNumberFailedLogins?.state) {
+                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
+                } @else {
+                    <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
+                }
+            </div>
+        </div>
+        <div class="lower">
+            <div class="setting-variable">
+                <p class="variable-title">Allowed login attempts as a whole number. Minimum: 1.</p>
+                <input type="text" >
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-element">
+        <div class="upper">
+            <h2 class="setting-title">Setting title action</h2>
+            <div class="action-box">
+                <button class="general-btn">Action</button>
+            </div>
+        </div>
+        <div class="lower">
+
+        </div>
+    </div>
+
+
+
 </div>
