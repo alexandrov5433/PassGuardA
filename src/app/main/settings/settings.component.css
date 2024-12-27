@@ -1,6 +1,93 @@
 .settings-container {
     height: 100%;
     width: 100%;
-    /* border: 1px solid red; */
-    color: aliceblue;
+    color: var(--neutralLight);
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--neutralDark);
+    background-color: var(--secondry-background);
+
+
+    .overview {
+        width: 15%;
+        height: 100%;
+        border-right: 1px solid var(--neutralDark);
+        border: 1px solid rgb(255, 204, 0);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+
+        .category {
+            border: 1px solid rgb(191, 255, 0);
+            border-bottom: 1px solid var(--neutralDark);
+            display: flex;
+            flex-direction: row;
+            min-height: fit-content;
+            width: 100%;
+            padding: 0.5rem 0;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            
+
+            .icon-box {
+                height: fit-content;
+                width: 30%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                .icon {
+                    width: 100%;
+                    height: 30px;
+                }
+            }
+
+            .title-box {
+                min-height: fit-content;
+                width: 70%;
+                max-width: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                text-align: center;
+                color: var(--neutralLightDarker);
+                word-wrap: normal;
+            }
+        }
+
+        .category:hover {
+            background-color: var(--tertiary-background);
+            cursor: pointer;
+        }
+
+        /* class for when category is selected; makes background lighter and icon red */
+        .category.selected {
+            background-color: var(--tertiary-background);
+
+            .icon {
+                color: var(--claret);
+            }
+        }
+    }
+
+    .overview::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .overview::-webkit-scrollbar-thumb {
+        background-color: var(--rusty-red);
+    }
+
+    .details {
+        width: 85%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid red
+    }
+
 }
