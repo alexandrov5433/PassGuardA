@@ -1,39 +1,64 @@
 <div class="account-container">
 
-
+    <div class="setting-element">
+        <div class="upper">
+            <h2 class="setting-title">Block account after failed logins</h2>
+            <p class="setting-info">Block the account after a specified number of failed login attempts. If, for exmaple, the number is set to 3, after the third failed attemt the account will be blocked and a fourth login attempt will not be possible for the specified duration.</p>
+            <div class="action-box" (click)="toggleSettingState('blockAccAfterNumberFailedLogins')">
+                @if (accountSettings()?.blockAccAfterNumberFailedLogins?.state) {
+                    <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
+                } @else {
+                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
+                }
+            </div>
+        </div>
+        @if (accountSettings()?.blockAccAfterNumberFailedLogins?.state) {
+            <div class="lower">
+                <div class="setting-variable">
+                    <p class="variable-title">Allowed login attempts as a whole number. Minimum: 1.</p>
+                    <input type="number" [value]="blockAllowedAttempts()" #blAllowedAttempts>
+                    <button class="general-btn green-general-btn" (click)="setAccountVariable(blAllowedAttempts.value, 'blockAccAfterNumberFailedLogins', 'numberOfPermittedAttempts')">Save</button>
+                </div>
+                <div class="setting-variable">
+                    <p class="variable-title">Duration of the blocked state, in hours, as a whole number. Minimum: 1.</p>
+                    <input type="number" [value]="blockDuration()" #blDuration>
+                    <button class="general-btn green-general-btn" (click)="setAccountVariable(blDuration.value, 'blockAccAfterNumberFailedLogins', 'timeForBlockedStateHours')">Save</button>
+                </div>
+            </div>
+        }
+    </div>
 
     <div class="setting-element">
         <div class="upper">
             <h2 class="setting-title">Delete account after failed logins</h2>
             <p class="setting-info">Delete the account and all saved credentials and settings data permanently after a specified number of failed login attempts. If, for exmaple, the number is set to 3, after the third failed attemt the data will be deleted and a fourth will not be possible.</p>
-            <div class="action-box">
+            <div class="action-box" (click)="toggleSettingState('deleteAccAfterNumberFailedLogins')">
                 @if (accountSettings()?.deleteAccAfterNumberFailedLogins?.state) {
-                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
-                } @else {
                     <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
+                } @else {
+                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
                 }
             </div>
         </div>
-        <div class="lower">
-            <div class="setting-variable">
-                <p class="variable-title">Allowed login attempts as a whole number. Minimum: 1.</p>
-                <input type="text" >
+        @if (accountSettings()?.deleteAccAfterNumberFailedLogins?.state) {
+            <div class="lower">
+                <div class="setting-variable">
+                    <p class="variable-title">Allowed login attempts as a whole number. Minimum: 1.</p>
+                    <input type="number" #delAttempts [value]="deleteAllowedAttempts()">
+                    <button class="general-btn green-general-btn" (click)="setAccountVariable(delAttempts.value, 'deleteAccAfterNumberFailedLogins', 'numberOfPermittedAttempts')">Save</button>
+                </div>
             </div>
-        </div>
+        }
     </div>
 
-    <div class="setting-element">
+    <div class="setting-element last-settings-element">
         <div class="upper">
-            <h2 class="setting-title">Setting title action</h2>
+            <h2 class="setting-title">Delete account</h2>
+            <p class="setting-info">Delete the account and all saved credentials and settings data permanently.</p>
             <div class="action-box">
-                <button class="general-btn">Action</button>
+                <button class="general-btn red-general-btn" (click)="deleteAccount()">Delete account</button>
             </div>
         </div>
-        <div class="lower">
-
-        </div>
     </div>
-
-
 
 </div>

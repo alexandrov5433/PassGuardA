@@ -5,6 +5,7 @@ const { app, BrowserWindow } = require('electron/main');
 const { pathPreloads } = require('./util/path');
 const ipcUserAccount = require('./ipc/userAccount');
 const ipcCredentials = require('./ipc/credentials');
+const ipcSettings = require('./ipc/settings');
 
 
 function createWindow() {
@@ -32,6 +33,10 @@ function initHandlers() {
     ipcCredentials.addCredentialsHandler();
     ipcCredentials.sendCorrectionForCredsByIdHandler();
     ipcCredentials.deleteCredsByIdHandler();
+
+    ipcSettings.getSettingsHandler();
+    ipcSettings.setSettingsHandler();
+    ipcSettings.restoreDefaultSettingshandler();
 }
 
 app.whenReady().then(async () => {

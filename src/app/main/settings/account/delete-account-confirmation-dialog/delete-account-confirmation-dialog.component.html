@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="title-box">Permanent account deletion!</h1>
+<div mat-dialog-content class="content-box">
+    <p>Your account, saved credentials and settings will be permanently deleted. To confirm, please enter ypur account password below and click "Delete Account".</p>
+    <input type="text">
+</div>
+<div mat-dialog-actions class="button-box">
+    <button (click)="onDelete()" class="general-btn red-general-btn">Delete Account</button>
+    <button (click)="onCancel()" class="general-btn green-general-btn">Cancel</button>
+</div>

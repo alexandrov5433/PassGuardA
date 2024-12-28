@@ -174,6 +174,30 @@ async function getSettings(settingsType) {
     }
 }
 
+async function setSettings(settingsType, settingsSubType, newSettingsObj) {
+    try {
+        const allSettings = await getFile(pathData.settings);
+        if (!allSettings[settingsType] || !allSettings[settingsType][settingsSubType]) {
+            throw new Error(`Settings of type: "${settingsType}" or subtype: "${settingsSubType}" could not be found.`);
+        }
+        Object.assign(allSettings[settingsType][settingsSubType], newSettingsObj);
+        await saveFile(pathData.settings, allSettings);
+        return true;
+    } catch (err) {
+        throw err;
+    }
+}
+
+async function restoreDefaultSettings() {
+    try {
+        const defaults = await getFile(pathData.defaultSettings);
+        await saveFile(pathData.settings, defaults);
+        return true;
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -184,5 +208,7 @@ module.exports = {
     getCredentialsOverview,
     deleteCredentialsById,
     editCredentialsById,
-    getSettings
+    getSettings,
+    setSettings,
+    restoreDefaultSettings
 };

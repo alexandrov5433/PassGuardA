@@ -10,6 +10,7 @@
 
     .overview {
         width: 15%;
+        min-width: fit-content;
         height: 100%;
         border-right: 1px solid var(--neutralDark);
         display: flex;
@@ -47,6 +48,7 @@
                 min-height: fit-content;
                 width: 70%;
                 max-width: 90%;
+                min-width: fit-content;
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;

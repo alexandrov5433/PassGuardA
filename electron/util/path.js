@@ -5,6 +5,7 @@ const pathData = {
     'sensitive': getPathTo('/data/sensitive.json'),
     'session': getPathTo('/data/session.json'),
     'settings': getPathTo('/data/settings.json'),
+    'defaultSettings': getPathTo('/data/defaultSettings.json'),
 };
 
 const pathPreloads = {

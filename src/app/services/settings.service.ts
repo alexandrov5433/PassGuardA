@@ -12,4 +12,15 @@ export class SettingsService {
     async getAccountSettings(): Promise<AccountSettings | Error> {
         return await this.preloads.getSettings('accountSettings');
     }
+    async setSettings(
+        settingsType: 'accountSettings',
+        settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins',
+        newSettingsObj: any
+    ): Promise<true | Error> {
+        return await this.preloads.setSettings(settingsType, settingsSubType, newSettingsObj);
+    }
+
+    async restoreDefaultSettings() :Promise<true | Error> {
+        return await this.preloads.restoreDefaultSettings();
+    }
 }

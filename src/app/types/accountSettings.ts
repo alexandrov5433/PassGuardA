@@ -1,6 +1,11 @@
 export type AccountSettings = {
     deleteAccAfterNumberFailedLogins: {
         state: boolean,
-        numberOfPermitedAttempts: number
+        numberOfPermittedAttempts: number
+    },
+    blockAccAfterNumberFailedLogins: {
+        state: boolean,
+        numberOfPermittedAttempts: number,
+        timeForBlockedStateHours: number
     },
 }

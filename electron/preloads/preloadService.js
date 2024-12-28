@@ -11,5 +11,7 @@ contextBridge.exposeInMainWorld('preloads', {
 	deleteCredsById: (credId) => ipcRenderer.invoke('deleteCredsById', credId),
 	sendCorrectionForCredsById: (data) => ipcRenderer.invoke('sendCorrectionForCredsById', data),
 	generatePassword: (passSettings) => ipcRenderer.invoke('passwordGeneration', passSettings),
-	getSettings: (settingsType) => ipcRenderer.invoke('getSettings', settingsType)
+	getSettings: (settingsType) => ipcRenderer.invoke('getSettings', settingsType),
+	setSettings: (settingsType, settingsSubType, newSettingsObj) => ipcRenderer.invoke('setSettings', settingsType, settingsSubType, newSettingsObj),
+	restoreDefaultSettings: () => ipcRenderer.invoke('restoreDefaultSettings')
 });

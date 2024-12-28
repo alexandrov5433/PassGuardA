@@ -12,5 +12,7 @@ export type Preloads =  {
 	deleteCredsById: (credId: string) => Promise<true | Error>,
 	sendCorrectionForCredsById: Function,
 	generatePassword: Function,
-	getSettings: (settingsType: string) => Promise<AccountSettings | Error>
+	getSettings: (settingsType: string) => Promise<AccountSettings | Error>,
+	setSettings: (settingsType: string, settingsSubType: string, newSettingsObj: any) => Promise<true | Error>,
+	restoreDefaultSettings: () => Promise<true | Error>
 }

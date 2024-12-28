@@ -13,20 +13,30 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border: 1px solid red;
     padding: 0 15px;
     overflow-y: auto;
     scroll-behavior: smooth;
 
-    .setting-element {
+    button {
+        width: fit-content;
+        min-width: fit-content;
+    }
+
+    .setting-element:not(.last-settings-element) {
         border-bottom: 1px solid var(--neutralDark);
-        border: 1px solid rgb(0, 255, 98);
+    }
+
+    .setting-element {
         padding: 1rem 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
 
         .upper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+
             .setting-title {
                 color: var(--neutralLight);
                 font-size: 1.5rem;
@@ -38,22 +48,39 @@
             }
 
             .action-box {
+                .icon {
+                    width: 50px;
+                    height: 50px;
+                }
+
                 .green-icon {
                     color: var(--new-leaf);
                     width: 50px;
                     height: 50px;
                 }
+
+                .icon:hover,
+                .green-icon:hover {
+                    cursor: pointer;
+                }
             }
         }
 
         .lower {
-            .setting-variable {
-                .variable-title {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
 
-                }
+            .setting-variable {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
             }
+
         }
     }
+
+    
 }
 
 .account-container::-webkit-scrollbar {

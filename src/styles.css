@@ -162,6 +162,12 @@ input:focus {
     box-shadow: 0 0 5px var(--neutralLightDarker);
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 input.error,
 input.error:focus {
     box-shadow: 0 0 5px var(--rusty-red);
@@ -216,6 +222,7 @@ input.error:focus {
     border: 1px solid var(--neutralDark);
     margin-top: 5px;
 }
+
 .tooltip-red {
     background-color: var(--tertiary-background);
     color: var(--rusty-red);
@@ -225,6 +232,7 @@ input.error:focus {
     border: 1px solid var(--neutralDark);
     margin-top: 5px;
 }
+
 .tooltip-green {
     background-color: var(--tertiary-background);
     color: var(--leaf);
@@ -247,19 +255,19 @@ input.error:focus {
         background-color: var(--secondry-background);
         border-color: transparent;
     }
-    
+
     .title-box {
         background-color: var(--secondry-background);
         color: var(--neutralLight) !important;
         font-size: 1.5rem !important;
     }
-    
+
     .content-box {
         background-color: var(--secondry-background);
         color: var(--neutralLightDarker) !important;
         font-size: 1rem !important;
     }
-    
+
     .button-box {
         background-color: var(--secondry-background);
         width: 100%;

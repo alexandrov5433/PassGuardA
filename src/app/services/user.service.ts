@@ -36,4 +36,8 @@ export class UserService {
     this._isUserLoggedIn = false;
     return res;
   }
+
+  async deleteUserAccount(password: string) {
+    
+  }
 }
