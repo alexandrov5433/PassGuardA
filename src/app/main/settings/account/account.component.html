@@ -2,6 +2,28 @@
 
     <div class="setting-element">
         <div class="upper">
+            <h2 class="setting-title">Automatic log out after inactivity</h2>
+            <p class="setting-info">If the user is logged in and does not interact with the application for the specified duration, e.g. clicking, typing or changing views, he will be automatically logged out.</p>
+            <div class="action-box" (click)="toggleSettingState('automaticLogout')">
+                @if (accountSettings()?.automaticLogout?.state) {
+                    <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
+                } @else {
+                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
+                }
+            </div>
+        </div>
+        @if (accountSettings()?.automaticLogout?.state) {
+            <div class="lower">
+                <div class="setting-variable">
+                    <p class="variable-title">Duration of inactivity after which user is logged out, in minutes, as a whole number. Minimum: 1.</p>
+                    <input type="number" [value]="autoLogoutMinutes()" #autoLogoutMins>
+                    <button class="general-btn green-general-btn" (click)="setAccountVariable(autoLogoutMins.value, 'automaticLogout', 'timeUntilAutoLogoutMinutes')">Save</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="setting-element">
+        <div class="upper">
             <h2 class="setting-title">Block account after failed logins</h2>
             <p class="setting-info">Block the account after a specified number of failed login attempts. If, for exmaple, the number is set to 3, after the third failed attemt the account will be blocked and a fourth login attempt will not be possible for the specified duration.</p>
             <div class="action-box" (click)="toggleSettingState('blockAccAfterNumberFailedLogins')">

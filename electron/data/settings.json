@@ -8,6 +8,10 @@
       "state": true,
       "numberOfPermittedAttempts": 5,
       "timeForBlockedStateHours": 1
+    },
+    "automaticLogout": {
+      "state": true,
+      "timeUntilAutoLogoutMinutes": 23
     }
   }
 }

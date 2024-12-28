@@ -14,7 +14,7 @@ export class SettingsService {
     }
     async setSettings(
         settingsType: 'accountSettings',
-        settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins',
+        settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins' | 'automaticLogout',
         newSettingsObj: any
     ): Promise<true | Error> {
         return await this.preloads.setSettings(settingsType, settingsSubType, newSettingsObj);

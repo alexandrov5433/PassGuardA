@@ -27,6 +27,10 @@ export class AccountComponent implements OnInit, OnDestroy {
   deleteAllowedAttempts: Signal<number> = computed(() => {
     return this.accountSettings()?.deleteAccAfterNumberFailedLogins.numberOfPermittedAttempts || 10;
   });
+  // auto logout
+  autoLogoutMinutes: Signal<number> = computed(() => {
+    return this.accountSettings()?.automaticLogout.timeUntilAutoLogoutMinutes || 30;
+  }); 
 
   constructor(
     private iconReg: MatIconRegistry,
@@ -46,7 +50,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     );
   }
 
-  async toggleSettingState(settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins') {
+  async toggleSettingState(settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins' | 'automaticLogout') {
     const newSettingsObj = this.accountSettings()?.[settingsSubType];
     if (!newSettingsObj) {
       this.messaging.showMsg('The specified settings do not exist.', 3000, 'error-snack-message');
@@ -63,8 +67,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   async setAccountVariable(
     variableNewValue: string | number,
-    settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins',
-    variableName: 'numberOfPermittedAttempts' | 'timeForBlockedStateHours'
+    settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins' | 'automaticLogout',
+    variableName: 'numberOfPermittedAttempts' | 'timeForBlockedStateHours' | 'timeUntilAutoLogoutMinutes'
   ) {
     variableNewValue = Math.ceil(Number(variableNewValue));
     if (variableNewValue < 1) {

@@ -8,4 +8,8 @@ export type AccountSettings = {
         numberOfPermittedAttempts: number,
         timeForBlockedStateHours: number
     },
+    automaticLogout: {
+        state: boolean,
+        timeUntilAutoLogoutMinutes: number
+    },
 }
