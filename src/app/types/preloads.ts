@@ -14,5 +14,6 @@ export type Preloads =  {
 	generatePassword: Function,
 	getSettings: (settingsType: string) => Promise<AccountSettings | Error>,
 	setSettings: (settingsType: string, settingsSubType: string, newSettingsObj: any) => Promise<true | Error>,
-	restoreDefaultSettings: () => Promise<true | Error>
+	restoreDefaultSettings: () => Promise<true | Error>,
+	deleteUserAccount: (password: string) => Promise<true | Error>
 }

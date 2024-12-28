@@ -72,6 +72,18 @@ function confirmLogout() {
     return true;
 }
 
+async function deleteUserAccount(password) {
+    try {
+        if (password !== secret) {
+            throw new Error('Wrong password.');
+        }
+        await Promise.all([restoreDefaultSettings(), resetAccount(), resetCredentials()]);
+        return true;
+    } catch (err) {
+        throw err;
+    }
+}
+
 async function saveNewCredentials(data) {
     try {
         const { title, username, password } = data;
@@ -198,6 +210,31 @@ async function restoreDefaultSettings() {
     }
 }
 
+async function resetAccount() {
+    return await saveFile(pathData.session, {
+        "accountExists": false,
+        "username": null,
+        "mainKey": null
+      });
+}
+
+async function resetCredentials() {
+    return await saveFile(pathData.sensitive, []);
+    // sensitive.json structure
+    // [  
+    //     {
+    //       "id": "9e519b84-ba7a-4dc9-a90d-56253e6b2d70",
+    //       "title": "xxxxxx",
+    //       "username": "xxxxx",
+    //       "password": {
+    //         "value": "LLDDGac7je+z5iJJjsnjE=",
+    //         "iv": "IEgSF0aAxz78IOwU7i",
+    //         "tag": "B73xxxVgx8sdKjlsU4/bKoUg=="
+    //       }
+    //     }
+    // ]
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -210,5 +247,6 @@ module.exports = {
     editCredentialsById,
     getSettings,
     setSettings,
-    restoreDefaultSettings
+    restoreDefaultSettings,
+    deleteUserAccount
 };

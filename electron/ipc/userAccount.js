@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron');
-const {  accountExists, registerUser, confirmLogin, confirmLogout } = require('../data/dataService.js');
+const {  accountExists, registerUser, confirmLogin, confirmLogout, deleteUserAccount } = require('../data/dataService.js');
 
 const ipcUserAccount = {
     accountExists: function () {
@@ -35,6 +35,15 @@ const ipcUserAccount = {
     logoutHandler: function () {
         ipcMain.handle('logout', () => {
             return confirmLogout();
+        });
+    },
+    deleteUserAccountHandler: function () {
+        ipcMain.handle('deleteUserAccount', async (e, password) => {
+            try {
+                return await deleteUserAccount(password);
+            } catch (err) {
+                return err;
+            }
         });
     }
 }

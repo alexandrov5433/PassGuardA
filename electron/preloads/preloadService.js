@@ -13,5 +13,6 @@ contextBridge.exposeInMainWorld('preloads', {
 	generatePassword: (passSettings) => ipcRenderer.invoke('passwordGeneration', passSettings),
 	getSettings: (settingsType) => ipcRenderer.invoke('getSettings', settingsType),
 	setSettings: (settingsType, settingsSubType, newSettingsObj) => ipcRenderer.invoke('setSettings', settingsType, settingsSubType, newSettingsObj),
-	restoreDefaultSettings: () => ipcRenderer.invoke('restoreDefaultSettings')
+	restoreDefaultSettings: () => ipcRenderer.invoke('restoreDefaultSettings'),
+	deleteUserAccount: (password) => ipcRenderer.invoke('deleteUserAccount', password)
 });

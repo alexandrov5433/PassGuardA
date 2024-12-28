@@ -26,6 +26,7 @@ function initHandlers() {
     ipcUserAccount.loginHandler();
     ipcUserAccount.registrationHandler();
     ipcUserAccount.logoutHandler();
+    ipcUserAccount.deleteUserAccountHandler();
     
     ipcCredentials.generatePasswordHandler();
     ipcCredentials.credOverviewReqHandler();
