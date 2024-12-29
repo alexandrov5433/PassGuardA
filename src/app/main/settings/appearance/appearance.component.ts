@@ -6,6 +6,7 @@ import { SettingsService } from '../../../services/settings.service';
 import { MessagingService } from '../../../services/messaging.service';
 import { AccountSettings } from '../../../types/accountSettings';
 import { AppearanceSettings } from '../../../types/appearanceSettings';
+import { RootElement } from '../../../types/rootElem';
 
 @Component({
   selector: 'app-appearance',
@@ -33,9 +34,14 @@ export class AppearanceComponent implements OnInit {
   }
 
   async changeThemeSetting(theme: 'light' | 'dark') {
-    await this.setAppearanceSettings(theme, 'theme', 'style');
-    await this.loadAppearanceSettings();
-    this.messaging.showMsg('Changes saved!', 2000, 'positive-snack-message');
+    try {
+      await this.setAppearanceSettings(theme, 'theme', 'style');
+      await this.loadAppearanceSettings();
+      await this.updateTheme();
+      this.messaging.showMsg('Changes saved!', 2000, 'positive-snack-message');
+    } catch (err) {
+      this.messaging.showMsg((err as Error).message, 3000, 'error-snack-message');
+    }
   }
 
   private async setAppearanceSettings(
@@ -45,8 +51,7 @@ export class AppearanceComponent implements OnInit {
   ) {
     const newSettingsObj = this.appearanceSettings()?.[settingsSubType];
     if (!newSettingsObj) {
-      this.messaging.showMsg('The specified settings do not exist.', 3000, 'error-snack-message');
-      return;
+      throw new Error('The specified settings do not exist.');
     }
     (newSettingsObj as any)[variableName] = variableNewValue;
     const res = await this.settingsService.setSettings(
@@ -55,13 +60,12 @@ export class AppearanceComponent implements OnInit {
       newSettingsObj
     );
     if (res instanceof Error) {
-      this.messaging.showMsg((res as Error).message, 3000, 'error-snack-message');
-      return;
+      throw res;
     }
   }
 
   private async loadAppearanceSettings() {
-    const _appearanceSettings = await this.settingsService.getSettings('accountSettings');
+    const _appearanceSettings = await this.settingsService.getSettings('appearanceSettings');
     if (_appearanceSettings instanceof Error) {
       return this.messaging.showMsg((_appearanceSettings as Error).message, 3000, 'error-snack-message');
     }
@@ -71,14 +75,18 @@ export class AppearanceComponent implements OnInit {
     this.appearanceSettings.set(_appearanceSettings as AppearanceSettings);
   }
 
-  private updateTheme() {
-    const root = document.querySelector(':root');
-    const props = getComputedStyle(root!);
-    const settings = Object.entries(this.appearanceSettings() || {});
-    for (let [key, val] of settings) {
-      props.setProperty(key, val);
+  private async updateTheme() {
+    const root: RootElement | null = document.querySelector(':root');
+    if (!root) {
+      throw new Error('Root element could not be found.');
     }
-    console.log(props.getPropertyValue('--claret'));
+    const themeVars = await this.settingsService.getThemeStyleVariables(this.appearanceSettings()?.theme.style || 'dark'); 
+    if (themeVars instanceof Error) {
+      throw themeVars;
+    }
+    for (let [key, val] of Object.entries(themeVars)) {
+      root.style.setProperty(key, val);
+    }
   }
 
   async ngOnInit() {

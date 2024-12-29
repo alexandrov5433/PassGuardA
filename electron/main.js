@@ -10,8 +10,8 @@ const ipcSettings = require('./ipc/settings');
 
 function createWindow() {
     const newWindow = new BrowserWindow({
-        width: 1200,
-        height: 1000,
+        width: 1000,
+        height: 800,
         webPreferences: {
             preload: pathPreloads.preloadService
         }
@@ -38,6 +38,7 @@ function initHandlers() {
     ipcSettings.getSettingsHandler();
     ipcSettings.setSettingsHandler();
     ipcSettings.restoreDefaultSettingshandler();
+    ipcSettings.getThemeStyleVariablesHandler();
 }
 
 app.whenReady().then(async () => {

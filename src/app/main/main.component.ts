@@ -7,6 +7,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SettingsService } from '../services/settings.service';
 import { AccountSettings } from '../types/accountSettings';
 import { interval, Subject, takeUntil } from 'rxjs';
+import { RootElement } from '../types/rootElem';
+import { AppearanceSettings } from '../types/appearanceSettings';
 
 @Component({
   selector: 'app-main',
@@ -25,7 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private messaging: MessagingService,
     private iconReg: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private settingsSservice: SettingsService
+    private settingsService: SettingsService
   ) {
     this.iconReg.addSvgIcon(
       'settings',
@@ -49,12 +51,14 @@ export class MainComponent implements OnInit, OnDestroy {
     this.clock.set(0);
   }
 
-  async ngOnInit() {
-    const res = await this.settingsSservice.getAccountSettings();
-    if (res instanceof Error) {
+
+
+  private async autoLogoutSetter() {
+    const resAccountSettings = await this.settingsService.getSettings('accountSettings');
+    if (resAccountSettings instanceof Error) {
       return;
     }
-    const autoLogoutSettings = (res as AccountSettings).automaticLogout;
+    const autoLogoutSettings = (resAccountSettings as AccountSettings).automaticLogout;
     if (!autoLogoutSettings.state) {
       return;
     }
@@ -73,6 +77,10 @@ export class MainComponent implements OnInit, OnDestroy {
           await this.logout();
         }
       });
+  }
+
+  async ngOnInit() {
+    await this.autoLogoutSetter()
   }
 
   ngOnDestroy(): void {

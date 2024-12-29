@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron');
-const { getSettings, setSettings, restoreDefaultSettings } = require('../data/dataService.js');
+const { getSettings, setSettings, restoreDefaultSettings, getThemeVariables } = require('../data/dataService.js');
 
 const ipcSettings = {
     getSettingsHandler: function() {
@@ -24,6 +24,15 @@ const ipcSettings = {
         ipcMain.handle('restoreDefaultSettings', async (e) => {
             try {
                 return await restoreDefaultSettings();
+            } catch (err) {
+                return err;
+            }
+        });
+    },
+    getThemeStyleVariablesHandler: function () {
+        ipcMain.handle('getThemeVariables', async (e, themeStyle) => {
+            try {
+                return await getThemeVariables(themeStyle);
             } catch (err) {
                 return err;
             }

@@ -1,6 +1,7 @@
 import { AccountData } from "./accountData"
 import { AccountSettings } from "./accountSettings"
 import { AppearanceSettings } from "./appearanceSettings"
+import { ThemeVariables } from "./themeVariables"
 
 export type Preloads =  {
 	accExists: () => Promise<boolean | Error>,
@@ -16,5 +17,6 @@ export type Preloads =  {
 	getSettings: (settingsType: string) => Promise<AccountSettings | AppearanceSettings | Error>,
 	setSettings: (settingsType: string, settingsSubType: string, newSettingsObj: any) => Promise<true | Error>,
 	restoreDefaultSettings: () => Promise<true | Error>,
-	deleteUserAccount: (password: string) => Promise<true | Error>
+	deleteUserAccount: (password: string) => Promise<true | Error>,
+	getThemeVariables: (themeStyle: string) => Promise<ThemeVariables | Error>,
 }

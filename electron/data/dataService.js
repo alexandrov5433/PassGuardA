@@ -235,6 +235,18 @@ async function resetCredentials() {
     // ]
 }
 
+async function getThemeVariables(themeStyle) {
+    try {
+        const themes = await getFile(pathData.themes);
+        if (!themes[themeStyle]) {
+            throw new Error(`The theme style "${themeStyle}" was not found.`);
+        }
+        return themes[themeStyle];
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -248,5 +260,6 @@ module.exports = {
     getSettings,
     setSettings,
     restoreDefaultSettings,
-    deleteUserAccount
+    deleteUserAccount,
+    getThemeVariables
 };

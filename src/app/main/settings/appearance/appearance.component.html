@@ -8,7 +8,7 @@
    
             <div class="lower">
                 <div class="setting-variable">
-                    <p class="variable-title">Current theme: {{appearanceSettings()?.theme || ''}}</p>
+                    <p class="variable-title">Current theme: {{appearanceSettings()?.theme?.style || ''}}</p>
                     <button class="general-btn" [matMenuTriggerFor]="themeMenu">View themes</button>
                     <mat-menu #themeMenu class="select-menu">
                         <button mat-menu-item (click)="changeThemeSetting('dark')" class="option">Dark</button>

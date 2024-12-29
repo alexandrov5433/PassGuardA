@@ -13,7 +13,7 @@ export class SettingsService {
     async getSettings(
         settingsType: 'accountSettings' | 'appearanceSettings'
     ): Promise<AccountSettings | AppearanceSettings | Error> {
-        return await this.preloads.getSettings('accountSettings');
+        return await this.preloads.getSettings(settingsType);
     }
     async setSettings(
         settingsType: 'accountSettings' | 'appearanceSettings',
@@ -25,5 +25,9 @@ export class SettingsService {
 
     async restoreDefaultSettings() :Promise<true | Error> {
         return await this.preloads.restoreDefaultSettings();
+    }
+
+    async getThemeStyleVariables(themeStyle: string) {
+        return await this.preloads.getThemeVariables(themeStyle);
     }
 }

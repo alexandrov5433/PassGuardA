@@ -6,6 +6,7 @@ const pathData = {
     'session': getPathTo('/data/session.json'),
     'settings': getPathTo('/data/settings.json'),
     'defaultSettings': getPathTo('/data/defaultSettings.json'),
+    'themes': getPathTo('/data/themes.json'),
 };
 
 const pathPreloads = {
