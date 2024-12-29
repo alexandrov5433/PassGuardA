@@ -16,6 +16,8 @@
     /* --mat-icon-color: var(--neutralLight) */
     --new-leaf: #33CC33;
     --leaf: #248f24;
+
+    font-size: 16px;
 }
 
 html,
@@ -291,5 +293,19 @@ input.error:focus {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+    }
+}
+
+/* select menu */
+.select-menu {
+    background-color: var(--secondry-background) !important;
+    color: var(--neutralLightDarker) !important;
+    border: 1px solid var(--neutralDark) !important;
+    .option {
+        font-size: 1.3rem !important;
+    }
+    .option:hover {
+        background-color: var(--tertiary-background) !important;
+        color: var(--neutralLight) !important;
     }
 }

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-appearance',
-  imports: [MatIconModule],
+  imports: [MatIconModule, MatMenuModule],
   templateUrl: './appearance.component.html',
-  styleUrl: './appearance.component.css'
+  styleUrl: '../all-specific-settings.component.css'
 })
 export class AppearanceComponent {
   constructor(
@@ -21,5 +22,10 @@ export class AppearanceComponent {
       'toggle-off',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./toggle-off.svg')
     );
+  }
+
+  themeCange(theme: 'light' | 'dark') {
+    console.log(theme);
+    
   }
 }

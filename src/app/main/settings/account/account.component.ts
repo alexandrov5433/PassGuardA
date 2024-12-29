@@ -5,16 +5,16 @@ import { AccountSettings } from '../../../types/accountSettings';
 import { SettingsService } from '../../../services/settings.service';
 import { MessagingService } from '../../../services/messaging.service';
 import { FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteAccountConfirmationDialogComponent } from './delete-account-confirmation-dialog/delete-account-confirmation-dialog.component';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
   imports: [MatIconModule, FormsModule],
   templateUrl: './account.component.html',
-  styleUrl: './account.component.css'
+  styleUrl: '../all-specific-settings.component.css'
 })
 export class AccountComponent implements OnInit, OnDestroy {
   ngDestroyer: Subject<boolean> = new Subject();
