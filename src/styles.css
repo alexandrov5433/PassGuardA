@@ -1,19 +1,24 @@
 :root {
     --primary-background: #0A0A0A;
     /* main background color */
+
     --secondry-background: #141414;
     /* lighter element background color */
+
     --tertiary-background: #292929;
     /* emphasized elements background color */
+
     --neutralDark: #3D3D3D;
     /* borders and such */
+
     --neutralLightDarker: #ADADAD;
     /* secondary text */
+
     --neutralLight: #FFFFFF;
     /* main text */
+
     --rusty-red: #d52941ff;
     --claret: #990d35ff;
-    /* --mat-icon-color: var(--neutralLight) */
     --new-leaf: #33CC33;
     --leaf: #248f24;
 

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteAccountConfirmationDialogComponent } from './delete-account-confirmation-dialog/delete-account-confirmation-dialog.component';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { AppearanceSettings } from '../../../types/appearanceSettings';
 
 @Component({
   selector: 'app-account',
@@ -96,11 +97,14 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   private async loadAccSettings() {
-    const accSettings = await this.settingsService.getAccountSettings();
+    const accSettings = await this.settingsService.getSettings('accountSettings');
     if (accSettings instanceof Error) {
       return this.messaging.showMsg((accSettings as Error).message, 3000, 'error-snack-message');
     }
-    this.accountSettings.set(accSettings);
+    if ((accSettings as AppearanceSettings).theme) {
+      return this.messaging.showMsg('AppearanceSettings can not be used in Account component.', 3000, 'error-snack-message');
+    }
+    this.accountSettings.set(accSettings as AccountSettings);
   }
 
   private reloadAccVars() {

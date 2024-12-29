@@ -1,0 +1,18 @@
+{
+  "dark": {
+    "--primary-background": "#0A0A0A",
+    "--secondry-background": "#141414",
+    "--tertiary-background": "#292929",
+    "--neutralDark": "#3D3D3D",
+    "--neutralLightDarker": "#ADADAD",
+    "--neutralLight": "#FFFFFF"
+  },
+  "light": {
+    "--primary-background": "#FFFFFF",
+    "--secondry-background": "#ADADAD",
+    "--tertiary-background": "#8d8d8d",
+    "--neutralDark": "#292929",
+    "--neutralLightDarker": "#141414",
+    "--neutralLight": "#0A0A0A"
+  }
+}

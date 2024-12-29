@@ -1,5 +1,6 @@
 import { AccountData } from "./accountData"
 import { AccountSettings } from "./accountSettings"
+import { AppearanceSettings } from "./appearanceSettings"
 
 export type Preloads =  {
 	accExists: () => Promise<boolean | Error>,
@@ -12,7 +13,7 @@ export type Preloads =  {
 	deleteCredsById: (credId: string) => Promise<true | Error>,
 	sendCorrectionForCredsById: Function,
 	generatePassword: Function,
-	getSettings: (settingsType: string) => Promise<AccountSettings | Error>,
+	getSettings: (settingsType: string) => Promise<AccountSettings | AppearanceSettings | Error>,
 	setSettings: (settingsType: string, settingsSubType: string, newSettingsObj: any) => Promise<true | Error>,
 	restoreDefaultSettings: () => Promise<true | Error>,
 	deleteUserAccount: (password: string) => Promise<true | Error>

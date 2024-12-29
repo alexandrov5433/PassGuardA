@@ -4,22 +4,15 @@
         <div class="upper">
             <h2 class="setting-title">Theme</h2>
             <p class="setting-info">You can choose one of the available themes, to change the appearance of the application to your liking.</p>
-            <!-- <div class="action-box" (click)="toggleSettingState('automaticLogout')">
-                @if (accountSettings()?.automaticLogout?.state) {
-                    <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
-                } @else {
-                    <mat-icon svgIcon="toggle-off" class="icon"></mat-icon>
-                }
-            </div> -->
         </div>
    
             <div class="lower">
                 <div class="setting-variable">
-                    <p class="variable-title">Current theme: Dark</p>
+                    <p class="variable-title">Current theme: {{appearanceSettings()?.theme || ''}}</p>
                     <button class="general-btn" [matMenuTriggerFor]="themeMenu">View themes</button>
                     <mat-menu #themeMenu class="select-menu">
-                        <button mat-menu-item (click)="themeCange('dark')" class="option">Dark</button>
-                        <button mat-menu-item (click)="themeCange('light')" class="option">Light</button>
+                        <button mat-menu-item (click)="changeThemeSetting('dark')" class="option">Dark</button>
+                        <button mat-menu-item (click)="changeThemeSetting('light')" class="option">Light</button>
                     </mat-menu>
                 </div>
             </div>

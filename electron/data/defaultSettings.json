@@ -10,8 +10,13 @@
       "timeForBlockedStateHours": 1
     },
     "automaticLogout": {
-      "state": true,
+      "state": false,
       "timeUntilAutoLogoutMinutes": 30
+    }
+  },
+  "appearanceSettings": {
+    "theme": {
+      "style": "dark"
     }
   }
 }

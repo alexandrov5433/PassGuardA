@@ -13,5 +13,10 @@
       "state": false,
       "timeUntilAutoLogoutMinutes": 1
     }
+  },
+  "appearanceSettings": {
+    "theme": {
+      "style": "dark"
+    }
   }
 }
