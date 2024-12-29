@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatMenuModule } from '@angular/material/menu';
@@ -16,6 +16,14 @@ import { RootElement } from '../../../types/rootElem';
 })
 export class AppearanceComponent implements OnInit {
   appearanceSettings: WritableSignal<AppearanceSettings | null> = signal(null);
+  currentTheme: Signal<string> = computed(() => {
+    if(!this.appearanceSettings()?.theme?.style) {
+      return '';
+    }
+    const themeStyleArr = (this.appearanceSettings()?.theme?.style || '').split('');
+    themeStyleArr[0] = themeStyleArr[0].toUpperCase();
+    return themeStyleArr.join('');
+  });
 
   constructor(
     private iconReg: MatIconRegistry,
