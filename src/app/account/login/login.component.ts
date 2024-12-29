@@ -5,7 +5,6 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AccountData } from '../../types/accountData';
 import { MessagingService } from '../../services/messaging.service';
 import { Router } from '@angular/router';
-import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-login',

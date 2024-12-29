@@ -6,7 +6,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SettingsService } from '../services/settings.service';
 import { AccountSettings } from '../types/accountSettings';
-import { interval, Subject, takeUntil, timer } from 'rxjs';
+import { interval, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-main',

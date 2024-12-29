@@ -11,7 +11,7 @@
     },
     "automaticLogout": {
       "state": true,
-      "timeUntilAutoLogoutMinutes": 23
+      "timeUntilAutoLogoutMinutes": 1
     }
   }
 }

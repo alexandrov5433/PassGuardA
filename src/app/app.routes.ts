@@ -10,7 +10,7 @@ import { UserService } from './services/user.service';
 import { inject } from '@angular/core';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/main/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'main/settings', redirectTo: '/main/settings/account', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
@@ -26,8 +26,6 @@ export const routes: Routes = [
         ]
     },
     { path: '**', redirectTo: noRouteRedirection()},
-    
-    
 ];
 
 function noRouteRedirection(): RedirectFunction {
