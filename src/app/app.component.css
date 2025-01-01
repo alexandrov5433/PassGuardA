@@ -6,7 +6,7 @@
 }
 
 .all-container::-webkit-scrollbar {
-    width: 7px;
+    width: 4px;
 }
 
 .all-container::-webkit-scrollbar-thumb {
