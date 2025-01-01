@@ -7,7 +7,7 @@
                     <mat-icon svgIcon="search" class="icon search-icon"></mat-icon>
                 </div>
                 <div class="search-creds-box">
-                    <input type="text" class="search-creads" placeholder="Search by title" (change)="searchForCredentialInOverview($event)">
+                    <input type="text" class="search-creads" placeholder="Search by title" (keydown)="searchForCredentialInOverview($event)">
                 </div>
             </div>
             <div class="add-creads-elem">
@@ -24,7 +24,7 @@
             } @else {
                 @if (credentialsOverviewData()) {
                     @for (credential of credentialsOverviewData(); track $index) {
-                        <div class="cred-box" (click)="viewCredentialDetails(credential.id)" [class]="markSelectedById === credential.id ? 'selected' : ''">
+                        <div class="cred-box" id="{{credential.id}}" (click)="viewCredentialDetails(credential.id)" [class]="markSelectedById === credential.id ? 'selected' : ''">
                             <div class="cred-icon-box">
                                 <mat-icon svgIcon="arrow-right" class="icon arrow-icon"></mat-icon>
                             </div>

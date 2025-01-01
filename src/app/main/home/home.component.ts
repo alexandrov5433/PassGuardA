@@ -17,7 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './home.component.css',
   standalone: true
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   credentialsOverviewData: WritableSignal<Array<CredentialsData> | null> = signal(null);
   credentialsDetailsData!: CredentialsData;
 
@@ -29,11 +29,11 @@ export class HomeComponent implements OnInit{
 
   markSelectedById: String = '';
 
-  constructor (
-        private iconReg: MatIconRegistry,
-        private domSanitizer: DomSanitizer,
-        private dataService: DataService,
-        private messagingService: MessagingService
+  constructor(
+    private iconReg: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private dataService: DataService,
+    private messagingService: MessagingService,
   ) {
     this.iconReg.addSvgIcon(
       'search',
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit{
     this.showAddCreds.set(false);
     this.isDetailsDisplayed.set(true)
     this.isDetailsLoading.set(true);
-    const credDetailsData: CredentialsData = this.credentialsOverviewData()?.find( c => c.id == id )!;
+    const credDetailsData: CredentialsData = this.credentialsOverviewData()?.find(c => c.id == id)!;
     this.credentialsDetailsData = credDetailsData;
     this.isDetailsLoading.set(false);
   }
@@ -101,14 +101,23 @@ export class HomeComponent implements OnInit{
     this.markSelectedById = '';
   }
 
-  searchForCredentialInOverview(event: Event) {
+  searchForCredentialInOverview(event: KeyboardEvent) {
+    if (event.key !== 'Enter') {
+      return;
+    }
     const searchVal = (event?.target as CredSerchEventTarget).value;
     const regex = new RegExp(`${searchVal}`, 'i');
-    const credId: string = this.credentialsOverviewData()?.find( c => regex.test(c.title))?.id || '';
+    const credId: string = this.credentialsOverviewData()?.find(c => regex.test(c.title))?.id || '';
     if (!credId) {
       this.messagingService.showMsg(`No credentials found with title: "${searchVal}".`, 2000, 'simple-snack-message');
-      return 
-    };
+      return
+    } else {
+      document.getElementById(credId)!.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest"
+      });
+    }
     this.viewCredentialDetails(credId);
   }
 
