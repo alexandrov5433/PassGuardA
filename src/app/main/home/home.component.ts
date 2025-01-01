@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
     const credId: string = this.credentialsOverviewData()?.find(c => regex.test(c.title))?.id || '';
     if (!credId) {
       this.messagingService.showMsg(`No credentials found with title: "${searchVal}".`, 2000, 'simple-snack-message');
-      return
+      return;
     } else {
       document.getElementById(credId)!.scrollIntoView({
         behavior: "smooth",
