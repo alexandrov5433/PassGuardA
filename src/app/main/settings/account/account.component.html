@@ -3,7 +3,7 @@
     <div class="setting-element">
         <div class="upper">
             <h2 class="setting-title">Automatic log out after inactivity</h2>
-            <p class="setting-info">If the user is logged in and does not interact with the application for the specified duration, e.g. clicking, typing or changing views, he will be automatically logged out.</p>
+            <p class="setting-info">If the user is logged in and does not interact with the application for the specified duration, e.g. clicking, typing or changing views, he will be automatically logged out. Please login again or restart the applocation for this change to take place.</p>
             <div class="action-box" (click)="toggleSettingState('automaticLogout')">
                 @if (accountSettings()?.automaticLogout?.state) {
                     <mat-icon svgIcon="toggle-on" class="green-icon"></mat-icon>
