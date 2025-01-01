@@ -4,6 +4,7 @@
   "author": "Alex",
   "version": "1.0.0",
   "main": "./electron/main.js",
+  "description": "An offline desktop password manager.",
   "scripts": {
     "ng": "ng",
     "start": "electron-forge start",
