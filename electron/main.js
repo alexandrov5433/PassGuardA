@@ -14,7 +14,9 @@ function createWindow() {
         height: 800,
         webPreferences: {
             preload: pathPreloads.preloadService
-        }
+        },
+        show: false,
+        backgroundColor: '#0A0A0A'
     });
     newWindow.loadFile('dist/pass-guard-a/browser/index.html');
     newWindow.webContents.openDevTools();
@@ -41,9 +43,12 @@ function initHandlers() {
     ipcSettings.getThemeStyleVariablesHandler();
 }
 
-app.whenReady().then(async () => {
-    createWindow();
+app.whenReady().then(() => {
+    const win = createWindow();
     initHandlers();
+    win.once('ready-to-show', () => {
+        win.show();
+    });
 });
 
 app.on('window-all-closed', () => {
