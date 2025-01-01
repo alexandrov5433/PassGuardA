@@ -46,6 +46,8 @@ function initHandlers() {
 app.whenReady().then(() => {
     const win = createWindow();
     initHandlers();
+    win.setTitle('PassGuardA');
+    win.removeMenu();
     win.once('ready-to-show', () => {
         win.show();
     });
