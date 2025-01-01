@@ -7,6 +7,8 @@ const ipcUserAccount = require('./ipc/userAccount');
 const ipcCredentials = require('./ipc/credentials');
 const ipcSettings = require('./ipc/settings');
 
+// closing app instance on install/uninstall
+if (require('electron-squirrel-startup')) app.quit();
 
 function createWindow() {
     const newWindow = new BrowserWindow({
@@ -19,7 +21,6 @@ function createWindow() {
         backgroundColor: '#0A0A0A'
     });
     newWindow.loadFile('dist/pass-guard-a/browser/index.html');
-    newWindow.webContents.openDevTools();
     return newWindow;
 }
 
