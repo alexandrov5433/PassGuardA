@@ -5,13 +5,15 @@ module.exports = {
   packagerConfig: {
     name: 'PassGuardA',
     asar: true,
-    icon: '/electron/assets/passGuardAIcon',
+    icon: 'electron/assets/passGuardAIcon256.ico',
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        setupIcon: 'electron/assets/passGuardAIcon256.ico'
+      },
     },
     {
       name: '@electron-forge/maker-zip',

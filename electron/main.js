@@ -18,7 +18,8 @@ function createWindow() {
             preload: pathPreloads.preloadService
         },
         show: false,
-        backgroundColor: '#0A0A0A'
+        backgroundColor: '#0A0A0A',
+        icon: '/electron/assets/passGuardAIcon256.ico'
     });
     newWindow.loadFile('dist/pass-guard-a/browser/index.html');
     return newWindow;
