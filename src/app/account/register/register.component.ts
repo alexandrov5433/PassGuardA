@@ -103,6 +103,10 @@ export class RegisterComponent {
 
   async randomizePassword() {
     const pass = await this.data.generateRandomPassword();
+    if (pass instanceof Error) {
+      this.messaging.showMsg((pass as Error).message, 3000, 'error-snack-message');
+      return;
+    }
     this.form.setValue({
       username: this.form.get('username')?.value || '',
       password: pass,

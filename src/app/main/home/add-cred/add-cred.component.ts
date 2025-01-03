@@ -72,6 +72,10 @@ export class AddCredComponent {
       charsToExclude: this.settingsForm.get('charsToExclude')?.value || ''
     };
     const randomPass = await this.dataService.generateRandomPassword(passGenOptions);
+    if (randomPass instanceof Error) {
+      this.messagingService.showMsg((randomPass as Error).message, 3000, 'error-snack-message');
+      return;
+    }
     this.form.get('password')?.setValue(randomPass);
     this.messagingService.showMsg('Password generated!', 1500, 'simple-snack-message');
   }

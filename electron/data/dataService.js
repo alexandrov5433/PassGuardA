@@ -103,33 +103,40 @@ async function saveNewCredentials(data) {
         await saveFile(pathData.sensitive, sensitiveFile);
         return true;
     } catch (e) {
-        console.error(e);
         return e;
     }
 }
 
 async function getCredentialsById(id) {
-    const sensitiveFile = await getFile(pathData.sensitive);
-    const target = sensitiveFile.find( e => e.id === id );
-    if (target === undefined) {
-        throw new Error(`Credentials with ID (${id}) do not exist.`);
+    try {
+        const sensitiveFile = await getFile(pathData.sensitive);
+        const target = sensitiveFile.find( e => e.id === id );
+        if (target === undefined) {
+            throw new Error(`Credentials with ID (${id}) do not exist.`);
+        }
+        const decrPass = decrypt(
+            target.password.value,
+            secret,
+            target.password.iv,
+            target.password.tag
+        );
+        target.password = decrPass; //plainText
+        return target;
+    } catch (err) {
+        return err;
     }
-    const decrPass = decrypt(
-        target.password.value,
-        secret,
-        target.password.iv,
-        target.password.tag
-    );
-    target.password = decrPass; //plainText
-    return target;
 }
 
 async function getCredentialsOverview() {
-    const overview = [];
-    (await getFile(pathData.sensitive)).forEach( e => {
-        overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username, password: '' }));
-    });
-    return overview;
+    try {
+        const overview = [];
+        (await getFile(pathData.sensitive)).forEach( e => {
+            overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username, password: '' }));
+        });
+        return overview;
+    } catch (err) {
+        throw err;
+    }
 }
 
 async function deleteCredentialsById(id) {

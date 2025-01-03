@@ -5,7 +5,11 @@ const passwordGenerator = require('../util/passwordGeneration.js');
 const ipcCredentials = {
     credOverviewReqHandler: function () {
         ipcMain.handle('credOverviewReq', async (e) => {
-            return await getCredentialsOverview();
+            try {
+                return await getCredentialsOverview();
+            } catch (err) {
+                return err;
+            }
         });
     },
     addCredentialsHandler: function () {
@@ -43,7 +47,11 @@ const ipcCredentials = {
     },
     generatePasswordHandler: function () {
         ipcMain.handle('passwordGeneration', (e, passSettings) => {
-            return passwordGenerator(passSettings);
+            try {
+                return passwordGenerator(passSettings);
+            } catch (err) {
+                return err;
+            }
         });
     }
 };

@@ -216,7 +216,6 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
       await navigator.clipboard.writeText(pass as string);
       this.messagingService.showMsg('Copied to clipboard!', 1500, 'positive-snack-message');
     } catch (e) {
-      console.error((e as Error).message);
       this.messagingService.showMsg((e as Error).message, 3000, 'error-snack-message');
     }
   }
@@ -228,7 +227,6 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
       this.passwordInputType = 'text';
       this.isPasswordVisible = true;
     } catch (e) {
-      console.error((e as Error).message);
       this.hidePasswordText();
       this.messagingService.showMsg((e as Error).message, 3000, 'error-snack-message');
     }

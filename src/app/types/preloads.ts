@@ -1,6 +1,9 @@
 import { AccountData } from "./accountData"
 import { AccountSettings } from "./accountSettings"
 import { AppearanceSettings } from "./appearanceSettings"
+import { CredentialsData } from "./credentialsData"
+import { NewCredentialsData } from "./newCredentialsData"
+import { PassGenOptions } from "./passwordGenerationOptions"
 import { ThemeVariables } from "./themeVariables"
 
 export type Preloads =  {
@@ -8,12 +11,12 @@ export type Preloads =  {
 	register: (accountData: AccountData) => Promise<true | Error>,
 	login: (accountData: AccountData) => Promise<true | Error>,
 	logout: () => Promise<true | Error>,
-	credOverviewReq: Function,
-	addCreds: Function,
-	fetchPassPlainText: Function,
+	credOverviewReq: () => Promise<CredentialsData[] | [] | Error>,
+	addCreds: (newCredsData: NewCredentialsData) => Promise<true | Error>,
+	fetchPassPlainText: (credId: string) => Promise<string | Error>,
 	deleteCredsById: (credId: string) => Promise<true | Error>,
-	sendCorrectionForCredsById: Function,
-	generatePassword: Function,
+	sendCorrectionForCredsById: (credentialsData: CredentialsData) => Promise<true | Error>,
+	generatePassword: (passGenOptions?: PassGenOptions) => Promise<string | Error>,
 	getSettings: (settingsType: string) => Promise<AccountSettings | AppearanceSettings | Error>,
 	setSettings: (settingsType: string, settingsSubType: string, newSettingsObj: any) => Promise<true | Error>,
 	restoreDefaultSettings: () => Promise<true | Error>,

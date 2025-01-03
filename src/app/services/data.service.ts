@@ -11,11 +11,11 @@ import { NewCredentialsData } from "../types/newCredentialsData";
 export class DataService {
     private preloads: Preloads = (window as unknown as WindowNew).preloads;
 
-    async generateRandomPassword(passGenOptions?: PassGenOptions) {
+    async generateRandomPassword(passGenOptions?: PassGenOptions): Promise<string | Error> {
         return await this.preloads.generatePassword(passGenOptions);
     }
 
-    async getCredentialsOverviewData(): Promise<Array<CredentialsData> | []> {
+    async getCredentialsOverviewData(): Promise<Array<CredentialsData> | [] | Error> {
         return await this.preloads.credOverviewReq();
     }
 
@@ -23,11 +23,11 @@ export class DataService {
         return await this.preloads.fetchPassPlainText(credentialsId);
     }
 
-    async saveNewCredentials(newCredsData: NewCredentialsData) {
+    async saveNewCredentials(newCredsData: NewCredentialsData): Promise<true | Error> {
         return await this.preloads.addCreds(newCredsData);
     }
 
-    async editCredentials(editedCredsData: CredentialsData) {
+    async editCredentials(editedCredsData: CredentialsData): Promise<true | Error> {
         return await this.preloads.sendCorrectionForCredsById(editedCredsData);
     }
 

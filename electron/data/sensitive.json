@@ -1,25 +1,5 @@
 [
   {
-    "id": "9e519b84-ba7a-4dc9-a90d-56253e6b2d70",
-    "title": "www.abv.bg",
-    "username": "alex",
-    "password": {
-      "value": "LLDGc7je+z5iJJjsnjE=",
-      "iv": "IE0aA0Wz78IO3U7i",
-      "tag": "B73SRlVgd8sKjlU4/bKoUg=="
-    }
-  },
-  {
-    "id": "32cb4830-cc6d-477b-8a72-b16ab5332075",
-    "title": "www.dir.bg",
-    "username": "novUser",
-    "password": {
-      "value": "Fbd7K+8VbFrBWXbA3UQZMIJpO5Y=",
-      "iv": "sy4fq8Y6JnyNisvd",
-      "tag": "LJK+8P1zJMbQQQANyMkz+A=="
-    }
-  },
-  {
     "id": "708f020a-0a85-4302-b11f-5423867b112b",
     "title": "SomeWebsite",
     "username": "alex3412as",
@@ -37,26 +17,6 @@
       "value": "usikAJ8KP5x9fH7MBzQtmaEqNT8=",
       "iv": "/MfDtlHTdOyU1sz8",
       "tag": "j1KUopIQK/spWDkvKQO1sw=="
-    }
-  },
-  {
-    "id": "ecbea0ac-9171-4c4c-978c-bc4675803971",
-    "title": "asd",
-    "username": "asd",
-    "password": {
-      "value": "y1nEr1WyTn8qffQVkW3e47dsnfQ=",
-      "iv": "7wB9Vi8jVtN4rMn5",
-      "tag": "CIxUU5EoOhiW1HVsb97q/w=="
-    }
-  },
-  {
-    "id": "27982cfe-7398-4fe0-a7ce-f1026a56526b",
-    "title": "fff",
-    "username": "fff",
-    "password": {
-      "value": "anDG",
-      "iv": "lfHQ6dRmBPJUznrg",
-      "tag": "j6rMDmF8O/gX4eTb/KRLnA=="
     }
   },
   {

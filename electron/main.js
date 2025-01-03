@@ -15,7 +15,8 @@ function createWindow() {
         width: 1000,
         height: 800,
         webPreferences: {
-            preload: pathPreloads.preloadService
+            preload: pathPreloads.preloadService,
+            devTools: false
         },
         show: false,
         backgroundColor: '#0A0A0A',

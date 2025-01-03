@@ -106,8 +106,12 @@ export class HomeComponent implements OnInit {
       return;
     }
     const searchVal = (event?.target as CredSerchEventTarget).value;
-    const regex = new RegExp(`${searchVal}`, 'i');
-    const credId: string = this.credentialsOverviewData()?.find(c => regex.test(c.title))?.id || '';
+    const regexFullMatch = new RegExp(`^${searchVal}$`, 'i');
+    let credId: string = this.credentialsOverviewData()?.find(c => regexFullMatch.test(c.title))?.id || '';
+    if (!credId) {
+      const regex = new RegExp(`${searchVal}`, 'i');
+      credId = this.credentialsOverviewData()?.find(c => regex.test(c.title))?.id || '';
+    }
     if (!credId) {
       this.messagingService.showMsg(`No credentials found with title: "${searchVal}".`, 2000, 'simple-snack-message');
       return;
@@ -124,6 +128,12 @@ export class HomeComponent implements OnInit {
   async loadCredentialOverviewData() {
     this.isOverviewLoading.set(true);
     let credsOverviewData = await this.dataService.getCredentialsOverviewData();
+    if (credsOverviewData instanceof Error) {
+      this.messagingService.showMsg((credsOverviewData as Error).message, 3000, 'error-snack-message');
+      this.credentialsOverviewData.set(null);
+      this.isOverviewLoading.set(false);
+      return;
+    }
     this.isOverviewLoading.set(false);
     if (credsOverviewData.length === 0) {
       this.credentialsOverviewData.set(null);

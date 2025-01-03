@@ -49,7 +49,6 @@ function excludeChars(strToProcess, options) {
     const charsToExclude = options.charsToExclude.split('') || [];
     charsToExclude.forEach(c => {
         while (newCharSet.includes(c)) {
-            // const randomIndex = Math.floor(Math.random() * newCharSet.length);
             newCharSet = newCharSet.replace(c, '');
         }
     });
