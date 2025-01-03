@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 /out
+/PassGuardA-win32-x64
+/windows_installer
 
 # Node
 /node_modules
