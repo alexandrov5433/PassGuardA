@@ -12,7 +12,9 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        setupIcon: 'electron/assets/passGuardAIcon256.ico'
+        name: 'PassGuardA',
+        setupIcon: 'electron/assets/passGuardAIcon256.ico',
+        setupExe: 'PassGuardA_1.0.0_Installer.exe'
       },
     },
     {
