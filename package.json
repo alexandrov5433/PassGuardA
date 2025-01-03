@@ -13,7 +13,6 @@
     "electron": "electron .",
     "build-electron": "ng build && electron --trace-warnings .",
     "package": "electron-packager . --platform=win32 --arch=x64 PassGuardA",
-    "make": "electron-forge make"
   },
   "private": true,
   "dependencies": {
