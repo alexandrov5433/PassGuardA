@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron');
-const { getCredentialsOverview, saveNewCredentials, getCredentialsById, deleteCredentialsById, editCredentialsById } = require('../data/dataService.js');
+const { getCredentialsOverview, saveNewCredentials, getCredentialsById, deleteCredentialsById, editCredentialsById, exportCredentialsPlain } = require('../data/dataService.js');
 const passwordGenerator = require('../util/passwordGeneration.js');
 
 const ipcCredentials = {
@@ -49,6 +49,15 @@ const ipcCredentials = {
         ipcMain.handle('passwordGeneration', (e, passSettings) => {
             try {
                 return passwordGenerator(passSettings);
+            } catch (err) {
+                return err;
+            }
+        });
+    },
+    exportCredentialsPlainHandler: function () {
+        ipcMain.handle('exportCredentialsPlain', async (e, destinationFullPath, password) => {
+            try {
+                return await exportCredentialsPlain(destinationFullPath, password);
             } catch (err) {
                 return err;
             }

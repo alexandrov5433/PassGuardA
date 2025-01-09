@@ -39,7 +39,8 @@ function initHandlers() {
     ipcCredentials.addCredentialsHandler();
     ipcCredentials.sendCorrectionForCredsByIdHandler();
     ipcCredentials.deleteCredsByIdHandler();
-
+    ipcCredentials.exportCredentialsPlainHandler();
+    
     ipcSettings.getSettingsHandler();
     ipcSettings.setSettingsHandler();
     ipcSettings.restoreDefaultSettingshandler();

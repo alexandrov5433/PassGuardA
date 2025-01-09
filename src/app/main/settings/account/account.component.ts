@@ -7,6 +7,7 @@ import { MessagingService } from '../../../services/messaging.service';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteAccountConfirmationDialogComponent } from './delete-account-confirmation-dialog/delete-account-confirmation-dialog.component';
+import { ExportCredentialsDialogComponent } from './export-credentials-dialog/export-credentials-dialog.component';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppearanceSettings } from '../../../types/appearanceSettings';
@@ -127,6 +128,21 @@ export class AccountComponent implements OnInit, OnDestroy {
         if (res) {
           this.messaging.showMsg('Account deleted successfully!', 3000, 'positive-snack-message');
           this.router.navigate(['/register']);
+          return;
+        }
+      });
+  }
+
+  async exportCredentials() {
+    const exportCredentialsDialog = this.dialog.open(
+      ExportCredentialsDialogComponent,
+      { panelClass: 'confirmation-dialog' }
+    );
+    exportCredentialsDialog.afterClosed()
+      .pipe(takeUntil(this.ngDestroyer))
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.messaging.showMsg('Credentials exported successfully!', 3000, 'positive-snack-message');
           return;
         }
       });

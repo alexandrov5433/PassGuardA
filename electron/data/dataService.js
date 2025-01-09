@@ -1,4 +1,4 @@
-
+const path = require('node:path');
 const fsp = require('node:fs/promises');
 const { v4: uuidv4 } = require('uuid');
 
@@ -35,7 +35,7 @@ async function confirmLogin(loginData) {
         let session = await getFile(pathData.session);
         const usernameCorrect = await compareHash(username, session.username);
         const passwordCorrect = await compareHash(password, session.mainKey);
-        if ( usernameCorrect && passwordCorrect ) {
+        if (usernameCorrect && passwordCorrect) {
             secret = password;
             return true;
         } else {
@@ -90,7 +90,7 @@ async function saveNewCredentials(data) {
         const entry = {
             id: uuidv4(),
             title,
-            username 
+            username
         };
         const passEnc = encrypt(password, secret);
         entry.password = {
@@ -110,7 +110,7 @@ async function saveNewCredentials(data) {
 async function getCredentialsById(id) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
@@ -130,7 +130,7 @@ async function getCredentialsById(id) {
 async function getCredentialsOverview() {
     try {
         const overview = [];
-        (await getFile(pathData.sensitive)).forEach( e => {
+        (await getFile(pathData.sensitive)).forEach(e => {
             overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username, password: '' }));
         });
         return overview;
@@ -142,11 +142,11 @@ async function getCredentialsOverview() {
 async function deleteCredentialsById(id) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
-        const afterDeletion = sensitiveFile.filter( e => e.id !== target.id );
+        const afterDeletion = sensitiveFile.filter(e => e.id !== target.id);
         await saveFile(pathData.sensitive, afterDeletion);
         return true;
     } catch (err) {
@@ -157,14 +157,14 @@ async function deleteCredentialsById(id) {
 async function editCredentialsById(id, data) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
         const updatedEntry = {
             id: target.id,
             title: data.title,
-            username: data.username 
+            username: data.username
         };
         const newPassEnc = encrypt(data.password, secret);
         updatedEntry.password = {
@@ -222,7 +222,7 @@ async function resetAccount() {
         "accountExists": false,
         "username": null,
         "mainKey": null
-      });
+    });
 }
 
 async function resetCredentials() {
@@ -254,6 +254,54 @@ async function getThemeVariables(themeStyle) {
     }
 }
 
+async function exportCredentialsPlain(destinationFullPath, password) {
+    if (password !== secret) {
+        throw new Error('Wrong password.');
+    }
+    const sensitiveFile = await getFile(pathData.sensitive);
+    if (!sensitiveFile.length) {
+        throw new Error('No credentials to export.');
+    }
+    
+    const dataPlain = [];
+    for (let cred of sensitiveFile) {
+        const passPlain = decrypt(
+            cred.password.value,
+            secret,
+            cred.password.iv,
+            cred.password.tag
+        );
+        dataPlain.push({
+            title: cred.title,
+            username: cred.username,
+            password: passPlain
+        });
+    }
+
+    let fileDataToWrite = `######  PassGuardA - Credentials  ######\n\n`;
+    for (let cred of dataPlain) {
+        const credsString = formatInfoToString({
+            title: cred.title,
+            username: cred.username,
+            password: cred.password
+        })
+        fileDataToWrite = fileDataToWrite + credsString + '\n';
+    }
+    await createFile(fileDataToWrite, destinationFullPath);
+    return true;
+
+    async function createFile(fileData, destinationPath) {
+        const _destination = path.normalize(
+            path.join(destinationPath, 'PassGuardA_Credentials.txt')
+        );
+        return await fsp.writeFile(_destination, fileData, { encoding: 'utf-8' });
+    }
+
+    function formatInfoToString({ title, username, password }) {
+        return `Title: ${title}\nUsername: ${username}\nPassword: ${password}\n`;
+    }
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -268,5 +316,6 @@ module.exports = {
     setSettings,
     restoreDefaultSettings,
     deleteUserAccount,
-    getThemeVariables
+    getThemeVariables,
+    exportCredentialsPlain
 };

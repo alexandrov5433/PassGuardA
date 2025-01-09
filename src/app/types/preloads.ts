@@ -22,4 +22,5 @@ export type Preloads =  {
 	restoreDefaultSettings: () => Promise<true | Error>,
 	deleteUserAccount: (password: string) => Promise<true | Error>,
 	getThemeVariables: (themeStyle: string) => Promise<ThemeVariables | Error>,
+	exportCredentialsPlain: (destinationFullPath: string, password: string) => Promise<true | Error>,
 }
