@@ -262,7 +262,9 @@ async function exportCredentialsPlain(destinationFullPath, password) {
     if (!sensitiveFile.length) {
         throw new Error('No credentials to export.');
     }
-    
+    if (!destinationFullPath) {
+        throw new Error('Invalid exportation path.');
+    }
     const dataPlain = [];
     for (let cred of sensitiveFile) {
         const passPlain = decrypt(
