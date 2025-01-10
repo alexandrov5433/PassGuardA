@@ -7,7 +7,7 @@ import { PassGenOptions } from "./passwordGenerationOptions"
 import { ThemeVariables } from "./themeVariables"
 
 export type Preloads =  {
-	accExists: () => Promise<boolean | Error>,
+	accExists: () => Promise<boolean| number | Error>,
 	register: (accountData: AccountData) => Promise<true | Error>,
 	login: (accountData: AccountData) => Promise<true | Error>,
 	logout: () => Promise<true | Error>,

@@ -7,6 +7,7 @@ const pathData = {
     'settings': getPathTo('/data/settings.json'),
     'defaultSettings': getPathTo('/data/defaultSettings.json'),
     'themes': getPathTo('/data/themes.json'),
+    'persistentVariables': getPathTo('/data/persistentVariables.json')
 };
 
 const pathPreloads = {

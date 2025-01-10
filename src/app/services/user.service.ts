@@ -40,4 +40,5 @@ export class UserService {
   async deleteUserAccount(password: string) {
     return await this.preloads.deleteUserAccount(password);
   }
+
 }

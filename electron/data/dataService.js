@@ -39,6 +39,28 @@ async function confirmLogin(loginData) {
             secret = password;
             return true;
         } else {
+            let alreadyIncrementedForThisCicle = false;
+            if (await isAccountBlockingOptionActivated()) {
+                await incrtementFailedLoginAttemptsNumeberByOne();
+                alreadyIncrementedForThisCicle = true;
+                const curFailedAttempts = await getCurrentCountOfFailedLoginAttempts();
+                const allowedAttempts = await getCountOfAllowedFailedLoginAttempts('block');
+                if (curFailedAttempts >= allowedAttempts) {
+                    await blockAccount();
+                    throw new Error('Account BLOCKED due to excieding the set allowed number of faied login attempts.');
+                }
+            }
+            if (await isAccountDeletionOptionActivated()) {
+                if (!alreadyIncrementedForThisCicle) {
+                    await incrtementFailedLoginAttemptsNumeberByOne();
+                }
+                const curFailedAttempts = await getCurrentCountOfFailedLoginAttempts();
+                const allowedAttempts = await getCountOfAllowedFailedLoginAttempts('delete');
+                if (curFailedAttempts >= allowedAttempts) {
+                    await deleteAccountAfterFailedLogins();
+                    throw new Error('Account DELETED due to excieding the set allowed number of faied login attempts.');
+                }
+            }
             throw new Error('Incorrect username or password.');
         }
     } catch (err) {
@@ -304,6 +326,103 @@ async function exportCredentialsPlain(destinationFullPath, password) {
     }
 }
 
+//account blocking and deletion after number of failed logins
+async function isAccountBlockingOptionActivated() {
+    const settings = await getFile(pathData.settings);
+    return settings.accountSettings.blockAccAfterNumberFailedLogins.state;
+}
+async function isAccountDeletionOptionActivated() {
+    const settings = await getFile(pathData.settings);
+    return settings.accountSettings.deleteAccAfterNumberFailedLogins.state;
+}
+
+async function getCurrentCountOfFailedLoginAttempts() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    return persistentVars.currentNumberOfFailedLoginAttempts;
+}
+
+/**
+ * Get allowed attempts for account deletion or blocking options from settings.
+ * @param {'delete' | 'block'} forOption
+ * @returns 
+ */
+async function getCountOfAllowedFailedLoginAttempts(forOption) {
+    const lib = {
+        block: 'blockAccAfterNumberFailedLogins',
+        delete: 'deleteAccAfterNumberFailedLogins'
+    };
+    const settings = await getFile(pathData.settings);
+    return Number(settings.accountSettings[lib[forOption]].numberOfPermittedAttempts);
+}
+
+async function incrtementFailedLoginAttemptsNumeberByOne() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.currentNumberOfFailedLoginAttempts += 1;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+ /**
+  * If the account is blocked the datetime for when it will be unblocked is returned. If it is not blocked false is returned.
+  * @returns {Promise<number | false>}
+  */
+async function dateInMsIfAccountBlocked() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    if (persistentVars.accountBlocking.isAccountCurrentlyBlocked) {
+        return persistentVars.accountBlocking.dateTimeToUnblockAccount;
+    }
+    return false;
+}
+/**
+ * Resets "currentNumberOfFailedLoginAttempts" to 0, "isAccountCurrentlyBlocked" to false and "dateTimeToUnblockAccount" to "".
+ */
+async function resetPersitentVariables() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.currentNumberOfFailedLoginAttempts = 0;
+    persistentVars.accountBlocking.isAccountCurrentlyBlocked = false;
+    persistentVars.accountBlocking.dateTimeToUnblockAccount = 0;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+
+async function blockAccount() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.accountBlocking.isAccountCurrentlyBlocked = true;
+    const accountBlockingDuration = await getDurationForAccountBlockingInMs();
+    const datetimeToUnblockAcc = new Date().getTime() + accountBlockingDuration;
+    persistentVars.accountBlocking.dateTimeToUnblockAccount = datetimeToUnblockAcc;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+
+async function getDurationForAccountBlockingInMs() {
+    const settings = await getFile(pathData.settings);
+    const msInOneHour = 3600000;
+    const msAccBlockDuration = Number(settings.accountSettings.blockAccAfterNumberFailedLogins.timeForBlockedStateHours) * msInOneHour;
+    return msAccBlockDuration;
+}
+
+/**
+ * Checks the time and unblocks the account if the time for blocking has passed.
+ * @returns {Boolean} Returns true if the account was unblocked and false if not.
+ */
+async function unblockAccountIfTime() {
+    const currentTime = new Date().getTime();
+    const persistentVars = await getFile(pathData.persistentVariables);
+    const timeToUnblock = persistentVars.accountBlocking.dateTimeToUnblockAccount;
+    if (currentTime >= timeToUnblock) {
+        return await resetPersitentVariables();
+    }
+    return false;
+}
+
+async function deleteAccountAfterFailedLogins() {
+    const resAcc = resetAccount();
+    const resCreds = resetCredentials();
+    const resSettings = restoreDefaultSettings();
+    await Promise.all([resAcc, resCreds, resSettings]);
+    return true;
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -319,5 +438,6 @@ module.exports = {
     restoreDefaultSettings,
     deleteUserAccount,
     getThemeVariables,
-    exportCredentialsPlain
+    exportCredentialsPlain,
+    dateInMsIfAccountBlocked
 };

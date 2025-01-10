@@ -50,6 +50,9 @@ export class AppComponent implements OnInit {
     try {
       await this.themeSetter();
       const accountExists = await this.user.accountExists();
+      if ((typeof accountExists) === 'number') {
+        this.router.navigate(['/blocked']);
+      }
       if (accountExists === true) {
         this.router.navigate(['/login']);
       } else {
