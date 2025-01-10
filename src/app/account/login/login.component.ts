@@ -45,6 +45,9 @@ export class LoginComponent implements OnInit {
     const res = await this.user.login(loginData);
     if (res instanceof Error) {
       this.messaging.showMsg(res.message, 3000, 'error-snack-message');
+      if (res.message === 'No account exists. Redirecting to Register page.') {
+        this.router.navigate(['/register']);
+      }
     } else {
       this.messaging.showMsg('Login successfull!', 3000, 'simple-snack-message');
       this.router.navigate(['/main/home']);

@@ -29,7 +29,7 @@ async function saveFile(pathToFile, data) {
 async function confirmLogin(loginData) {
     try {
         if (!await accountExists()) {
-            throw new Error('No account exists. Redirecting to Register page in 5 sec.');
+            throw new Error('No account exists. Redirecting to Register page.');
         }
         const { username, password } = loginData;
         let session = await getFile(pathData.session);
