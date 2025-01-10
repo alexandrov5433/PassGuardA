@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
     }
     const res = await this.user.login(loginData);
     if (res instanceof Error) {
-      this.messaging.showMsg(res.message, 5000, 'error-snack-message');
+      this.messaging.showMsg(res.message, 3000, 'error-snack-message');
     } else {
-      this.messaging.showMsg('Login successfull!', 5000, 'simple-snack-message');
+      this.messaging.showMsg('Login successfull!', 3000, 'simple-snack-message');
       this.router.navigate(['/main/home']);
     }
     this.isLoading.set(false);
