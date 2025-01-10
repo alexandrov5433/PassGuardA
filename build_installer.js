@@ -20,7 +20,7 @@ const msiCreator = new MSICreator({
     name: 'PassGuardA',
     manufacturer: 'Alex',
     version: '1.0.0',
-    appIconPath: path.resolve(__dirname,'/electron/assets/passGuardAIcon256.ico'),
+    icon: path.resolve('./electron/assets/passGuardAIcon256.ico'),
 
     // Configure installer User Interface
     ui: {
