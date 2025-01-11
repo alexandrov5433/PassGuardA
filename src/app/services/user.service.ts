@@ -41,4 +41,7 @@ export class UserService {
     return await this.preloads.deleteUserAccount(password);
   }
 
+  async unblockAccount() {
+    return await this.preloads.unblockAccount();
+  }
 }

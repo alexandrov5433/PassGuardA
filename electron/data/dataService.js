@@ -396,14 +396,14 @@ async function blockAccount() {
 
 async function getDurationForAccountBlockingInMs() {
     const settings = await getFile(pathData.settings);
-    const msInOneHour = 3600000;
-    const msAccBlockDuration = Number(settings.accountSettings.blockAccAfterNumberFailedLogins.timeForBlockedStateHours) * msInOneHour;
+    const msInOneMinute = 60000;
+    const msAccBlockDuration = Number(settings.accountSettings.blockAccAfterNumberFailedLogins.timeForBlockedStateMinutes) * msInOneHour;
     return msAccBlockDuration;
 }
 
 /**
  * Checks the time and unblocks the account if the time for blocking has passed.
- * @returns {Boolean} Returns true if the account was unblocked and false if not.
+ * @returns {Promise<Boolean>} Returns true if the account was unblocked and false if not.
  */
 async function unblockAccountIfTime() {
     const currentTime = new Date().getTime();
@@ -411,8 +411,9 @@ async function unblockAccountIfTime() {
     const timeToUnblock = persistentVars.accountBlocking.dateTimeToUnblockAccount;
     if (currentTime >= timeToUnblock) {
         return await resetPersitentVariables();
+    } else {
+        return false;
     }
-    return false;
 }
 
 async function deleteAccountAfterFailedLogins() {
@@ -439,5 +440,6 @@ module.exports = {
     deleteUserAccount,
     getThemeVariables,
     exportCredentialsPlain,
-    dateInMsIfAccountBlocked
+    dateInMsIfAccountBlocked,
+    unblockAccountIfTime
 };

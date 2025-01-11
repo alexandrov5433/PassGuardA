@@ -23,4 +23,5 @@ export type Preloads =  {
 	deleteUserAccount: (password: string) => Promise<true | Error>,
 	getThemeVariables: (themeStyle: string) => Promise<ThemeVariables | Error>,
 	exportCredentialsPlain: (destinationFullPath: string, password: string) => Promise<true | Error>,
+	unblockAccount: () => Promise<boolean | Error>
 }

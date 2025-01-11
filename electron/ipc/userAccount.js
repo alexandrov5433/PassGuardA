@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron');
-const {  accountExists, registerUser, confirmLogin, confirmLogout, deleteUserAccount, dateInMsIfAccountBlocked } = require('../data/dataService.js');
+const {  accountExists, registerUser, confirmLogin, confirmLogout, deleteUserAccount, dateInMsIfAccountBlocked, unblockAccountIfTime } = require('../data/dataService.js');
 
 const ipcUserAccount = {
     accountExists: function () {
@@ -45,6 +45,15 @@ const ipcUserAccount = {
         ipcMain.handle('deleteUserAccount', async (e, password) => {
             try {
                 return await deleteUserAccount(password);
+            } catch (err) {
+                return err;
+            }
+        });
+    },
+    unblockAccountHandler: function () {
+        ipcMain.handle('unblockAccount', async (e) => {
+            try {
+                return await unblockAccountIfTime();
             } catch (err) {
                 return err;
             }
