@@ -7,7 +7,7 @@
     "blockAccAfterNumberFailedLogins": {
       "state": true,
       "numberOfPermittedAttempts": 5,
-      "timeForBlockedStateHours": 1
+      "timeForBlockedStateMinutes": 30
     },
     "automaticLogout": {
       "state": false,

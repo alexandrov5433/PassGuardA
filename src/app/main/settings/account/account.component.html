@@ -42,9 +42,9 @@
                     <button class="general-btn green-general-btn" (click)="setAccountVariable(blAllowedAttempts.value, 'blockAccAfterNumberFailedLogins', 'numberOfPermittedAttempts')">Save</button>
                 </div>
                 <div class="setting-variable">
-                    <p class="variable-title">Duration of the blocked state, in hours, as a whole number. Minimum: 1.</p>
+                    <p class="variable-title">Duration of the blocked state, in minutes, as a whole number. Minimum: 1.</p>
                     <input type="number" [value]="blockDuration()" #blDuration>
-                    <button class="general-btn green-general-btn" (click)="setAccountVariable(blDuration.value, 'blockAccAfterNumberFailedLogins', 'timeForBlockedStateHours')">Save</button>
+                    <button class="general-btn green-general-btn" (click)="setAccountVariable(blDuration.value, 'blockAccAfterNumberFailedLogins', 'timeForBlockedStateMinutes')">Save</button>
                 </div>
             </div>
         }

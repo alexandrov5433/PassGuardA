@@ -23,8 +23,12 @@ export class AccountComponent implements OnInit, OnDestroy {
   accountSettings: WritableSignal<AccountSettings | null> = signal(null);
 
   // block acc
-  blockAllowedAttempts: WritableSignal<number> = signal(5);
-  blockDuration: WritableSignal<number> = signal(1);
+  blockAllowedAttempts: Signal<number> = computed(() => {
+    return this.accountSettings()?.blockAccAfterNumberFailedLogins.numberOfPermittedAttempts || 5;
+  });
+  blockDuration: Signal<number> = computed(() => {
+    return this.accountSettings()?.blockAccAfterNumberFailedLogins.timeForBlockedStateMinutes || 30;
+  });
   // delete acc
   deleteAllowedAttempts: Signal<number> = computed(() => {
     return this.accountSettings()?.deleteAccAfterNumberFailedLogins.numberOfPermittedAttempts || 10;
@@ -70,7 +74,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   async setAccountVariable(
     variableNewValue: string | number,
     settingsSubType: 'deleteAccAfterNumberFailedLogins' | 'blockAccAfterNumberFailedLogins' | 'automaticLogout',
-    variableName: 'numberOfPermittedAttempts' | 'timeForBlockedStateHours' | 'timeUntilAutoLogoutMinutes'
+    variableName: 'numberOfPermittedAttempts' | 'timeForBlockedStateMinutes' | 'timeUntilAutoLogoutMinutes'
   ) {
     variableNewValue = Math.ceil(Number(variableNewValue));
     if (variableNewValue < 1) {
@@ -93,7 +97,6 @@ export class AccountComponent implements OnInit, OnDestroy {
       return;
     }
     await this.loadAccSettings();
-    this.reloadAccVars();
     this.messaging.showMsg('Changes saved!', 2000, 'positive-snack-message');
   }
 
@@ -106,15 +109,6 @@ export class AccountComponent implements OnInit, OnDestroy {
       return this.messaging.showMsg('AppearanceSettings can not be used in Account component.', 3000, 'error-snack-message');
     }
     this.accountSettings.set(accSettings as AccountSettings);
-  }
-
-  private reloadAccVars() {
-    const attempts = this.accountSettings()?.blockAccAfterNumberFailedLogins.numberOfPermittedAttempts || 5;
-    const time = this.accountSettings()?.blockAccAfterNumberFailedLogins.timeForBlockedStateHours || 1
-    // const deleteAttempts = this.accountSettings()?.deleteAccAfterNumberFailedLogins.numberOfPermittedAttempts || 10;
-    this.blockAllowedAttempts.set(attempts);
-    this.blockDuration.set(time);
-    // this.deleteAllowedAttempts.set(deleteAttempts);
   }
 
   async deleteAccount() {
@@ -150,7 +144,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.loadAccSettings();
-    this.reloadAccVars();
   }
 
   ngOnDestroy(): void {
