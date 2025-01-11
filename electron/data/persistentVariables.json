@@ -1,7 +1,7 @@
 {
-    "currentNumberOfFailedLoginAttempts": 0,
-    "accountBlocking": {
-        "isAccountCurrentlyBlocked": false,
-        "dateTimeToUnblockAccount": 0
-    }
+  "currentNumberOfFailedLoginAttempts": 0,
+  "accountBlocking": {
+    "isAccountCurrentlyBlocked": false,
+    "dateTimeToUnblockAccount": 0
+  }
 }

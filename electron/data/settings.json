@@ -2,16 +2,16 @@
   "accountSettings": {
     "deleteAccAfterNumberFailedLogins": {
       "state": false,
-      "numberOfPermittedAttempts": 6
+      "numberOfPermittedAttempts": 10
     },
     "blockAccAfterNumberFailedLogins": {
-      "state": true,
-      "numberOfPermittedAttempts": 3,
-      "timeForBlockedStateMinutes": 1
+      "state": false,
+      "numberOfPermittedAttempts": 5,
+      "timeForBlockedStateMinutes": 30
     },
     "automaticLogout": {
       "state": false,
-      "timeUntilAutoLogoutMinutes": 1
+      "timeUntilAutoLogoutMinutes": 30
     }
   },
   "appearanceSettings": {

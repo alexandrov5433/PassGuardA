@@ -44,10 +44,16 @@ export class LoginComponent implements OnInit {
     }
     const res = await this.user.login(loginData);
     if (res instanceof Error) {
-      this.messaging.showMsg(res.message, 3000, 'error-snack-message');
-      if (res.message === 'No account exists. Redirecting to Register page.') {
+      const errorMsg = (res as Error).message;
+      if (errorMsg === 'Account BLOCKED due to excieding the set allowed number of faied login attempts.') {
+        this.router.navigate(['/blocked']);
+      } else if (errorMsg === 'Account DELETED due to excieding the set allowed number of faied login attempts.') {
         this.router.navigate(['/register']);
       }
+      if (errorMsg === 'No account exists. Redirecting to Register page.') {
+        this.router.navigate(['/register']);
+      }
+      this.messaging.showMsg(errorMsg, 3000, 'error-snack-message');
     } else {
       this.messaging.showMsg('Login successfull!', 3000, 'simple-snack-message');
       this.router.navigate(['/main/home']);
@@ -71,6 +77,15 @@ export class LoginComponent implements OnInit {
   async ngOnInit() {
     try {
       const accExists = await this.user.accountExists();
+      if (accExists instanceof Error) {
+        const errorMsg = (accExists as Error).message;
+        if (errorMsg === 'Account BLOCKED due to excieding the set allowed number of faied login attempts.') {
+          this.router.navigate(['/blocked']);
+        } else if (errorMsg === 'Account DELETED due to excieding the set allowed number of faied login attempts.') {
+          this.router.navigate(['/register']);
+        }
+        this.messaging.showMsg(errorMsg, 3000, 'error-snack-message');
+      }
       if (accExists === false) {
         this.router.navigate(['/register']);
       }

@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
       await this.themeSetter();
       const accountExists = await this.user.accountExists();
       if ((typeof accountExists) === 'number') {
-        this.router.navigate(['/blocked']);
+        return this.router.navigate(['/blocked']);
       }
       if (accountExists === true) {
         this.router.navigate(['/login']);
@@ -61,5 +61,6 @@ export class AppComponent implements OnInit {
     } catch (err) {
       this.messaging.showMsg((err as Error).message, 3000, 'error-snack-message');
     }
+    return true;
   }
 }
