@@ -16,7 +16,7 @@ function createWindow() {
         height: 800,
         webPreferences: {
             preload: pathPreloads.preloadService,
-            // devTools: false
+            devTools: false
         },
         show: false,
         backgroundColor: '#0A0A0A',
@@ -52,7 +52,7 @@ app.whenReady().then(() => {
     const win = createWindow();
     initHandlers();
     win.setTitle('PassGuardA');
-    // win.removeMenu();
+    win.removeMenu();
     win.once('ready-to-show', () => {
         win.show();
     });
