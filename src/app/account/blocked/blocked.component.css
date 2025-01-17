@@ -1,0 +1,12 @@
+#blocked-container {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        color: var(--rusty-red);
+    }
+}

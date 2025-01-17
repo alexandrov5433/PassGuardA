@@ -15,5 +15,7 @@ contextBridge.exposeInMainWorld('preloads', {
 	setSettings: (settingsType, settingsSubType, newSettingsObj) => ipcRenderer.invoke('setSettings', settingsType, settingsSubType, newSettingsObj),
 	restoreDefaultSettings: () => ipcRenderer.invoke('restoreDefaultSettings'),
 	deleteUserAccount: (password) => ipcRenderer.invoke('deleteUserAccount', password),
-	getThemeVariables: (themeStyle) => ipcRenderer.invoke('getThemeVariables', themeStyle)
+	getThemeVariables: (themeStyle) => ipcRenderer.invoke('getThemeVariables', themeStyle),
+	exportCredentialsPlain: (destinationFullPath, password) => ipcRenderer.invoke('exportCredentialsPlain', destinationFullPath, password),
+	unblockAccount: () => ipcRenderer.invoke('unblockAccount')
 });

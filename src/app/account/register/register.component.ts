@@ -54,7 +54,7 @@ export class RegisterComponent {
     };
     const res = await this.user.register(registerData);
     if (res instanceof Error) {
-      this.messaging.showMsg(res.message, 5000, 'error-snack-message');
+      this.messaging.showMsg(res.message, 3000, 'error-snack-message');
       if (res.message === 'An account already exists.') {
         this.router.navigate(['/login']);
       }

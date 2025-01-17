@@ -5,13 +5,13 @@
       "numberOfPermittedAttempts": 10
     },
     "blockAccAfterNumberFailedLogins": {
-      "state": true,
+      "state": false,
       "numberOfPermittedAttempts": 5,
-      "timeForBlockedStateHours": 1
+      "timeForBlockedStateMinutes": 30
     },
     "automaticLogout": {
       "state": false,
-      "timeUntilAutoLogoutMinutes": 1
+      "timeUntilAutoLogoutMinutes": 30
     }
   },
   "appearanceSettings": {

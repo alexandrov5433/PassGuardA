@@ -6,7 +6,7 @@ export type AccountSettings = {
     blockAccAfterNumberFailedLogins: {
         state: boolean,
         numberOfPermittedAttempts: number,
-        timeForBlockedStateHours: number
+        timeForBlockedStateMinutes: number
     },
     automaticLogout: {
         state: boolean,

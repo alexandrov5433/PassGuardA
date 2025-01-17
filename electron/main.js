@@ -8,7 +8,7 @@ const ipcCredentials = require('./ipc/credentials');
 const ipcSettings = require('./ipc/settings');
 
 // closing app instance on install/uninstall
-if (require('electron-squirrel-startup')) app.quit();
+// if (require('electron-squirrel-startup')) app.quit();
 
 function createWindow() {
     const newWindow = new BrowserWindow({
@@ -32,6 +32,7 @@ function initHandlers() {
     ipcUserAccount.registrationHandler();
     ipcUserAccount.logoutHandler();
     ipcUserAccount.deleteUserAccountHandler();
+    ipcUserAccount.unblockAccountHandler();
     
     ipcCredentials.generatePasswordHandler();
     ipcCredentials.credOverviewReqHandler();
@@ -39,7 +40,8 @@ function initHandlers() {
     ipcCredentials.addCredentialsHandler();
     ipcCredentials.sendCorrectionForCredsByIdHandler();
     ipcCredentials.deleteCredsByIdHandler();
-
+    ipcCredentials.exportCredentialsPlainHandler();
+    
     ipcSettings.getSettingsHandler();
     ipcSettings.setSettingsHandler();
     ipcSettings.restoreDefaultSettingshandler();

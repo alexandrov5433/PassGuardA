@@ -1,4 +1,4 @@
-
+const path = require('node:path');
 const fsp = require('node:fs/promises');
 const { v4: uuidv4 } = require('uuid');
 
@@ -29,16 +29,39 @@ async function saveFile(pathToFile, data) {
 async function confirmLogin(loginData) {
     try {
         if (!await accountExists()) {
-            throw new Error('No account exists. Redirecting to Register page in 5 sec.');
+            throw new Error('No account exists. Redirecting to Register page.');
         }
         const { username, password } = loginData;
         let session = await getFile(pathData.session);
         const usernameCorrect = await compareHash(username, session.username);
         const passwordCorrect = await compareHash(password, session.mainKey);
-        if ( usernameCorrect && passwordCorrect ) {
+        if (usernameCorrect && passwordCorrect) {
             secret = password;
+            await resetPersitentVariables();
             return true;
         } else {
+            let alreadyIncrementedForThisCicle = false;
+            if (await isAccountDeletionOptionActivated()) {
+                await incrtementFailedLoginAttemptsNumeberByOne();
+                alreadyIncrementedForThisCicle = true;
+                const curFailedAttempts = await getCurrentCountOfFailedLoginAttempts();
+                const allowedAttempts = await getCountOfAllowedFailedLoginAttempts('delete');
+                if (curFailedAttempts >= allowedAttempts) {
+                    await deleteAccountAfterFailedLogins();
+                    throw new Error('Account DELETED due to excieding the set allowed number of faied login attempts.');
+                }
+            }
+            if (await isAccountBlockingOptionActivated()) {
+                if (!alreadyIncrementedForThisCicle) {
+                    await incrtementFailedLoginAttemptsNumeberByOne();
+                }
+                const curFailedAttempts = await getCurrentCountOfFailedLoginAttempts();
+                const allowedAttempts = await getCountOfAllowedFailedLoginAttempts('block');
+                if (curFailedAttempts >= allowedAttempts) {
+                    await blockAccount();
+                    throw new Error('Account BLOCKED due to excieding the set allowed number of faied login attempts.');
+                }
+            }
             throw new Error('Incorrect username or password.');
         }
     } catch (err) {
@@ -77,7 +100,7 @@ async function deleteUserAccount(password) {
         if (password !== secret) {
             throw new Error('Wrong password.');
         }
-        await Promise.all([restoreDefaultSettings(), resetAccount(), resetCredentials()]);
+        await Promise.all([restoreDefaultSettings(), resetAccount(), resetCredentials(), resetPersitentVariables()]);
         return true;
     } catch (err) {
         throw err;
@@ -90,7 +113,7 @@ async function saveNewCredentials(data) {
         const entry = {
             id: uuidv4(),
             title,
-            username 
+            username
         };
         const passEnc = encrypt(password, secret);
         entry.password = {
@@ -110,7 +133,7 @@ async function saveNewCredentials(data) {
 async function getCredentialsById(id) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
@@ -130,7 +153,7 @@ async function getCredentialsById(id) {
 async function getCredentialsOverview() {
     try {
         const overview = [];
-        (await getFile(pathData.sensitive)).forEach( e => {
+        (await getFile(pathData.sensitive)).forEach(e => {
             overview.push(Object.assign({}, { id: e.id, title: e.title, username: e.username, password: '' }));
         });
         return overview;
@@ -142,11 +165,11 @@ async function getCredentialsOverview() {
 async function deleteCredentialsById(id) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
-        const afterDeletion = sensitiveFile.filter( e => e.id !== target.id );
+        const afterDeletion = sensitiveFile.filter(e => e.id !== target.id);
         await saveFile(pathData.sensitive, afterDeletion);
         return true;
     } catch (err) {
@@ -157,14 +180,14 @@ async function deleteCredentialsById(id) {
 async function editCredentialsById(id, data) {
     try {
         const sensitiveFile = await getFile(pathData.sensitive);
-        const target = sensitiveFile.find( e => e.id === id );
+        const target = sensitiveFile.find(e => e.id === id);
         if (target === undefined) {
             throw new Error(`Credentials with ID (${id}) do not exist.`);
         }
         const updatedEntry = {
             id: target.id,
             title: data.title,
-            username: data.username 
+            username: data.username
         };
         const newPassEnc = encrypt(data.password, secret);
         updatedEntry.password = {
@@ -222,7 +245,7 @@ async function resetAccount() {
         "accountExists": false,
         "username": null,
         "mainKey": null
-      });
+    });
 }
 
 async function resetCredentials() {
@@ -254,6 +277,156 @@ async function getThemeVariables(themeStyle) {
     }
 }
 
+async function exportCredentialsPlain(destinationFullPath, password) {
+    if (password !== secret) {
+        throw new Error('Wrong password.');
+    }
+    const sensitiveFile = await getFile(pathData.sensitive);
+    if (!sensitiveFile.length) {
+        throw new Error('No credentials to export.');
+    }
+    if (!destinationFullPath) {
+        throw new Error('Invalid exportation path.');
+    }
+    const dataPlain = [];
+    for (let cred of sensitiveFile) {
+        const passPlain = decrypt(
+            cred.password.value,
+            secret,
+            cred.password.iv,
+            cred.password.tag
+        );
+        dataPlain.push({
+            title: cred.title,
+            username: cred.username,
+            password: passPlain
+        });
+    }
+
+    let fileDataToWrite = `######  PassGuardA - Credentials  ######\n\n`;
+    for (let cred of dataPlain) {
+        const credsString = formatInfoToString({
+            title: cred.title,
+            username: cred.username,
+            password: cred.password
+        })
+        fileDataToWrite = fileDataToWrite + credsString + '\n';
+    }
+    await createFile(fileDataToWrite, destinationFullPath);
+    return true;
+
+    async function createFile(fileData, destinationPath) {
+        const _destination = path.normalize(
+            path.join(destinationPath, 'PassGuardA_Credentials.txt')
+        );
+        return await fsp.writeFile(_destination, fileData, { encoding: 'utf-8' });
+    }
+
+    function formatInfoToString({ title, username, password }) {
+        return `Title: ${title}\nUsername: ${username}\nPassword: ${password}\n`;
+    }
+}
+
+//account blocking and deletion after number of failed logins
+async function isAccountBlockingOptionActivated() {
+    const settings = await getFile(pathData.settings);
+    return settings.accountSettings.blockAccAfterNumberFailedLogins.state;
+}
+async function isAccountDeletionOptionActivated() {
+    const settings = await getFile(pathData.settings);
+    return settings.accountSettings.deleteAccAfterNumberFailedLogins.state;
+}
+
+async function getCurrentCountOfFailedLoginAttempts() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    return persistentVars.currentNumberOfFailedLoginAttempts;
+}
+
+/**
+ * Get allowed attempts for account deletion or blocking options from settings.
+ * @param {'delete' | 'block'} forOption
+ * @returns 
+ */
+async function getCountOfAllowedFailedLoginAttempts(forOption) {
+    const lib = {
+        block: 'blockAccAfterNumberFailedLogins',
+        delete: 'deleteAccAfterNumberFailedLogins'
+    };
+    const settings = await getFile(pathData.settings);
+    return Number(settings.accountSettings[lib[forOption]].numberOfPermittedAttempts);
+}
+
+async function incrtementFailedLoginAttemptsNumeberByOne() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.currentNumberOfFailedLoginAttempts += 1;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+/**
+ * If the account is blocked the datetime for when it will be unblocked is returned. If it is not blocked false is returned.
+ * @returns {Promise<number | false>}
+ */
+async function dateInMsIfAccountBlocked() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    if (persistentVars.accountBlocking.isAccountCurrentlyBlocked) {
+        return persistentVars.accountBlocking.dateTimeToUnblockAccount;
+    }
+    return false;
+}
+/**
+ * Resets "currentNumberOfFailedLoginAttempts" to 0, "isAccountCurrentlyBlocked" to false and "dateTimeToUnblockAccount" to "".
+ */
+async function resetPersitentVariables() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.currentNumberOfFailedLoginAttempts = 0;
+    persistentVars.accountBlocking.isAccountCurrentlyBlocked = false;
+    persistentVars.accountBlocking.dateTimeToUnblockAccount = 0;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+
+async function blockAccount() {
+    const persistentVars = await getFile(pathData.persistentVariables);
+    persistentVars.accountBlocking.isAccountCurrentlyBlocked = true;
+    const accountBlockingDuration = await getDurationForAccountBlockingInMs();
+    const datetimeToUnblockAcc = new Date().getTime() + accountBlockingDuration;
+    persistentVars.accountBlocking.dateTimeToUnblockAccount = datetimeToUnblockAcc;
+    await saveFile(pathData.persistentVariables, persistentVars);
+    return true;
+}
+
+async function getDurationForAccountBlockingInMs() {
+    const settings = await getFile(pathData.settings);
+    const msInOneMinute = 60000;
+    const msAccBlockDuration = Number(settings.accountSettings.blockAccAfterNumberFailedLogins.timeForBlockedStateMinutes) * msInOneMinute;
+    return msAccBlockDuration;
+}
+
+/**
+ * Checks the time and unblocks the account if the time for blocking has passed.
+ * @returns {Promise<Boolean>} Returns true if the account was unblocked and false if not.
+ */
+async function unblockAccountIfTime() {
+    const currentTime = new Date().getTime();
+    const persistentVars = await getFile(pathData.persistentVariables);
+    const timeToUnblock = persistentVars.accountBlocking.dateTimeToUnblockAccount;
+    if (currentTime >= timeToUnblock) {
+        return await resetPersitentVariables();
+    } else {
+        return false;
+    }
+}
+
+async function deleteAccountAfterFailedLogins() {
+    await Promise.all([
+        resetAccount(),
+        resetCredentials(),
+        restoreDefaultSettings(),
+        resetPersitentVariables()
+    ]);
+    return true;
+}
+
 module.exports = {
     accountExists,
     registerUser,
@@ -268,5 +441,8 @@ module.exports = {
     setSettings,
     restoreDefaultSettings,
     deleteUserAccount,
-    getThemeVariables
+    getThemeVariables,
+    exportCredentialsPlain,
+    dateInMsIfAccountBlocked,
+    unblockAccountIfTime
 };

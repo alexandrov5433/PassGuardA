@@ -290,6 +290,18 @@ input.error:focus {
                 width: 40%;
             }
         }
+        .simple-input-box {
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem 0;
+            .simple-input {
+                width: 40%;
+            }
+        }
     }
 
     .button-box {

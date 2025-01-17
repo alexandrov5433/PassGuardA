@@ -38,4 +38,8 @@ export class DataService {
         }
         return res;
     }
+
+    async exportCredentials(password: string, path: string) {
+        return await this.preloads.exportCredentialsPlain(path, password);
+    }
 }

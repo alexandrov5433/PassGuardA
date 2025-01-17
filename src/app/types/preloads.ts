@@ -7,7 +7,7 @@ import { PassGenOptions } from "./passwordGenerationOptions"
 import { ThemeVariables } from "./themeVariables"
 
 export type Preloads =  {
-	accExists: () => Promise<boolean | Error>,
+	accExists: () => Promise<boolean| number | Error>,
 	register: (accountData: AccountData) => Promise<true | Error>,
 	login: (accountData: AccountData) => Promise<true | Error>,
 	logout: () => Promise<true | Error>,
@@ -22,4 +22,6 @@ export type Preloads =  {
 	restoreDefaultSettings: () => Promise<true | Error>,
 	deleteUserAccount: (password: string) => Promise<true | Error>,
 	getThemeVariables: (themeStyle: string) => Promise<ThemeVariables | Error>,
+	exportCredentialsPlain: (destinationFullPath: string, password: string) => Promise<true | Error>,
+	unblockAccount: () => Promise<boolean | Error>
 }

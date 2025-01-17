@@ -8,12 +8,14 @@ import { AccountComponent } from './main/settings/account/account.component';
 import { AppearanceComponent } from './main/settings/appearance/appearance.component';
 import { UserService } from './services/user.service';
 import { inject } from '@angular/core';
+import { BlockedComponent } from './account/blocked/blocked.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'main/settings', redirectTo: '/main/settings/account', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'blocked', component: BlockedComponent },
     {
         path: 'main', component: MainComponent, children: [
             { path: 'home', component: HomeComponent },

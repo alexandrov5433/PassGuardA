@@ -24,7 +24,7 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
 
   passwordInputType: 'password' | 'text' = 'password';
   isPasswordVisible: boolean = false;
-  canDisplayShowHidePassButtons: WritableSignal<boolean> = signal(true);
+  canDisplayMicroControlButtons: WritableSignal<boolean> = signal(true);
 
   isEditingEnabled: WritableSignal<boolean> = signal(false);
 
@@ -138,7 +138,7 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     await this.showPasswordInPlainText(this.credentialsDetails.id);
     this.enableInputFields();
     this.isEditingEnabled.set(true);
-    this.canDisplayShowHidePassButtons.set(false);
+    this.canDisplayMicroControlButtons.set(false);
     this.messagingService.showMsg('Editing enabled.', 2000, 'simple-snack-message');
   }
 
@@ -146,7 +146,7 @@ export class CredDetailsComponent implements OnChanges, OnDestroy {
     this.hidePasswordText()
     this.disableInputFields();
     this.isEditingEnabled.set(false);
-    this.canDisplayShowHidePassButtons.set(true);
+    this.canDisplayMicroControlButtons.set(true);
   }
 
   cancelAndDiscardEditing() {

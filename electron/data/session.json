@@ -1,5 +1,5 @@
 {
-  "accountExists": true,
-  "username": "$2b$13$xS1br64tFh7zChGHY5WX/.vVtQ1D6a65nj9JV9lxZtCoyomwNRsPq",
-  "mainKey": "$2b$13$9GZunXKSToamWHH2ogfal.cz/d/hCWyLTctap1Njs3w5HUBjRbRVS"
+  "accountExists": false,
+  "username": null,
+  "mainKey": null
 }
