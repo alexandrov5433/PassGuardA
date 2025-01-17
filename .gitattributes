@@ -1,1 +1,2 @@
 windows_installer filter=lfs diff=lfs merge=lfs -text
+*.msi filter=lfs diff=lfs merge=lfs -text
