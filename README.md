@@ -1,59 +1,19 @@
 # PassGuardA
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+## About
+This application is an offline, desktop password manager for Windows.
 
-## Development server
+## Installation
+1. Download the .MSI destributable from the `windows_installer` derectory.
 
-To start a local development server, run:
+2. Install the program in the desired location. A desktop shortcut is created automaticaly.
 
-```bash
-ng serve
-```
+## Code and Structure
+The application is created with the help of the Electron and Angular frameworks. It works offline by managing all of the data in its file structure, in JSON format. Data hashing is done with the [bcrypt](https://www.npmjs.com/package/bcrypt) library. The encrypting and decrypting processes use the `aes-256-gcm` algorithm with the `Crypto` Node.js module.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Fucntionality
+Upon startup if a user account exists the login page is shown. Otherwise the user is routed to the register page to create an account. Only one account can exist at a time.
 
-## Code scaffolding
+The user can add, edit or remove an unlimited amount of credentials (Title, Username, Password). Credentials can be searched for by Title using the search bar. The password can be copied directly to the clipboard without revealing it and its visibility can be toggled. The settigs page provides the option to choose the appearance of the application between light and dark. Other available features are: automatic logout after a set duration of inactivity, accout blocking and/or deletion after a given number of failed login attempts, manual account deletion and exportation of all saved credentials, with the passwords in plaintext, to a chosen destination as a .txt file.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Random password generation is an option when registering and when creating a new credential. At credential creation, the password generation can be adjusted: exclude specific characters, password length, use upper/lower case letters, numbers and symbols.
